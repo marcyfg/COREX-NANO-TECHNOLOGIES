@@ -32,7 +32,7 @@
       </ul>
     </td>
     <td width="50%">
-      <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExNHJueXF4ZzZueXF4ZzZueXF4ZzZueXF4ZzZueXF4ZzZueXF4ZyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/3o7TKSjPQCK9A595y8/giphy.gif" width="100%">
+      <img width="606" height="388" alt="Captura de tela 2026-03-04 203118" src="https://github.com/user-attachments/assets/2e6a1c42-5fb4-4948-9d0d-a297ff6a282e" width="100%"/>
     </td>
   </tr>
   
