@@ -3,13 +3,13 @@
 </div>
 
 <div align="center">
-  <h1>🚀 COREX NANO TECHNOLOGIES </h1>
+  <h1> COREX NANO TECHNOLOGIES </h1>
   <p><i>Projeto Acadêmico SENAC </i></p>
 </div>
 
 <hr>
 
-<h2>📌 Sobre o Projeto</h2>
+<h2> 💿 Sobre o Projeto</h2>
 <p>
   Este projeto consiste na simulação estrutural e técnica de uma empresa de tecnologia completa. 
   Nosso objetivo é entregar soluções integradas que garantem a estabilidade física (Hardware e Redes) 
@@ -18,12 +18,12 @@
 
 <hr>
 
-<h2>🛠 Nossos Pilares de Atuação</h2>
+<h2>🛠 Nossas metas</h2>
 
 <table>
   <tr>
     <td width="50%">
-      <h3>🏗️ Infraestrutura & Redes</h3>
+      <h3>⌨️ Infraestrutura & Redes</h3>
       <ul>
         <li>Consultoria especializada em TI</li>
         <li>Manutenção Preventiva & Corretiva</li>
@@ -52,7 +52,7 @@
 
   <tr>
     <td width="50%">
-      <h3>🎨 Design & Branding</h3>
+      <h3>🖌️ Design & Branding</h3>
       <ul>
         <li>Identidade Visual Completa</li>
         <li>Design de Logotipos</li>
@@ -85,11 +85,10 @@
 
 
 <hr>
-<h2>🗂 Estrutura do Repositório</h2>
+<h2>🗂 Estrutura do projeto </h2>
 
 ```Estrutura
 ├── 📁 infra-hardware/   # Diagramas de rede e documentação de hardware
 ├── 📁 dev-software/     # Códigos fonte (Web e Mobile)
 ├── 📁 design-assets/    # Manual da marca e arquivos do Figma
 └── 📁 docs/             # Plano de negócio e PDFs do projeto
-<hr>
