@@ -76,8 +76,15 @@
   <img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black" />
 </p>
 
-<hr>
+<h2>👥 Equipe</h2>
+<p><b>Marcelly Germano</b> - <a href="[https://www.google.com/search?q=https://github.com/seu-user](https://github.com/marcyfg)">GitHub</a></p>
+<p><bLuiz Henrique</b> - <a href="https://github.com/LuizHenrique43245">GitHub</a></p>
+<p><b>Daniel Araújo</b> - <a href="https://github.com/DanAraujo313">GitHub</a></p>
+<p><b>Felipe Andrade</b> - <a href="https://github.com/Hisohkah">GitHub</a></p>
+<p><b>Samuel Pereira</b> - <a href="">GitHub</a></p>
 
+
+<hr>
 <h2>🗂 Estrutura do Repositório</h2>
 
 ```Estrutura
@@ -86,12 +93,3 @@
 ├── 📁 design-assets/    # Manual da marca e arquivos do Figma
 └── 📁 docs/             # Plano de negócio e PDFs do projeto
 <hr>
-
-<h2>👥 Equipe</h2>
-<ul>
-<li><b>Marcelly Germano</b> - <a href="[https://www.google.com/search?q=https://github.com/seu-user](https://github.com/marcyfg)">GitHub</a></li>
-<li><bLuiz Henrique</b> - <a href="https://github.com/LuizHenrique43245">GitHub</a></li>
-<li><b>Daniel Araújo</b> - <a href="https://github.com/DanAraujo313">GitHub</a></li>
-<li><b>Felipe Andrade</b> - <a href="https://github.com/Hisohkah">GitHub</a></li>
-<li><b>Samuel Pereira</b> - <a href="">GitHub</a></li>
-</ul>
