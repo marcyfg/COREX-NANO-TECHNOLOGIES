@@ -95,5 +95,3 @@
 <li><b>Felipe Andrade</b> - <a href="https://github.com/Hisohkah">GitHub</a></li>
 <li><b>Samuel Pereira</b> - <a href="">GitHub</a></li>
 </ul>
-
-<hr>
