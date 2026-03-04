@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="https://capsule-render.vercel.app/render?type=waving&color=005594&height=200&section=header&text=TechSolutions%20-%20SENAC&fontSize=50" width="100%" />
+  <img width="442" height="392" alt="Captura de tela 2026-03-04 202933" src="https://github.com/user-attachments/assets/066f3653-ed53-48e3-b23b-7a38495c07c9" />
 </div>
 
 <div align="center">
