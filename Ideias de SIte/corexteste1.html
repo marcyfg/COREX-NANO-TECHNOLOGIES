@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CoreX - Soluções Tecnológicas</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --dark-blue: #0f172a;
+            --accent-blue: #2563eb;
+            --text-gray: #64748b;
+            --light-bg: #f8fafc;
+            --white: #ffffff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            line-height: 1.6;
+            color: var(--dark-blue);
+            scroll-behavior: smooth;
+        }
+
+        /* Navbar */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 8%;
+            background: var(--white);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        .logo {
+            font-weight: 700;
+            font-size: 24px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo-box {
+            background: black;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 4px;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: var(--text-gray);
+            font-size: 14px;
+            transition: 0.3s;
+        }
+
+        nav a:hover { color: var(--accent-blue); }
+
+        .btn-contato {
+            background: var(--dark-blue);
+            color: white !important;
+            padding: 10px 25px;
+            border-radius: 5px;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: var(--dark-blue);
+            color: white;
+            display: flex;
+            align-items: center;
+            padding: 80px 8%;
+            min-height: 80vh;
+        }
+
+        .hero-content { flex: 1; }
+        .hero-content h1 { font-size: 48px; line-height: 1.2; margin-bottom: 20px; }
+        .hero-content span { color: var(--accent-blue); }
+        .hero-content p { color: #cbd5e1; margin-bottom: 30px; max-width: 500px; }
+
+        .hero-btns { display: flex; gap: 15px; }
+        .btn-primary { background: var(--accent-blue); color: white; border: none; padding: 12px 25px; border-radius: 5px; cursor: pointer; }
+        .btn-secondary { background: #334155; color: white; border: none; padding: 12px 25px; border-radius: 5px; cursor: pointer; }
+
+        .hero-image { flex: 1; display: flex; justify-content: flex-end; }
+        .hero-image img { width: 90%; border-radius: 10px; }
+
+        /* Sections General */
+        section { padding: 80px 8%; text-align: center; }
+        .section-title { margin-bottom: 50px; font-size: 32px; position: relative; padding-bottom: 10px; }
+        .section-title::after { content: ''; width: 50px; height: 3px; background: var(--accent-blue); position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); }
+
+        /* Sobre Nós */
+        .about-container { display: flex; gap: 50px; text-align: left; align-items: center; }
+        .about-text h3 { margin-bottom: 15px; }
+        .about-list { list-style: none; margin-top: 20px; }
+        .about-list li { margin-bottom: 15px; display: flex; align-items: flex-start; gap: 10px; }
+        .about-list i { color: var(--accent-blue); margin-top: 5px; }
+
+        /* Serviços */
+        .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; }
+        .service-card { background: var(--white); padding: 40px 20px; border-radius: 10px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); transition: 0.3s; }
+        .service-card:hover { transform: translateY(-10px); }
+        .service-card i { font-size: 30px; color: var(--accent-blue); background: #eff6ff; pading: 15px; border-radius: 50%; margin-bottom: 20px; width: 60px; height: 60px; display: inline-flex; align-items: center; justify-content: center; }
+
+        /* Área de Atuação */
+        .area-container { display: flex; gap: 40px; background: var(--light-bg); padding: 40px; border-radius: 15px; text-align: left; align-items: center; }
+        .area-box { background: var(--dark-blue); color: white; padding: 40px; border-radius: 10px; flex: 1; }
+        .area-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 20px; }
+        .infográfico { flex: 1; text-align: center; }
+        .infográfico img { max-width: 100%; }
+
+        /* Contato */
+        .contact-section { background: var(--dark-blue); color: white; display: flex; gap: 50px; text-align: left; }
+        .contact-form { flex: 2; display: flex; flex-direction: column; gap: 15px; }
+        .contact-form input, .contact-form textarea { background: #1e293b; border: 1px solid #334155; padding: 15px; border-radius: 5px; color: white; }
+        .contact-info { flex: 1; }
+        .info-item { display: flex; align-items: center; gap: 15px; margin-bottom: 20px; }
+        .social-icons { display: flex; gap: 15px; margin-top: 20px; }
+        .social-icons i { font-size: 20px; cursor: pointer; transition: 0.3s; }
+        .social-icons i:hover { color: var(--accent-blue); }
+
+        footer { background: #0a0f1d; color: #94a3b8; padding: 40px 8%; border-top: 1px solid #1e293b; display: flex; justify-content: space-between; font-size: 13px; }
+
+        /* Botão Voltar ao Topo */
+        .scroll-top { position: fixed; bottom: 30px; right: 30px; background: var(--accent-blue); color: white; width: 45px; height: 45px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; text-decoration: none; box-shadow: 0 4px 10px rgba(0,0,0,0.2); }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo"><div class="logo-box">CoreX</div> CoreX</div>
+        <nav>
+            <ul>
+                <li><a href="#">Início</a></li>
+                <li><a href="#sobre">Sobre Nós</a></li>
+                <li><a href="#servicos">Serviços</a></li>
+                <li><a href="#atuacao">Área de Atuação</a></li>
+                <li><a href="#contato" class="btn-contato">Contato</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Soluções Tecnológicas <span>Inteligentes</span></h1>
+            <p>Transformamos desafios em oportunidades através da tecnologia de ponta para o seu negócio.</p>
+            <div class="hero-btns">
+                <button class="btn-primary">Fale Conosco</button>
+                <button class="btn-secondary">Nossos Serviços</button>
+            </div>
+        </div>
+        <div class="hero-image">
+            <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=800&q=80" alt="Equipe CoreX">
+        </div>
+    </section>
+
+    <section id="sobre">
+        <h2 class="section-title">Sobre Nós</h2>
+        <div class="about-container">
+            <img src="https://images.unsplash.com/photo-1556761175-b413da4baf72?auto=format&fit=crop&w=600&q=80" alt="Sobre a CoreX" style="border-radius: 10px; width: 45%;">
+            <div class="about-text">
+                <h3>A CoreX</h3>
+                <p>Somos uma empresa inovadora de informática focada em excelência e precisão técnica.</p>
+                <ul class="about-list">
+                    <li><i class="fas fa-check-circle"></i> <div><strong>Missão:</strong> Oferecer soluções eficientes e inovadoras.</div></li>
+                    <li><i class="fas fa-check-circle"></i> <div><strong>Visão:</strong> Ser referência em soluções personalizadas.</div></li>
+                    <li><i class="fas fa-check-circle"></i> <div><strong>Valores:</strong> Inovação, comprometimento e transparência.</div></li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <section id="servicos" style="background: var(--light-bg);">
+        <h2 class="section-title">Nossos Serviços</h2>
+        <div class="services-grid">
+            <div class="service-card">
+                <i class="fas fa-building"></i>
+                <h3>Consultoria</h3>
+                <p>Análise profissional para orientar a melhor solução tecnológica.</p>
+            </div>
+            <div class="service-card">
+                <i class="fas fa-microchip"></i>
+                <h3>Manutenção</h3>
+                <p>Reparo e manutenção preventiva para seu equipamento.</p>
+            </div>
+            <div class="service-card">
+                <i class="fas fa-drafting-compass"></i>
+                <h3>Designs</h3>
+                <p>Criação de identidade visual e interfaces modernas.</p>
+            </div>
+            <div class="service-card">
+                <i class="fas fa-network-wired"></i>
+                <h3>Instalação de Infra</h3>
+                <p>Implementação completa de infraestrutura de TI.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="atuacao">
+        <h2 class="section-title">Área de Atuação</h2>
+        <div class="area-container">
+            <div class="area-box">
+                <h3>Soluções de Informática</h3>
+                <p>Garantimos que sua empresa tenha suporte de alta performance.</p>
+                <div class="area-grid">
+                    <span><i class="fas fa-check"></i> Suporte Técnico</span>
+                    <span><i class="fas fa-check"></i> Redes e Segurança</span>
+                    <span><i class="fas fa-check"></i> Cloud Computing</span>
+                    <span><i class="fas fa-check"></i> Backup e Recuperação</span>
+                </div>
+            </div>
+            <div class="infográfico">
+                <i class="fas fa-cloud" style="font-size: 80px; color: #cbd5e1;"></i>
+                <p>Infraestrutura em Nuvem Gerenciada</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="contato" class="contact-section">
+        <div class="contact-form">
+            <h2>Fale Conosco</h2>
+            <input type="text" placeholder="Seu nome">
+            <input type="email" placeholder="Seu email">
+            <input type="text" placeholder="Assunto">
+            <textarea rows="5" placeholder="Sua mensagem"></textarea>
+            <button class="btn-primary" onclick="enviarMensagem()">Enviar Mensagem</button>
+        </div>
+        <div class="contact-info">
+            <h3>Informações de Contato</h3>
+            <div class="info-item"><i class="fas fa-phone"></i> (00) 1234-5678</div>
+            <div class="info-item"><i class="fas fa-envelope"></i> corexinformatica@gmail.com</div>
+            <div class="info-item"><i class="fas fa-map-marker-alt"></i> Senac Santo André - SP</div>
+            
+            <h4>Redes Sociais</h4>
+            <div class="social-icons">
+                <i class="fab fa-facebook"></i>
+                <i class="fab fa-instagram"></i>
+                <i class="fab fa-linkedin"></i>
+                <i class="fab fa-twitter"></i>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div>© 2023 CoreX Tecnologia. Todos os direitos reservados.</div>
+        <div>Termos de Uso | Política de Privacidade</div>
+    </footer>
+
+    <a href="#" class="scroll-top"><i class="fas fa-arrow-up"></i></a>
+
+    <script>
+        function enviarMensagem() {
+            alert("Obrigado! Sua mensagem foi enviada com sucesso (Simulação).");
+        }
+
+        // Interatividade: Botão aparecer ao rolar
+        window.onscroll = function() {
+            let btn = document.querySelector(".scroll-top");
+            if (document.documentElement.scrollTop > 300) {
+                btn.style.display = "flex";
+            } else {
+                btn.style.display = "none";
+            }
+        };
+    </script>
+</body>
+</html>

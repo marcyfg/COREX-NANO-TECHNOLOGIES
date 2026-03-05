@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CoreX Informática | Excelência em TI</title>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
+    
+    <style>
+        :root {
+            --primary: #2563eb;
+            --dark: #0f172a;
+            --darker: #020617;
+            --accent: #38bdf8;
+            --text-light: #94a3b8;
+            --white: #ffffff;
+            --glass: rgba(255, 255, 255, 0.03);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            background-color: var(--darker);
+            color: var(--white);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* --- Header & Logo --- */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 8%;
+            background: rgba(15, 23, 42, 0.8);
+            backdrop-filter: blur(12px);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+            color: white;
+        }
+
+        .logo-img {
+            height: 45px;
+            width: auto;
+        }
+
+        .logo-text {
+            font-weight: 800;
+            font-size: 1.5rem;
+            letter-spacing: -1px;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 35px;
+            align-items: center;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: var(--text-light);
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: 0.3s;
+        }
+
+        nav a:hover { color: var(--accent); }
+
+        .btn-cta {
+            background: var(--primary);
+            color: white;
+            padding: 10px 22px;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: 0.3s;
+            box-shadow: 0 4px 15px rgba(37, 99, 235, 0.3);
+        }
+
+        .btn-cta:hover {
+            transform: translateY(-2px);
+            background: #1d4ed8;
+        }
+
+        /* --- Hero Slider --- */
+        .hero-slider {
+            width: 100%;
+            height: 90vh;
+            margin-top: 0;
+        }
+
+        .swiper-slide {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .slide-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: brightness(0.4);
+        }
+
+        .slide-content {
+            position: relative;
+            z-index: 10;
+            text-align: center;
+            max-width: 800px;
+            padding: 0 20px;
+        }
+
+        .slide-content h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 20px;
+            line-height: 1.1;
+        }
+
+        .slide-content span {
+            color: var(--accent);
+        }
+
+        .slide-content p {
+            font-size: 1.2rem;
+            color: var(--text-light);
+            margin-bottom: 30px;
+        }
+
+        /* --- Serviços --- */
+        section { padding: 100px 8%; }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-header h2 {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+        }
+
+        .section-header .line {
+            width: 60px;
+            height: 4px;
+            background: var(--primary);
+            margin: 0 auto;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+        }
+
+        .service-card {
+            background: var(--glass);
+            padding: 40px;
+            border-radius: 20px;
+            border: 1px solid rgba(255,255,255,0.05);
+            transition: 0.4s;
+            cursor: pointer;
+        }
+
+        .service-card:hover {
+            background: rgba(255,255,255,0.07);
+            transform: translateY(-10px);
+            border-color: var(--primary);
+        }
+
+        .service-card i {
+            font-size: 2.5rem;
+            color: var(--accent);
+            margin-bottom: 20px;
+        }
+
+        /* --- Contato --- */
+        .contact-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            background: var(--glass);
+            padding: 50px;
+            border-radius: 30px;
+        }
+
+        .contact-form input, .contact-form textarea {
+            width: 100%;
+            background: rgba(0,0,0,0.2);
+            border: 1px solid rgba(255,255,255,0.1);
+            padding: 15px;
+            border-radius: 10px;
+            color: white;
+            margin-bottom: 15px;
+            outline: none;
+        }
+
+        .contact-form input:focus { border-color: var(--primary); }
+
+        footer {
+            text-align: center;
+            padding: 40px;
+            border-top: 1px solid rgba(255,255,255,0.05);
+            color: var(--text-light);
+            font-size: 0.9rem;
+        }
+
+        /* Responsividade */
+        @media (max-width: 768px) {
+            nav { display: none; }
+            .slide-content h1 { font-size: 2.2rem; }
+            .contact-container { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <a href="#" class="logo-container">
+            <img src="https://i.postimg.cc/9FmD7hS7/image-52bfc7.png" alt="CoreX Logo" class="logo-img">
+            <span class="logo-text">CoreX</span>
+        </a>
+        <nav>
+            <ul>
+                <li><a href="#">Início</a></li>
+                <li><a href="#sobre">Sobre</a></li>
+                <li><a href="#servicos">Serviços</a></li>
+                <li><a href="#contato" class="btn-cta">Solicitar Orçamento</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="swiper hero-slider">
+        <div class="swiper-wrapper">
+            <div class="swiper-slide">
+                <img src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?q=80&w=2070" class="slide-bg">
+                <div class="slide-content">
+                    <h1>Sua empresa em uma <span>Nova Era</span></h1>
+                    <p>Infraestrutura de alta performance e suporte técnico especializado para o seu negócio não parar.</p>
+                    <a href="#servicos" class="btn-cta">Ver Soluções</a>
+                </div>
+            </div>
+            <div class="swiper-slide">
+                <img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=2070" class="slide-bg">
+                <div class="slide-content">
+                    <h1>Segurança e <span>Proteção de Dados</span></h1>
+                    <p>Implementamos as melhores práticas de CyberSecurity para proteger o que é mais importante: sua informação.</p>
+                    <a href="#contato" class="btn-cta">Falar com Consultor</a>
+                </div>
+            </div>
+        </div>
+        <div class="swiper-pagination"></div>
+    </div>
+
+    <section id="servicos">
+        <div class="section-header">
+            <h2>Nossas Especialidades</h2>
+            <div class="line"></div>
+        </div>
+        <div class="services-grid">
+            <div class="service-card">
+                <i class="fas fa-server"></i>
+                <h3>Infraestrutura</h3>
+                <p>Projetos de rede, servidores e cloud computing sob medida para sua demanda.</p>
+            </div>
+            <div class="service-card">
+                <i class="fas fa-user-shield"></i>
+                <h3>Segurança Digital</h3>
+                <p>Blindagem contra ataques, backups automatizados e conformidade com LGPD.</p>
+            </div>
+            <div class="service-card">
+                <i class="fas fa-laptop-medical"></i>
+                <h3>Suporte Premium</h3>
+                <p>Atendimento rápido e eficiente para resolver qualquer gargalo tecnológico.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="contato">
+        <div class="contact-container">
+            <div class="contact-text">
+                <h2>Vamos elevar o nível do seu negócio?</h2>
+                <p style="color: var(--text-light); margin-top: 20px;">Estamos prontos para diagnosticar suas necessidades e propor soluções inteligentes.</p>
+                <div style="margin-top: 30px;">
+                    <p><i class="fas fa-envelope" style="color: var(--accent);"></i> contato@corex.com.br</p>
+                    <p><i class="fas fa-phone" style="color: var(--accent); margin-top: 15px;"></i> (11) 9999-9999</p>
+                </div>
+            </div>
+            <div class="contact-form">
+                <input type="text" placeholder="Nome Completo">
+                <input type="email" placeholder="E-mail Corporativo">
+                <textarea rows="4" placeholder="Como podemos te ajudar?"></textarea>
+                <button class="btn-cta" style="width: 100%; border: none; cursor: pointer;">Enviar Mensagem</button>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2026 CoreX Informática. Transformando tecnologia em resultados.</p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
+    <script>
+        const swiper = new Swiper('.hero-slider', {
+            loop: true,
+            effect: 'fade',
+            autoplay: {
+                delay: 5000,
+                disableOnInteraction: false,
+            },
+            pagination: {
+                el: '.swiper-pagination',
+                clickable: true,
+            },
+        });
+    </script>
+</body>
+</html>
