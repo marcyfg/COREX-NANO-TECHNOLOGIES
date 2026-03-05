@@ -38,7 +38,7 @@
   
   <tr>
     <td width="50%">
-      <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExMzM5Y2M0YmRkNTVhNDY4YmI5YjI5ZjM5ZDA5ZGZlYmYyZDRkYjVjZCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/u0O59mUldTdzH5t9zL/giphy.gif" width="100%">
+      <img width="626" height="411" alt="Captura de tela 2026-03-04 203134" src="https://github.com/user-attachments/assets/a65c960d-244a-40ec-8802-1d667fafa497" width="100%"/>
     </td>
     <td width="50%">
       <h3>💻 Desenvolvimento & Software</h3>
@@ -60,7 +60,7 @@
       </ul>
     </td>
     <td width="50%">
-      <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExZnd6Yzhid3N5Zmt4Z3R5Zmt4Z3R5Zmt4Z3R5Zmt4Z3R5Zmt4ZyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/3o7TKMGpxP5Yp6G6re/giphy.gif" width="100%">
+      <img width="665" height="389" alt="Captura de tela 2026-03-04 205906" src="https://github.com/user-attachments/assets/1e85e6a6-888a-4ff6-b0e3-005a10dbafcc" width="100%"/>
     </td>
   </tr>
 </table>
@@ -81,7 +81,7 @@
 <p><b>Luiz Henrique</b> - <a href="https://github.com/LuizHenrique43245">GitHub</a></p>
 <p><b>Daniel Araújo</b> - <a href="https://github.com/DanAraujo313">GitHub</a></p>
 <p><b>Felipe Andrade</b> - <a href="https://github.com/Hisohkah">GitHub</a></p>
-<p><b>Samuel Pereira</b> - <a href="">GitHub</a></p>
+<p><b>Samuel Santos</b> - <a href="https://github.com/Sam-IPID">GitHub</a></p>
 
 
 <hr>
