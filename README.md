@@ -3,13 +3,14 @@
 </div>
 
 <div align="center">
-  <h1> COREX NANO TECHNOLOGIES </h1>
+  <h1> COREX NANO TECHNOLOGIES ₊⊹ </h1>
   <p><i>Projeto Acadêmico SENAC </i></p>
+  ▶︎ •၊၊||၊|။||||| 0:10
 </div>
-
+﹌﹌﹌﹌﹌﹌﹌﹌﹌﹌﹌﹌﹌﹌﹌﹌﹌﹌﹌﹌﹌﹌﹌﹌﹌﹌﹌﹌﹌﹌﹌﹌﹌﹌﹌﹌﹌﹌﹌﹌
 <hr>
 
-<h2> 💿 Sobre o Projeto</h2>
+<h2> ⋆💿 Sobre o Projeto</h2>
 <p>
   Este projeto consiste na simulação estrutural e técnica de uma empresa de tecnologia completa. 
   Nosso objetivo é entregar soluções integradas que garantem a estabilidade física (Hardware e Redes) 
@@ -18,12 +19,12 @@
 
 <hr>
 
-<h2>🛠 Nossas metas</h2>
+<h2> ⋆🛠 Nossas metas ── ⟡ ˙</h2>
 
 <table>
   <tr>
     <td width="50%">
-      <h3>⌨️ Infraestrutura & Redes</h3>
+      <h3> ⋆⌨️ Infraestrutura & Redes</h3>
       <ul>
         <li>Consultoria especializada em TI</li>
         <li>Manutenção Preventiva & Corretiva</li>
@@ -41,7 +42,7 @@
       <img width="626" height="411" alt="Captura de tela 2026-03-04 203134" src="https://github.com/user-attachments/assets/a65c960d-244a-40ec-8802-1d667fafa497" width="100%"/>
     </td>
     <td width="50%">
-      <h3>💻 Desenvolvimento & Software</h3>
+      <h3> ⋆💻 Desenvolvimento & Software</h3>
       <ul>
         <li>Desenvolvimento Web (Sistemas e Landing Pages)</li>
         <li>Criação de Apps Mobile (iOS & Android)</li>
@@ -52,7 +53,7 @@
 
   <tr>
     <td width="50%">
-      <h3>🖌️ Design & Branding</h3>
+      <h3> ⋆🖌️ Design & Branding</h3>
       <ul>
         <li>Identidade Visual Completa</li>
         <li>Design de Logotipos</li>
@@ -67,7 +68,7 @@
 
 <hr>
 
-<h2>⚙️ Tecnologias & Ferramentas</h2>
+<h2> ⋆⚙️ Tecnologias & Ferramentas</h2>
 <p align="left">
   <img src="https://img.shields.io/badge/Cisco-005A8B?style=for-the-badge&logo=cisco&logoColor=white" />
   <img src="https://img.shields.io/badge/Linux-FCC624?style=for-the-badge&logo=linux&logoColor=black" />
@@ -76,7 +77,7 @@
   <img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black" />
 </p>
 
-<h2>👥 Equipe</h2>
+<h2> ⋆👥 Equipe</h2>
 <p><b>Marcelly Germano</b> - <a href="https://github.com/Marcyfg">GitHub</a></p>
 <p><b>Luiz Henrique</b> - <a href="https://github.com/LuizHenrique43245">GitHub</a></p>
 <p><b>Daniel Araújo</b> - <a href="https://github.com/DanAraujo313">GitHub</a></p>
@@ -85,7 +86,7 @@
 
 
 <hr>
-<h2>🗂 Estrutura do projeto </h2>
+<h2> ⋆🗂 Estrutura do projeto </h2>
 
 ```Estrutura
 ├── 📁 infra-hardware/   # Diagramas de rede e documentação de hardware
