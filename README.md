@@ -10,7 +10,7 @@
 ──── ⋆⋅☆⋅⋆ ──── ⋆⋅☆⋅⋆ ──── ⋆⋅☆⋅⋆ ──── ⋆⋅☆⋅⋆ ──── ⋆⋅☆⋅⋆ ──── ⋆⋅☆⋅⋆ ──── ⋆⋅☆⋅⋆ ──── ⋆⋅☆⋅⋆ ──── ⋆⋅☆⋅⋆ ──── ⋆⋅☆⋅⋆ ────
 <hr>
 
-<h2> ⋆💿 Sobre o Projeto</h2>
+<h2> ⋆💿 Sobre o Projeto ⭑.𖦹.✧˚</h2>
 <p>
   Este projeto consiste na simulação estrutural e técnica de uma empresa de tecnologia completa. 
   Nosso objetivo é entregar soluções integradas que garantem a estabilidade física (Hardware e Redes) 
@@ -68,7 +68,7 @@
 
 <hr>
 
-<h2> ⋆⚙️ Tecnologias & Ferramentas</h2>
+<h2> ⋆⚙️ Tecnologias & Ferramentas ⭑.𖦹.✧˚</h2>
 <p align="left">
   <img src="https://img.shields.io/badge/Cisco-005A8B?style=for-the-badge&logo=cisco&logoColor=white" />
   <img src="https://img.shields.io/badge/Linux-FCC624?style=for-the-badge&logo=linux&logoColor=black" />
@@ -77,7 +77,7 @@
   <img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black" />
 </p>
 
-<h2> ⋆👥 Equipe</h2>
+<h2> ⋆👥 Equipe  ── ⟡ </h2>
 <p><b>Marcelly Germano</b> - <a href="https://github.com/Marcyfg">GitHub</a></p>
 <p><b>Luiz Henrique</b> - <a href="https://github.com/LuizHenrique43245">GitHub</a></p>
 <p><b>Daniel Araújo</b> - <a href="https://github.com/DanAraujo313">GitHub</a></p>
