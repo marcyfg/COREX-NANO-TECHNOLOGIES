@@ -1,0 +1,15 @@
+VERSÃO CORE-X COM SETORES, FILTROS E COMENTÁRIOS
+
+Implementado:
+- Setores fixos: Administração/Recepção, Marketing, Financeiro, Comercial, Diretoria, Suporte Técnico, Laboratório de Informática, Servidores e Redes, Segurança da Informação e Desenvolvimento/Devs.
+- ADM principal: usuário ID 1, com acesso total a usuários, administradores, setores e todos os chamados.
+- ADM de setor: gerencia somente funcionários e chamados do próprio setor.
+- Funcionário comum: acessa somente chamados do próprio setor e seus chamados atribuídos.
+- Filtros por setor, status e pesquisa por título/defeito.
+- Comentários ilimitados anexados ao chamado.
+- Transferência de chamado preservando todos os comentários.
+- Alteração de setor do chamado por administradores autorizados.
+- Encerramento forçado por administradores.
+
+Observação importante:
+A migração do banco é automática ao iniciar o sistema. Ela adiciona colunas/tabelas necessárias sem apagar dados existentes.

@@ -1,0 +1,85 @@
+{% extends 'base.html' %}
+{% block titulo %}Chamados | Core-X{% endblock %}
+{% block pagina_titulo %}Chamados{% endblock %}
+
+{% block body %}
+<div class="card">
+    <h2>Chamados disponíveis</h2>
+    <p class="muted">Funcionários só visualizam chamados do próprio setor. Administradores podem filtrar e monitorar conforme sua permissão.</p>
+    <div class="grid-actions">
+        <a class="btn-core btn-secondary" href="{{ url_for('homepage') }}"><i class="bi bi-house-door"></i> Home</a>
+    </div>
+</div>
+
+<details class="card filter-box">
+    <summary class="filter-toggle">
+        <span><i class="bi bi-funnel"></i> Filtros</span>
+        <span class="hint">Clique para expandir <i class="bi bi-chevron-down filter-icon"></i></span>
+    </summary>
+    <div class="filter-inner">
+        <form method="GET">
+            <div class="form-grid">
+                <div>
+                    <label>Pesquisar defeito / título</label>
+                    <input class="input" type="text" name="q" value="{{ busca or '' }}" placeholder="Ex: impressora, internet, sistema lento">
+                </div>
+
+                <div>
+                    <label>Setor</label>
+                    <select class="input" name="setor" {% if not current_user.admin or (current_user.admin and not is_adm_principal(current_user)) %}disabled{% endif %}>
+                        {% if current_user.admin and is_adm_principal(current_user) %}
+                            <option value="todos" {% if setor_filtro == 'todos' %}selected{% endif %}>Todos os setores</option>
+                            {% for setor in setores_padrao %}
+                                <option value="{{ setor }}" {% if setor_filtro == setor %}selected{% endif %}>{{ setor }}</option>
+                            {% endfor %}
+                        {% else %}
+                            <option value="{{ current_user.setor }}" selected>{{ current_user.setor }}</option>
+                        {% endif %}
+                    </select>
+                    {% if not current_user.admin or (current_user.admin and not is_adm_principal(current_user)) %}
+                        <input type="hidden" name="setor" value="{{ current_user.setor }}">
+                    {% endif %}
+                </div>
+
+                <div>
+                    <label>Status</label>
+                    <select class="input" name="status">
+                        <option value="todos" {% if status == 'todos' %}selected{% endif %}>Todos</option>
+                        <option value="abertos" {% if status == 'abertos' %}selected{% endif %}>Abertos / em andamento</option>
+                        <option value="sem_responsavel" {% if status == 'sem_responsavel' %}selected{% endif %}>Sem responsável</option>
+                        <option value="concluidos" {% if status == 'concluidos' %}selected{% endif %}>Concluídos</option>
+                        <option value="forcados" {% if status == 'forcados' %}selected{% endif %}>Encerrados pelo ADM</option>
+                    </select>
+                </div>
+
+                <div style="display:flex;gap:10px;align-items:flex-end;">
+                    <button class="btn-core" type="submit"><i class="bi bi-search"></i> Filtrar</button>
+                    <a class="btn-core btn-secondary" href="{{ request.path }}"><i class="bi bi-x-circle"></i> Limpar</a>
+                </div>
+            </div>
+        </form>
+    </div>
+</details>
+
+<div class="tickets-grid">
+    {% for tarefa in tarefas %}
+    <div class="ticket-card">
+        {% if tarefa.imagem %}<img src="{{ url_for('static', filename='fotos_posts/' + tarefa.imagem) }}" alt="Imagem da tarefa">{% else %}<img src="{{ url_for('static', filename='fotos_posts/default.png.png') }}" alt="Imagem padrão">{% endif %}
+        <div class="ticket-body">
+            <h3>{{ tarefa.titulo }}</h3>
+            <p class="muted">{{ tarefa.descricao }}</p>
+            <span class="pill"><i class="bi bi-diagram-3"></i> {{ tarefa.setor }}</span><br><br>
+            <span class="status pending"><i class="bi bi-clock-history"></i> Disponível</span>
+            <div class="grid-actions">
+                <a class="btn-core btn-secondary" href="{{ url_for('detalhe_tarefa', id_tarefa=tarefa.id) }}"><i class="bi bi-eye"></i> Abrir chamado</a>
+                {% if not current_user.admin and tarefa.id_usuario == None %}
+                <a class="btn-core" href="{{ url_for('assumir_tarefa', id_tarefa=tarefa.id) }}"><i class="bi bi-person-check"></i> Assumir</a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    {% else %}
+    <div class="card empty-state">Nenhum chamado encontrado com estes filtros.</div>
+    {% endfor %}
+</div>
+{% endblock %}

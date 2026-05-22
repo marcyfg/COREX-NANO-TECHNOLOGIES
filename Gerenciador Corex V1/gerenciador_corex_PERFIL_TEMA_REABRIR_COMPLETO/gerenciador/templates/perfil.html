@@ -1,0 +1,98 @@
+{% extends 'base.html' %}
+{% block titulo %}Perfil | Core-X{% endblock %}
+{% block pagina_titulo %}Perfil de {{ usuario.username }}{% endblock %}
+
+{% block body %}
+<div class="card">
+    <div style="display:flex;gap:18px;align-items:center;flex-wrap:wrap;">
+        {% if usuario.foto_perfil %}
+            <img class="profile-photo" src="{{ url_for('static', filename='fotos_posts/' + usuario.foto_perfil) }}" alt="Foto de perfil">
+        {% else %}
+            <div class="profile-photo" style="display:flex;align-items:center;justify-content:center;font-size:26px;font-weight:800;">{{ usuario.username[:2].upper() }}</div>
+        {% endif %}
+        <div>
+            <h2 style="margin-bottom:6px;">{{ usuario.username }}</h2>
+            <p class="muted" style="margin:0;">Email cadastrado: {{ usuario.email }}</p>
+            <p class="muted" style="margin:4px 0 0;">Cargo: {% if usuario.principal_admin or usuario.id == 1 %}ADM Principal{% elif usuario.admin %}ADM de Setor{% else %}Funcionário{% endif %} • Setor: {{ usuario.setor or 'Geral' }}</p>
+        </div>
+    </div>
+    <div class="grid-actions" style="margin-top:18px;">
+        <a class="btn-core btn-secondary" href="{{ url_for('alternar_tema') }}"><i class="bi bi-circle-half"></i> {% if current_user.tema_preferido == 'claro' %}Ativar modo escuro{% else %}Ativar modo claro{% endif %}</a>
+        {% if current_user.admin %}
+        <a class="btn-core btn-secondary" href="{{ url_for('usuarios') }}"><i class="bi bi-people"></i> Usuários</a>
+        <a class="btn-core btn-secondary" href="{{ url_for('criarconta') }}"><i class="bi bi-person-plus"></i> Criar nova conta</a>
+        {% endif %}
+    </div>
+</div>
+
+<div class="card form-card">
+    <h2>Dados do perfil</h2>
+    <p class="muted">Funcionários podem ver email, cargo e setor, mas só administradores podem alterar cargo, setor e email.</p>
+    <form method="POST" enctype="multipart/form-data" action="{{ url_for('atualizar_perfil', id_usuario=usuario.id) }}">
+        {{ form_perfil.csrf_token }}
+        <div class="form-grid">
+            <div>{{ form_perfil.username.label }}{{ form_perfil.username(class='input') }}</div>
+            <div>
+                {{ form_perfil.email.label }}
+                {% if current_user.admin and (usuario.id == current_user.id or adm_principal or (not usuario.admin and usuario.setor == current_user.setor)) %}
+                    {{ form_perfil.email(class='input') }}
+                {% else %}
+                    {{ form_perfil.email(class='input', readonly=true) }}
+                {% endif %}
+            </div>
+            <div>{{ form_perfil.foto_perfil.label }}{{ form_perfil.foto_perfil(class='input') }}</div>
+            <div>{{ form_perfil.senha.label }}{{ form_perfil.senha(class='input', placeholder='Preencha somente se quiser trocar') }}</div>
+            <div>{{ form_perfil.confirmacao_senha.label }}{{ form_perfil.confirmacao_senha(class='input', placeholder='Confirme a nova senha') }}</div>
+            <div>{{ form_perfil.tema_preferido.label }}{{ form_perfil.tema_preferido(class='input') }}</div>
+            <div>
+                {{ form_perfil.setor.label }}
+                {% if adm_principal %}
+                    {{ form_perfil.setor(class='input') }}
+                {% else %}
+                    {{ form_perfil.setor(class='input', disabled=true) }}
+                    <input type="hidden" name="setor" value="{{ usuario.setor }}">
+                {% endif %}
+            </div>
+            <div>
+                <label>Cargo</label>
+                {% if adm_principal and usuario.id != 1 %}
+                    <div style="padding:12px 0;">{{ form_perfil.admin() }} {{ form_perfil.admin.label }}</div>
+                {% else %}
+                    <input class="input" type="text" value="{% if usuario.principal_admin or usuario.id == 1 %}ADM Principal{% elif usuario.admin %}ADM de Setor{% else %}Funcionário{% endif %}" readonly>
+                    <input type="hidden" name="admin" value="{% if usuario.admin %}y{% endif %}">
+                {% endif %}
+            </div>
+            {% if current_user.admin and usuario.id != 1 %}
+            <div style="padding:12px 0;">{{ form_perfil.ativo() }} {{ form_perfil.ativo.label }}</div>
+            {% endif %}
+            <div>{{ form_perfil.botao_salvar_perfil(class='btn-core') }}</div>
+        </div>
+    </form>
+</div>
+
+{% if current_user.admin and form %}
+<div class="card form-card">
+    <h2>Criar tarefa / chamado</h2>
+    <p class="muted">Direcione para um funcionário ou deixe sem responsável no feed do setor.</p>
+    <form method="POST" enctype="multipart/form-data">
+        {{ form.csrf_token }}
+        <div class="form-grid">
+            <div>{{ form.titulo.label }}{{ form.titulo(class='input', placeholder='Título da tarefa') }}</div>
+            <div>{{ form.descricao.label }}{{ form.descricao(class='input', placeholder='Descrição da tarefa') }}</div>
+            <div>
+                {{ form.setor.label }}
+                {% if current_user.admin and is_adm_principal(current_user) %}
+                    {{ form.setor(class='input') }}
+                {% else %}
+                    {{ form.setor(class='input', disabled=true) }}
+                    <input type="hidden" name="setor" value="{{ current_user.setor }}">
+                {% endif %}
+            </div>
+            <div>{{ form.usuario_destino.label }}{{ form.usuario_destino(class='input') }}</div>
+            <div>{{ form.foto.label }}{{ form.foto(class='input') }}</div>
+            <div>{{ form.botao_confirmacao(class='btn-core') }}</div>
+        </div>
+    </form>
+</div>
+{% endif %}
+{% endblock %}

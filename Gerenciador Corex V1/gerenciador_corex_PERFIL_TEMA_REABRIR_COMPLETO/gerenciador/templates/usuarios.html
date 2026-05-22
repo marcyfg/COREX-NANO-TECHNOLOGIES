@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+{% block titulo %}Usuários | Core-X{% endblock %}
+{% block pagina_titulo %}Usuários e Setores{% endblock %}
+
+{% block body %}
+<div class="card">
+    <h2>Gerenciamento de usuários</h2>
+    <p class="muted">
+        {% if adm_principal %}
+        Você é o ADM principal: pode gerenciar funcionários, administradores e setores.
+        {% else %}
+        Você é ADM de setor: pode gerenciar apenas funcionários do seu setor.
+        {% endif %}
+    </p>
+    <div class="grid-actions">
+        <a class="btn-core" href="{{ url_for('criarconta') }}"><i class="bi bi-person-plus"></i> Criar usuário</a>
+        <a class="btn-core btn-secondary" href="{{ url_for('gerenciador_interno') }}"><i class="bi bi-kanban"></i> Gerenciador</a>
+    </div>
+</div>
+
+<div class="card table-wrap">
+    <table class="core-table">
+        <thead>
+            <tr>
+                <th>Usuário</th>
+                <th>Email</th>
+                <th>Perfil</th>
+                <th>Setor</th>
+                <th>Status</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for usuario in usuarios %}
+            <tr>
+                <td>{{ usuario.username }}</td>
+                <td>{{ usuario.email }}</td>
+                <td>
+                    {% if usuario.principal_admin or usuario.id == 1 %}<span class="pill">ADM Principal</span>
+                    {% elif usuario.admin %}<span class="pill">ADM de Setor</span>
+                    {% else %}<span class="pill">Funcionário</span>{% endif %}
+                </td>
+                <td>{{ usuario.setor or 'Geral' }}</td>
+                <td>{% if usuario.ativo %}<span class="status ok">Ativo</span>{% else %}<span class="status pending">Inativo</span>{% endif %}</td>
+                <td><a class="btn-core btn-secondary" href="{{ url_for('editar_usuario', id_usuario=usuario.id) }}"><i class="bi bi-pencil"></i> Editar</a></td>
+            </tr>
+            {% else %}
+            <tr><td colspan="6" class="empty-state">Nenhum usuário encontrado.</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

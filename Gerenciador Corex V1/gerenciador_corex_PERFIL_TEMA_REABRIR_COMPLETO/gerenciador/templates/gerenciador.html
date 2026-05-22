@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block titulo %}Gerenciador | Core-X{% endblock %}
+{% block pagina_titulo %}Gerenciador{% endblock %}
+
+{% block body %}
+<div class="card">
+    <h2>Gerenciador</h2>
+    <p class="muted">Página mantida para compatibilidade com a estrutura original do projeto.</p>
+    <div class="grid-actions">
+        <a class="btn-core" href="{{ url_for('gerenciador_interno') }}"><i class="bi bi-kanban"></i> Ir para área interna</a>
+        <a class="btn-core btn-secondary" href="{{ url_for('feed') }}"><i class="bi bi-ticket-detailed"></i> Chamados</a>
+    </div>
+</div>
+{% endblock %}

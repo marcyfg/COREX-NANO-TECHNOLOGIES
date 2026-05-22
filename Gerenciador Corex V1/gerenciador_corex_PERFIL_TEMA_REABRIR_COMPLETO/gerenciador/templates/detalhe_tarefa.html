@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+{% block titulo %}Chamado #{{ tarefa.id }} | Core-X{% endblock %}
+{% block pagina_titulo %}Chamado #{{ tarefa.id }}{% endblock %}
+
+{% block body %}
+<div class="card">
+    <h2>{{ tarefa.titulo }}</h2>
+    <p class="muted">{{ tarefa.descricao }}</p>
+    <p>
+        <span class="pill">Setor: {{ tarefa.setor }}</span>
+        <span class="pill">Responsável: {% if tarefa.usuario %}{{ tarefa.usuario.username }}{% else %}Sem responsável{% endif %}</span>
+        <span class="pill">Comentários: {{ tarefa.comentarios|length }}</span>
+    </p>
+    {% if tarefa.encerrada_forcada %}<span class="status pending"><i class="bi bi-shield-x"></i> Encerrada pelo administrador</span>
+    {% elif tarefa.concluida %}<span class="status ok"><i class="bi bi-check-circle"></i> Concluída</span>
+    {% else %}<span class="status pending"><i class="bi bi-clock-history"></i> Em andamento</span>{% endif %}
+
+    <div class="grid-actions" style="margin-top:16px;">
+        <a class="btn-core btn-secondary" href="{{ url_for('gerenciador_interno') }}"><i class="bi bi-arrow-left"></i> Voltar</a>
+        {% if not tarefa.concluida or pode_admin %}<a class="btn-core btn-green" href="{{ url_for('concluir_tarefa', id_tarefa=tarefa.id) }}"><i class="bi bi-check2"></i> Finalizar chamado</a>{% endif %}
+        {% if tarefa.concluida or tarefa.encerrada_forcada %}<a class="btn-core btn-secondary" href="{{ url_for('reabrir_tarefa', id_tarefa=tarefa.id) }}"><i class="bi bi-arrow-counterclockwise"></i> Reabrir chamado</a>{% endif %}
+        {% if pode_admin and not tarefa.encerrada_forcada %}<a class="btn-core btn-danger" href="{{ url_for('forcar_encerramento', id_tarefa=tarefa.id) }}"><i class="bi bi-shield-x"></i> Forçar encerramento</a>{% endif %}
+    </div>
+</div>
+
+{% if pode_admin %}
+<div class="card form-card">
+    <h2>Transferir / alterar setor do chamado</h2>
+    <p class="muted">A transferência mantém todo o histórico e comentários. ADM principal pode trocar para qualquer setor; ADM de setor atua somente no próprio setor.</p>
+    <form method="POST" action="{{ url_for('transferir_tarefa', id_tarefa=tarefa.id) }}">
+        {{ form_transferir.csrf_token }}
+        <div class="form-grid">
+            <div>
+                {{ form_transferir.setor_destino.label }}
+                {% if current_user.admin and is_adm_principal(current_user) %}
+                    {{ form_transferir.setor_destino(class='input') }}
+                {% else %}
+                    {{ form_transferir.setor_destino(class='input', disabled=true) }}
+                    <input type="hidden" name="setor_destino" value="{{ current_user.setor }}">
+                {% endif %}
+            </div>
+            <div>{{ form_transferir.usuario_destino.label }}{{ form_transferir.usuario_destino(class='input') }}</div>
+            <div>{{ form_transferir.comentario.label }}{{ form_transferir.comentario(class='input', placeholder='Opcional: explique o motivo da alteração') }}</div>
+            <div>{{ form_transferir.botao_confirmacao(class='btn-core') }}</div>
+        </div>
+        <p class="muted">Para trocar de setor e selecionar um funcionário do novo setor, salve primeiro a troca de setor e depois abra novamente o chamado para escolher o responsável daquele setor.</p>
+    </form>
+</div>
+{% endif %}
+
+<div class="card form-card">
+    <h2>Adicionar comentário</h2>
+    <p class="muted">Você pode comentar quantas vezes for necessário antes de finalizar. Os comentários ficam anexados ao chamado.</p>
+    <form method="POST" action="{{ url_for('comentar_tarefa', id_tarefa=tarefa.id) }}">
+        {{ form_comentario.csrf_token }}
+        <div class="form-grid">
+            <div>{{ form_comentario.texto.label }}{{ form_comentario.texto(class='input', placeholder='Escreva uma atualização do chamado') }}</div>
+            <div>{{ form_comentario.botao_confirmacao(class='btn-core') }}</div>
+        </div>
+    </form>
+</div>
+
+<div class="card">
+    <h2>Histórico e comentários</h2>
+    {% for comentario in tarefa.comentarios|sort(attribute='data_criacao', reverse=true) %}
+    <div class="comment">
+        <strong>{{ comentario.usuario.username }}</strong>
+        <small class="muted"> • {{ comentario.data_criacao.strftime('%d/%m/%Y %H:%M') }}</small>
+        <p style="margin-bottom:0;">{{ comentario.texto }}</p>
+    </div>
+    {% else %}
+    <div class="empty-state">Nenhum comentário registrado ainda.</div>
+    {% endfor %}
+</div>
+{% endblock %}

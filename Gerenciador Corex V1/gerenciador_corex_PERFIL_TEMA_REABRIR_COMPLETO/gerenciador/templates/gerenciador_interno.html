@@ -1,0 +1,98 @@
+{% extends 'base.html' %}
+{% block titulo %}Gerenciador | Core-X{% endblock %}
+{% block pagina_titulo %}Gerenciador{% endblock %}
+
+{% block body %}
+<div class="card">
+    <h2>{% if current_user.admin %}Monitoramento de chamados{% else %}Meus chamados{% endif %}</h2>
+    <p class="muted">
+        {% if current_user.admin %}
+        Administradores podem abrir chamados mesmo já assumidos, comentar, transferir, trocar setor e forçar encerramento dentro do seu escopo.
+        {% else %}
+        Aqui aparecem apenas os chamados atribuídos a você, dentro do seu setor.
+        {% endif %}
+    </p>
+    <div class="grid-actions">
+        <a class="btn-core btn-secondary" href="{{ url_for('feed') }}"><i class="bi bi-ticket-detailed"></i> Chamados disponíveis</a>
+        {% if current_user.admin %}<a class="btn-core btn-secondary" href="{{ url_for('usuarios') }}"><i class="bi bi-people"></i> Usuários</a>{% endif %}
+    </div>
+</div>
+
+<details class="card filter-box">
+    <summary class="filter-toggle">
+        <span><i class="bi bi-funnel"></i> Filtros</span>
+        <span class="hint">Clique para expandir <i class="bi bi-chevron-down filter-icon"></i></span>
+    </summary>
+    <div class="filter-inner">
+        <form method="GET">
+            <div class="form-grid">
+                <div>
+                    <label>Pesquisar defeito / título</label>
+                    <input class="input" type="text" name="q" value="{{ busca or '' }}" placeholder="Ex: impressora, internet, sistema lento">
+                </div>
+
+                <div>
+                    <label>Setor</label>
+                    <select class="input" name="setor" {% if not current_user.admin or (current_user.admin and not is_adm_principal(current_user)) %}disabled{% endif %}>
+                        {% if current_user.admin and is_adm_principal(current_user) %}
+                            <option value="todos" {% if setor_filtro == 'todos' %}selected{% endif %}>Todos os setores</option>
+                            {% for setor in setores_padrao %}
+                                <option value="{{ setor }}" {% if setor_filtro == setor %}selected{% endif %}>{{ setor }}</option>
+                            {% endfor %}
+                        {% else %}
+                            <option value="{{ current_user.setor }}" selected>{{ current_user.setor }}</option>
+                        {% endif %}
+                    </select>
+                    {% if not current_user.admin or (current_user.admin and not is_adm_principal(current_user)) %}
+                        <input type="hidden" name="setor" value="{{ current_user.setor }}">
+                    {% endif %}
+                </div>
+
+                <div>
+                    <label>Status</label>
+                    <select class="input" name="status">
+                        <option value="todos" {% if status == 'todos' %}selected{% endif %}>Todos</option>
+                        <option value="abertos" {% if status == 'abertos' %}selected{% endif %}>Abertos / em andamento</option>
+                        <option value="sem_responsavel" {% if status == 'sem_responsavel' %}selected{% endif %}>Sem responsável</option>
+                        <option value="concluidos" {% if status == 'concluidos' %}selected{% endif %}>Concluídos</option>
+                        <option value="forcados" {% if status == 'forcados' %}selected{% endif %}>Encerrados pelo ADM</option>
+                    </select>
+                </div>
+
+                <div style="display:flex;gap:10px;align-items:flex-end;">
+                    <button class="btn-core" type="submit"><i class="bi bi-search"></i> Filtrar</button>
+                    <a class="btn-core btn-secondary" href="{{ request.path }}"><i class="bi bi-x-circle"></i> Limpar</a>
+                </div>
+            </div>
+        </form>
+    </div>
+</details>
+
+<div class="tickets-grid">
+    {% for tarefa in tarefas %}
+    <div class="ticket-card">
+        {% if tarefa.imagem %}<img src="{{ url_for('static', filename='fotos_posts/' + tarefa.imagem) }}" alt="Imagem da tarefa">{% else %}<img src="{{ url_for('static', filename='fotos_posts/default.png.png') }}" alt="Imagem padrão">{% endif %}
+        <div class="ticket-body">
+            <h3>{{ tarefa.titulo }}</h3>
+            <p class="muted">{{ tarefa.descricao }}</p>
+            <p><span class="pill">Setor: {{ tarefa.setor }}</span></p>
+            <p class="muted">Responsável: {% if tarefa.usuario %}{{ tarefa.usuario.username }}{% else %}Sem responsável{% endif %}</p>
+            {% if tarefa.encerrada_forcada %}<span class="status pending"><i class="bi bi-shield-x"></i> Encerrada pelo ADM</span>
+            {% elif tarefa.concluida %}<span class="status ok"><i class="bi bi-check-circle"></i> Concluída</span>
+            {% else %}<span class="status pending"><i class="bi bi-clock-history"></i> Em andamento</span>{% endif %}
+            <div class="grid-actions">
+                <a class="btn-core btn-secondary" href="{{ url_for('detalhe_tarefa', id_tarefa=tarefa.id) }}"><i class="bi bi-eye"></i> Acessar</a>
+                {% if not tarefa.concluida or current_user.admin %}
+                <a class="btn-core" href="{{ url_for('concluir_tarefa', id_tarefa=tarefa.id) }}"><i class="bi bi-check2"></i> Finalizar</a>
+                {% endif %}
+                {% if current_user.admin and not tarefa.encerrada_forcada %}
+                <a class="btn-core btn-danger" href="{{ url_for('forcar_encerramento', id_tarefa=tarefa.id) }}"><i class="bi bi-shield-x"></i> Forçar encerramento</a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    {% else %}
+    <div class="card empty-state">Nenhum chamado encontrado com estes filtros.</div>
+    {% endfor %}
+</div>
+{% endblock %}

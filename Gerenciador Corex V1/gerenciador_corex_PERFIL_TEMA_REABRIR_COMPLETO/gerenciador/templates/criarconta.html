@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% block titulo %}Criar Conta | Core-X{% endblock %}
+{% block pagina_titulo %}Criar Conta{% endblock %}
+
+{% block body %}
+<div class="card form-card">
+    <h2>Novo usuário</h2>
+    <p class="muted">
+        {% if adm_principal %}
+        Como ADM principal, você pode criar funcionários e novos administradores de setor.
+        {% else %}
+        Como administrador de setor, você pode criar apenas funcionários do seu próprio setor.
+        {% endif %}
+    </p>
+
+    <form method="POST">
+        {{ form.csrf_token }}
+
+        <div class="form-grid">
+            <div>{{ form.email.label }}{{ form.email(class='input', placeholder='email@exemplo.com') }}</div>
+            <div>{{ form.username.label }}{{ form.username(class='input', placeholder='Nome do usuário') }}</div>
+            <div>{{ form.senha.label }}{{ form.senha(class='input', placeholder='Senha') }}</div>
+            <div>{{ form.confirmacao_senha.label }}{{ form.confirmacao_senha(class='input', placeholder='Confirme a senha') }}</div>
+
+            <div>
+                {{ form.setor.label }}
+                {% if adm_principal %}
+                    {{ form.setor(class='input', placeholder='Ex: Financeiro, RH, TI') }}
+                {% else %}
+                    {{ form.setor(class='input', readonly=true) }}
+                {% endif %}
+            </div>
+
+            {% if adm_principal %}
+            <div>{{ form.admin() }} {{ form.admin.label }}</div>
+            {% else %}
+            <div class="empty-state">Este usuário será criado como funcionário do setor {{ current_user.setor or 'Geral' }}.</div>
+            {% endif %}
+
+            <div>{{ form.botao_confirmacao(class='btn-core') }}</div>
+        </div>
+    </form>
+
+    <div class="back-row">
+        <a class="btn-core btn-secondary" href="{{ url_for('usuarios') }}"><i class="bi bi-arrow-left"></i> Voltar para usuários</a>
+    </div>
+</div>
+{% endblock %}
