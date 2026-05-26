@@ -1,0 +1,872 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Core-X | Portal de Suporte</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="suportetickets.css" rel="stylesheet">
+
+</head>
+<body>
+
+<!-- ══════ NAVBAR ══════ -->
+<nav class="navbar navbar-expand-lg navbar-dark navbar-core" id="navblue">
+  <div class="container-fluid p-0" style="display:flex;align-items:center;gap:0;">
+    <img id="coreximg" src="41fe5349-5961-407e-b197-375626655d38.png" alt="CoreX Logo">
+    <a id="coree" href="#" onclick="return false;">
+      CORE<span style="color:var(--blue);">-</span>X
+      <small class="fw-light" style="font-size:.65rem;letter-spacing:.15em;text-transform:uppercase;display:block;color:#aaa;margin-top:1px;">Support Portal</small>
+    </a>
+    <div class="nav-right" style="margin-left:auto;">
+      <div class="nav-notif" title="Notificações">
+        <i class="bi bi-bell"></i>
+        <div class="notif-dot"></div>
+      </div>
+      <div class="nav-notif" title="Busca global" onclick="focusSearch()">
+        <i class="bi bi-search"></i>
+      </div>
+      <div class="nav-user">
+        <div class="nav-avatar">LM</div>
+        <div>
+          <div class="nav-uname">Lucas Mendes</div>
+          <div class="nav-urole">Suporte N1</div>
+        </div>
+        <i class="bi bi-chevron-down" style="font-size:.6rem;color:var(--text-dim);margin-left:.2rem;"></i>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<div class="shell">
+
+  <nav class="sidebar">
+    <div class="sb-section-label">Menu</div>
+
+    <a class="sb-link active" id="nav-dash" onclick="showView('dash')">
+      <i class="bi bi-grid-1x2"></i> Dashboard
+    </a>
+    <a class="sb-link" id="nav-tickets" onclick="showView('tickets')">
+      <i class="bi bi-ticket-perforated"></i> Todos os Tickets
+      <span class="sb-count blue">24</span>
+    </a>
+    <a class="sb-link" id="nav-mine" onclick="filterMine()">
+      <i class="bi bi-person-check"></i> Meus Tickets
+      <span class="sb-count yellow">6</span>
+    </a>
+    <a class="sb-link" id="nav-critical" onclick="filterCritical()">
+      <i class="bi bi-exclamation-triangle"></i> Críticos
+      <span class="sb-count red">2</span>
+    </a>
+    <a class="sb-link" id="nav-pending" onclick="filterPending()">
+      <i class="bi bi-hourglass-split"></i> Aguardando Cliente
+      <span class="sb-count">4</span>
+    </a>
+
+    <div class="sb-divider"></div>
+    <div class="sb-section-label">Empresas Clientes</div>
+
+    <div class="sb-company active-co" onclick="filterCompany('Nexus Tech')">
+      <div class="co-dot" style="background:#3d8bfd;"></div>
+      <span class="co-name">Nexus Tech</span>
+      <span class="co-badge">7</span>
+    </div>
+    <div class="sb-company" onclick="filterCompany('Vertice S/A')">
+      <div class="co-dot" style="background:#22c55e;"></div>
+      <span class="co-name">Vertice S/A</span>
+      <span class="co-badge">5</span>
+    </div>
+    <div class="sb-company" onclick="filterCompany('BluePeak')">
+      <div class="co-dot" style="background:#f59e0b;"></div>
+      <span class="co-name">BluePeak</span>
+      <span class="co-badge">4</span>
+    </div>
+    <div class="sb-company" onclick="filterCompany('Orion Sistemas')">
+      <div class="co-dot" style="background:#a855f7;"></div>
+      <span class="co-name">Orion Sistemas</span>
+      <span class="co-badge">5</span>
+    </div>
+    <div class="sb-company" onclick="filterCompany('DataBridge')">
+      <div class="co-dot" style="background:#ef4444;"></div>
+      <span class="co-name">DataBridge</span>
+      <span class="co-badge">3</span>
+    </div>
+
+    <div class="sb-divider"></div>
+    <div class="sb-section-label">Sistema</div>
+    <a class="sb-link"><i class="bi bi-bar-chart-line"></i> Relatórios</a>
+    <a class="sb-link"><i class="bi bi-gear"></i> Configurações</a>
+    <a class="sb-link" style="color:var(--danger);margin-top:auto;"><i class="bi bi-box-arrow-right"></i> Sair</a>
+  </nav>
+
+  <!-- ══════ MAIN ══════ -->
+  <div class="main">
+
+    <!-- ════ VIEW: DASHBOARD ════ -->
+    <div class="view active" id="view-dash">
+      <div class="dash-header">
+        <h1>Visão Geral — Suporte</h1>
+        <p>Quinta-feira, 05 de março de 2026 · Bem-vindo, Lucas</p>
+      </div>
+
+      <!-- KPIs -->
+      <div class="kpi-grid">
+        <div class="kpi k-blue">
+          <div class="kpi-val">24</div>
+          <div class="kpi-lbl">Total Abertos</div>
+          <div class="kpi-trend up"><i class="bi bi-arrow-up-short"></i>+3 hoje</div>
+          <i class="bi bi-ticket-perforated kpi-icon"></i>
+        </div>
+        <div class="kpi k-yellow">
+          <div class="kpi-val">9</div>
+          <div class="kpi-lbl">Em Atendimento</div>
+          <div class="kpi-trend up"><i class="bi bi-arrow-up-short"></i>+2 hoje</div>
+          <i class="bi bi-clock-history kpi-icon"></i>
+        </div>
+        <div class="kpi k-green">
+          <div class="kpi-val">31</div>
+          <div class="kpi-lbl">Resolvidos (mês)</div>
+          <div class="kpi-trend up"><i class="bi bi-arrow-up-short"></i>+5 vs mês ant.</div>
+          <i class="bi bi-check-circle kpi-icon"></i>
+        </div>
+        <div class="kpi k-red">
+          <div class="kpi-val">2</div>
+          <div class="kpi-lbl">Críticos</div>
+          <div class="kpi-trend down"><i class="bi bi-exclamation-triangle"></i> Atenção</div>
+          <i class="bi bi-exclamation-triangle kpi-icon"></i>
+        </div>
+        <div class="kpi k-purple">
+          <div class="kpi-val">1h 42m</div>
+          <div class="kpi-lbl">TMA (média)</div>
+          <div class="kpi-trend up"><i class="bi bi-arrow-down-short"></i>-12min vs ontem</div>
+          <i class="bi bi-stopwatch kpi-icon"></i>
+        </div>
+      </div>
+
+      <!-- Empresas -->
+      <div class="activity-section">
+        <div class="section-hdr">
+          <div class="section-title"><i class="bi bi-building"></i> Empresas Clientes</div>
+          <a class="see-all" onclick="showView('tickets')">Ver todos os tickets →</a>
+        </div>
+        <div class="company-cards">
+          <div class="co-card" onclick="filterCompany('Nexus Tech')">
+            <div class="co-card-top">
+              <div class="co-logo" style="background:#0d6efd;">NT</div>
+              <div><div class="co-card-name">Nexus Tech</div><div class="co-card-seg">Tecnologia</div></div>
+            </div>
+            <div class="co-card-stats">
+              <div class="co-stat"><div class="co-stat-n" style="color:#fbbf24;">3</div><div class="co-stat-l">Abertos</div></div>
+              <div class="co-stat"><div class="co-stat-n" style="color:#4ade80;">4</div><div class="co-stat-l">Resolvidos</div></div>
+              <div class="co-stat"><div class="co-stat-n" style="color:#c084fc;">1</div><div class="co-stat-l">Crítico</div></div>
+            </div>
+          </div>
+          <div class="co-card" onclick="filterCompany('Vertice S/A')">
+            <div class="co-card-top">
+              <div class="co-logo" style="background:#22c55e;">VS</div>
+              <div><div class="co-card-name">Vertice S/A</div><div class="co-card-seg">Financeiro</div></div>
+            </div>
+            <div class="co-card-stats">
+              <div class="co-stat"><div class="co-stat-n" style="color:#fbbf24;">2</div><div class="co-stat-l">Abertos</div></div>
+              <div class="co-stat"><div class="co-stat-n" style="color:#4ade80;">3</div><div class="co-stat-l">Resolvidos</div></div>
+              <div class="co-stat"><div class="co-stat-n">0</div><div class="co-stat-l">Crítico</div></div>
+            </div>
+          </div>
+          <div class="co-card" onclick="filterCompany('BluePeak')">
+            <div class="co-card-top">
+              <div class="co-logo" style="background:#f59e0b;">BP</div>
+              <div><div class="co-card-name">BluePeak</div><div class="co-card-seg">Logística</div></div>
+            </div>
+            <div class="co-card-stats">
+              <div class="co-stat"><div class="co-stat-n" style="color:#fbbf24;">2</div><div class="co-stat-l">Abertos</div></div>
+              <div class="co-stat"><div class="co-stat-n" style="color:#4ade80;">2</div><div class="co-stat-l">Resolvidos</div></div>
+              <div class="co-stat"><div class="co-stat-n" style="color:#c084fc;">1</div><div class="co-stat-l">Crítico</div></div>
+            </div>
+          </div>
+          <div class="co-card" onclick="filterCompany('Orion Sistemas')">
+            <div class="co-card-top">
+              <div class="co-logo" style="background:#a855f7;">OS</div>
+              <div><div class="co-card-name">Orion Sistemas</div><div class="co-card-seg">Manufatura</div></div>
+            </div>
+            <div class="co-card-stats">
+              <div class="co-stat"><div class="co-stat-n" style="color:#fbbf24;">2</div><div class="co-stat-l">Abertos</div></div>
+              <div class="co-stat"><div class="co-stat-n" style="color:#4ade80;">3</div><div class="co-stat-l">Resolvidos</div></div>
+              <div class="co-stat"><div class="co-stat-n">0</div><div class="co-stat-l">Crítico</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Recent tickets -->
+      <div class="recent-section">
+        <div class="section-hdr">
+          <div class="section-title"><i class="bi bi-clock-history"></i> Tickets Recentes</div>
+          <a class="see-all" onclick="showView('tickets')">Ver todos →</a>
+        </div>
+        <div class="panel">
+          <div class="table-responsive">
+            <table class="tickets-table">
+              <thead>
+                <tr>
+                  <th>ID</th><th>Assunto</th><th>Empresa</th><th>Prioridade</th><th>Status</th><th>Agente</th><th style="text-align:right">Ação</th>
+                </tr>
+              </thead>
+              <tbody id="recentTableBody"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ════ VIEW: TICKETS ════ -->
+    <div class="view" id="view-tickets">
+      <div class="tickets-toolbar">
+        <h2 id="ticketsViewTitle">Todos os Tickets</h2>
+        <div class="search-wrap">
+          <i class="bi bi-search"></i>
+          <input class="search-input" id="mainSearch" placeholder="Buscar por ID, assunto, empresa..." oninput="applyFilters()">
+        </div>
+        <div class="filter-chips">
+          <div class="chip active" data-status="all" onclick="setStatusFilter(this)">Todos</div>
+          <div class="chip c-yellow" data-status="active" onclick="setStatusFilter(this)">Em Atendimento</div>
+          <div class="chip" data-status="open" onclick="setStatusFilter(this)">Aberto</div>
+          <div class="chip c-purple" data-status="critical" onclick="setStatusFilter(this)">Crítico</div>
+          <div class="chip c-green" data-status="resolved" onclick="setStatusFilter(this)">Resolvido</div>
+          <div class="chip" data-status="pending" onclick="setStatusFilter(this)">Aguardando</div>
+        </div>
+        <select class="sort-select" onchange="applyFilters()">
+          <option value="newest">Mais recente</option>
+          <option value="oldest">Mais antigo</option>
+          <option value="priority">Prioridade</option>
+        </select>
+      </div>
+
+      <div class="tickets-wrap">
+        <div class="panel">
+          <div class="panel-hdr">
+            <div class="panel-hdr-title">
+              <i class="bi bi-ticket-perforated"></i>
+              <span id="ticketCount">24 tickets encontrados</span>
+            </div>
+            <button class="btn-core" style="font-size:.75rem;padding:.45rem .9rem;" onclick="toast('Novo ticket criado!','b')">
+              <i class="bi bi-plus-lg"></i> Novo Ticket
+            </button>
+          </div>
+          <div class="table-responsive">
+            <table class="tickets-table">
+              <thead>
+                <tr>
+                  <th>ID</th><th>Assunto / Empresa</th><th>Categoria</th><th>Prioridade</th><th>Status</th><th>Agente</th><th>Aberto em</th><th style="text-align:right">Ações</th>
+                </tr>
+              </thead>
+              <tbody id="mainTableBody"></tbody>
+            </table>
+          </div>
+          <div class="tbl-footer">
+            <span class="tbl-info" id="tblInfo">Mostrando 24 tickets</span>
+            <div class="pagination">
+              <div class="pg-btn"><i class="bi bi-chevron-left"></i></div>
+              <div class="pg-btn active">1</div>
+              <div class="pg-btn">2</div>
+              <div class="pg-btn">3</div>
+              <div class="pg-btn"><i class="bi bi-chevron-right"></i></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ════ VIEW: TICKET DETAIL ════ -->
+    <div class="view" id="view-detail" style="display:none;flex-direction:column;">
+      <div class="detail-topbar">
+        <button class="back-btn" onclick="showView('tickets')"><i class="bi bi-arrow-left"></i> Voltar</button>
+        <div class="detail-title-wrap">
+          <div class="detail-title">
+            <span class="detail-id" id="d-id">#CX-8821</span>
+            <span id="d-title">Queda de link fibra óptica</span>
+            <span class="badge" id="d-badge"></span>
+          </div>
+        </div>
+        <div class="detail-actions">
+          <button class="btn-ghost" onclick="toast('Link copiado!','b')"><i class="bi bi-link-45deg"></i> Copiar link</button>
+          <button class="btn-success" id="d-resolve-btn" onclick="resolveTicket()"><i class="bi bi-check2-circle"></i> Resolver</button>
+          <button class="btn-danger" onclick="escalateTicket()"><i class="bi bi-arrow-up-circle"></i> Escalar</button>
+        </div>
+      </div>
+
+      <div class="detail-body">
+        <!-- Main -->
+        <div class="detail-main">
+          <!-- Desc -->
+          <div class="panel" style="margin-bottom:1.2rem;">
+            <div class="panel-hdr">
+              <div class="panel-hdr-title"><i class="bi bi-file-text"></i> Descrição do Problema</div>
+              <div style="display:flex;align-items:center;gap:.5rem;">
+                <div class="av" style="width:1.6rem;height:1.6rem;" id="d-req-av">MF</div>
+                <span style="font-size:.78rem;color:var(--text-muted);" id="d-req-name">Marcos Ferreira</span>
+              </div>
+            </div>
+            <div style="padding:1.2rem 1.5rem;">
+              <div class="desc-box" id="d-desc"></div>
+              <div style="display:flex;gap:.5rem;flex-wrap:wrap;" id="d-attachments"></div>
+            </div>
+          </div>
+
+          <!-- Timeline -->
+          <div class="panel" style="margin-bottom:1.2rem;">
+            <div class="panel-hdr">
+              <div class="panel-hdr-title"><i class="bi bi-chat-left-dots"></i> Histórico</div>
+              <span style="font-size:.72rem;color:var(--text-muted);" id="d-tl-count"></span>
+            </div>
+            <div style="padding:1.2rem 1.5rem;">
+              <div class="tl" id="d-timeline"></div>
+            </div>
+
+            <!-- Reply -->
+            <div style="padding:0 1.5rem 1.4rem;">
+              <div style="height:1px;background:var(--border);margin-bottom:1.1rem;"></div>
+              <div class="reply-tabs">
+                <button class="r-tab a-reply" id="rt-reply" onclick="switchRTab('reply')"><i class="bi bi-reply"></i> Responder</button>
+                <button class="r-tab" id="rt-note" onclick="switchRTab('note')"><i class="bi bi-lock"></i> Nota interna</button>
+              </div>
+              <textarea class="reply-ta" id="replyTa" placeholder="Escreva sua resposta para o cliente..."></textarea>
+              <div class="reply-foot">
+                <div style="display:flex;gap:.35rem;">
+                  <div class="tool-btn" title="Anexar"><i class="bi bi-paperclip"></i></div>
+                  <div class="tool-btn" title="Mencionar"><i class="bi bi-at"></i></div>
+                  <div class="tool-btn" title="Template"><i class="bi bi-file-earmark-text"></i></div>
+                </div>
+                <div style="display:flex;gap:.4rem;align-items:center;">
+                  <button class="btn-ghost" style="font-size:.75rem;padding:.45rem .85rem;" onclick="toast('Rascunho salvo.','b')"><i class="bi bi-floppy"></i> Rascunho</button>
+                  <button class="btn-core" id="sendReplyBtn" style="font-size:.78rem;padding:.5rem 1rem;" onclick="sendReply()"><i class="bi bi-send-fill"></i> Enviar</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Sidebar -->
+        <div class="detail-sidebar">
+          <!-- Status & SLA -->
+          <div class="ds-block">
+            <div class="ds-title"><i class="bi bi-sliders"></i> Controles</div>
+            <select class="status-sel" id="d-status-sel" onchange="updateDetailStatus(this)">
+              <option value="open">🔵 Aberto</option>
+              <option value="active" selected>🟡 Em Atendimento</option>
+              <option value="pending">🟣 Aguardando Cliente</option>
+              <option value="resolved">🟢 Resolvido</option>
+              <option value="critical">🔴 Crítico</option>
+            </select>
+            <div class="ds-title" style="margin-top:.5rem;"><i class="bi bi-hourglass-split"></i> SLA</div>
+            <div class="sla-wrap">
+              <div class="sla-bar-bg"><div class="sla-bar-f" id="d-sla-bar" style="width:72%"></div></div>
+              <div class="sla-txt" id="d-sla-txt"><i class="bi bi-hourglass-split"></i> 1h 24min restantes</div>
+            </div>
+          </div>
+
+          <div style="height:1px;background:var(--border);margin:.9rem 0;"></div>
+
+          <!-- Details -->
+          <div class="ds-block">
+            <div class="ds-title"><i class="bi bi-info-circle"></i> Detalhes</div>
+            <div class="ds-row"><span class="ds-lbl">Empresa</span><span class="ds-val" id="d-co"></span></div>
+            <div class="ds-row"><span class="ds-lbl">Categoria</span><span class="ds-val" id="d-cat"></span></div>
+            <div class="ds-row"><span class="ds-lbl">Prioridade</span><span class="ds-val" id="d-prio"></span></div>
+            <div class="ds-row"><span class="ds-lbl">Aberto em</span><span class="ds-val" id="d-date"></span></div>
+            <div class="ds-row"><span class="ds-lbl">Canal</span><span class="ds-val">Portal Web</span></div>
+          </div>
+
+          <div style="height:1px;background:var(--border);margin:.9rem 0;"></div>
+
+          <!-- Assignees -->
+          <div class="ds-block">
+            <div class="ds-title"><i class="bi bi-person-badge"></i> Responsável</div>
+            <div class="assignee-row">
+              <div class="av" id="d-agent-av">LM</div>
+              <div><div class="av-name" id="d-agent-name">Lucas Mendes</div><div class="av-role">Suporte N1</div></div>
+            </div>
+            <div style="height:1px;background:var(--border);margin:.4rem 0;"></div>
+            <div class="assignee-row">
+              <div class="av" id="d-cli-av" style="background:rgba(245,158,11,.2);border-color:rgba(245,158,11,.3);color:#fbbf24;"></div>
+              <div><div class="av-name" id="d-cli-name"></div><div class="av-role" style="color:var(--warning);" id="d-cli-co"></div></div>
+            </div>
+          </div>
+
+          <div style="height:1px;background:var(--border);margin:.9rem 0;"></div>
+
+          <!-- Checklist -->
+          <div class="ds-block">
+            <div class="ds-title"><i class="bi bi-check2-square"></i> Checklist</div>
+            <div class="checklist">
+              <div class="chk-item done" onclick="toggleChk(this)"><div class="chk-box"><i class="bi bi-check"></i></div><span class="chk-lbl">Primeiro contato</span></div>
+              <div class="chk-item done" onclick="toggleChk(this)"><div class="chk-box"><i class="bi bi-check"></i></div><span class="chk-lbl">Protocolo com fornecedor</span></div>
+              <div class="chk-item" onclick="toggleChk(this)"><div class="chk-box"><i class="bi bi-check"></i></div><span class="chk-lbl">Confirmar normalização</span></div>
+              <div class="chk-item" onclick="toggleChk(this)"><div class="chk-box"><i class="bi bi-check"></i></div><span class="chk-lbl">Validação com cliente</span></div>
+              <div class="chk-item" onclick="toggleChk(this)"><div class="chk-box"><i class="bi bi-check"></i></div><span class="chk-lbl">Encerrar ticket</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- end main -->
+</div><!-- end shell -->
+
+<!-- Toast -->
+<div class="toast-cx" id="toastCx">
+  <div class="toast-ico g" id="toastIco"><i class="bi bi-check-lg"></i></div>
+  <div><div class="toast-ttl" id="toastTtl">Sucesso</div><div class="toast-sub" id="toastSub"></div></div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+// ══════════════════════════════════════════
+// DATA
+// ══════════════════════════════════════════
+const COMPANIES = {
+  'Nexus Tech':    { color:'#3d8bfd', abbr:'NT', seg:'Tecnologia' },
+  'Vertice S/A':   { color:'#22c55e', abbr:'VS', seg:'Financeiro' },
+  'BluePeak':      { color:'#f59e0b', abbr:'BP', seg:'Logística' },
+  'Orion Sistemas':{ color:'#a855f7', abbr:'OS', seg:'Manufatura' },
+  'DataBridge':    { color:'#ef4444', abbr:'DB', seg:'Saúde' },
+};
+
+const AGENTS = ['Lucas Mendes','Ana Souza','Rafael Costa','Beatriz Lima','Thiago Nunes'];
+const AGENT_ABBR = {'Lucas Mendes':'LM','Ana Souza':'AS','Rafael Costa':'RC','Beatriz Lima':'BL','Thiago Nunes':'TN'};
+
+const TICKETS = [
+  { id:'#CX-8821', subject:'Queda de link fibra óptica', company:'Nexus Tech', cat:'Infraestrutura', prio:'alta', status:'active', agent:'Lucas Mendes', date:'25/02/2026', req:'Marcos Ferreira',
+    desc:`<p>Por volta das <strong>07h15</strong>, o link de fibra óptica do escritório da Av. Paulista caiu completamente. Todos os 47 colaboradores estão sem acesso à internet e sistemas internos.</p><p>A luz de sinal óptico do ONT está totalmente apagada. Impacto crítico no ERP e e-mail corporativo.</p>`,
+    timeline: [
+      { dot:'d-gray', icon:'bi-ticket-perforated', author:'Sistema', when:'25/02 · 07:42', type:'event', msg:'Ticket #CX-8821 criado — categoria Infraestrutura, prioridade Alta.' },
+      { dot:'d-gray', icon:'bi-person-check', author:'Sistema', when:'25/02 · 07:43', type:'event', msg:'Atribuído para Lucas Mendes.' },
+      { dot:'d-blue', icon:'bi-headset', author:'Lucas Mendes', when:'25/02 · 08:10', type:'agent', msg:'Bom dia, Marcos! Abrimos chamado junto à operadora (protocolo #OP-554821). Verifique se a luz de sinal do ONT está apagada ou vermelha.' },
+      { dot:'d-purple', icon:'bi-lock', author:'Lucas Mendes', when:'25/02 · 08:25', type:'internal', msg:'Queda no nó de distribuição da região Paulista/Consolação. Previsão de normalização em 2h.' },
+      { dot:'d-yellow', icon:'bi-person', author:'Marcos Ferreira', when:'25/02 · 08:31', type:'client', msg:'Confirmado! Luz de sinal apagada. Obrigado pelo retorno.' },
+    ]
+  },
+  { id:'#CX-8820', subject:'Servidor de e-mail fora do ar', company:'Vertice S/A', cat:'Infraestrutura', prio:'alta', status:'active', agent:'Ana Souza', date:'25/02/2026', req:'Carla Mendes',
+    desc:`<p>Desde as 09h de hoje, nenhum colaborador consegue enviar ou receber e-mails. O servidor Exchange apresenta erro 503.</p><p>Já reiniciamos os serviços IIS sem sucesso. Necessitamos de acesso remoto urgente.</p>`,
+    timeline:[
+      { dot:'d-gray', icon:'bi-ticket-perforated', author:'Sistema', when:'25/02 · 09:05', type:'event', msg:'Ticket criado — prioridade Alta.' },
+      { dot:'d-blue', icon:'bi-headset', author:'Ana Souza', when:'25/02 · 09:20', type:'agent', msg:'Olá Carla! Iremos acessar o servidor remotamente. Aguarde nossa conexão.' },
+    ]
+  },
+  { id:'#CX-8819', subject:'Falha crítica no ERP — módulo fiscal', company:'BluePeak', cat:'Software', prio:'critica', status:'critical', agent:'Rafael Costa', date:'24/02/2026', req:'Pedro Alves',
+    desc:`<p>O módulo fiscal do ERP está travando ao gerar NF-e. Erro: "Certificado digital expirado". Emissões paradas há 4h, impactando toda a operação de vendas.</p>`,
+    timeline:[
+      { dot:'d-gray', icon:'bi-ticket-perforated', author:'Sistema', when:'24/02 · 14:00', type:'event', msg:'Ticket criado — CRÍTICO.' },
+      { dot:'d-blue', icon:'bi-headset', author:'Rafael Costa', when:'24/02 · 14:15', type:'agent', msg:'Verificamos que o certificado A1 venceu ontem. Já estamos em contato com a Receita Federal para renovação emergencial.' },
+      { dot:'d-yellow', icon:'bi-person', author:'Pedro Alves', when:'24/02 · 14:40', type:'client', msg:'Precisamos resolver urgente. A equipe de vendas está parada.' },
+    ]
+  },
+  { id:'#CX-8817', subject:'Lentidão na rede Wi-Fi — matriz', company:'Orion Sistemas', cat:'Infraestrutura', prio:'media', status:'pending', agent:'Beatriz Lima', date:'24/02/2026', req:'João Santos',
+    desc:`<p>A rede Wi-Fi da matriz está com velocidade muito baixa (2 Mbps ao invés dos 200 Mbps contratados). Problema iniciou ontem à tarde.</p>`,
+    timeline:[
+      { dot:'d-gray', icon:'bi-ticket-perforated', author:'Sistema', when:'24/02 · 10:00', type:'event', msg:'Ticket criado.' },
+      { dot:'d-blue', icon:'bi-headset', author:'Beatriz Lima', when:'24/02 · 10:30', type:'agent', msg:'Realizamos diagnóstico remoto — identificamos interferência no canal 6. Solicito que reinicie o AP principal e nos informe o resultado.' },
+      { dot:'d-gray', icon:'bi-arrow-right-circle', author:'Sistema', when:'24/02 · 10:31', type:'event', msg:'Status alterado para: Aguardando cliente.' },
+    ]
+  },
+  { id:'#CX-8815', subject:'VPN sem acesso após atualização Windows', company:'DataBridge', cat:'Suporte Técnico', prio:'media', status:'active', agent:'Thiago Nunes', date:'23/02/2026', req:'Fernanda Costa',
+    desc:`<p>Após atualização do Windows 11, 3 usuários perderam acesso à VPN corporativa. Erro: "TAP adapter not found".</p>`,
+    timeline:[
+      { dot:'d-gray', icon:'bi-ticket-perforated', author:'Sistema', when:'23/02 · 16:00', type:'event', msg:'Ticket criado.' },
+      { dot:'d-blue', icon:'bi-headset', author:'Thiago Nunes', when:'23/02 · 16:30', type:'agent', msg:'A atualização KB5034441 remove drivers TAP. Iremos reinstalar o cliente VPN com driver atualizado.' },
+    ]
+  },
+  { id:'#CX-8814', subject:'Impressoras offline — filial Sul', company:'Nexus Tech', cat:'Hardware', prio:'baixa', status:'open', agent:'Lucas Mendes', date:'23/02/2026', req:'Ricardo Lima',
+    desc:`<p>3 impressoras HP LaserJet da filial Sul aparecem offline no servidor de impressão. Os dispositivos estão ligados e conectados na rede.</p>`,
+    timeline:[
+      { dot:'d-gray', icon:'bi-ticket-perforated', author:'Sistema', when:'23/02 · 11:00', type:'event', msg:'Ticket criado.' },
+    ]
+  },
+  { id:'#CX-8812', subject:'Backup não executou — servidor produção', company:'Orion Sistemas', cat:'Infraestrutura', prio:'alta', status:'active', agent:'Ana Souza', date:'22/02/2026', req:'Mariana Alves',
+    desc:`<p>O job de backup agendado para 02h não foi executado nos últimos 3 dias. O software Veeam apresenta erro de conexão com o repositório.</p>`,
+    timeline:[
+      { dot:'d-gray', icon:'bi-ticket-perforated', author:'Sistema', when:'22/02 · 08:00', type:'event', msg:'Ticket criado.' },
+      { dot:'d-blue', icon:'bi-headset', author:'Ana Souza', when:'22/02 · 08:45', type:'agent', msg:'Identificamos que o disco do repositório está 98% cheio. Iremos liberar espaço e reagendar o backup.' },
+    ]
+  },
+  { id:'#CX-8809', subject:'Atualização firewall Fortinet', company:'DataBridge', cat:'Infraestrutura', prio:'media', status:'pending', agent:'Rafael Costa', date:'22/02/2026', req:'Gustavo Rocha',
+    desc:`<p>Solicito atualização do firmware do firewall FortiGate 100F para a versão 7.4.3, conforme recomendação do fabricante para correção de vulnerabilidade crítica.</p>`,
+    timeline:[
+      { dot:'d-gray', icon:'bi-ticket-perforated', author:'Sistema', when:'22/02 · 14:00', type:'event', msg:'Ticket criado — Solicitação.' },
+      { dot:'d-blue', icon:'bi-headset', author:'Rafael Costa', when:'22/02 · 15:00', type:'agent', msg:'Agendamos a manutenção para sábado às 22h, fora do horário de pico. Confirme disponibilidade.' },
+      { dot:'d-gray', icon:'bi-arrow-right-circle', author:'Sistema', when:'22/02 · 15:01', type:'event', msg:'Aguardando confirmação do cliente.' },
+    ]
+  },
+  { id:'#CX-8805', subject:'Novo usuário AD — diretoria', company:'Vertice S/A', cat:'Solicitação', prio:'baixa', status:'open', agent:'Beatriz Lima', date:'21/02/2026', req:'Silvia Teixeira',
+    desc:`<p>Solicito criação de conta no Active Directory para novo diretor de operações: Paulo Henrique da Silva. Perfil: acesso total ao ERP e SharePoint corporativo.</p>`,
+    timeline:[
+      { dot:'d-gray', icon:'bi-ticket-perforated', author:'Sistema', when:'21/02 · 10:00', type:'event', msg:'Ticket criado — Solicitação.' },
+    ]
+  },
+  { id:'#CX-8800', subject:'Configuração switch HP Procurve', company:'BluePeak', cat:'Infraestrutura', prio:'media', status:'resolved', agent:'Thiago Nunes', date:'20/02/2026', req:'André Moraes',
+    desc:`<p>Configuração de VLANs e trunk ports no switch HP Procurve 2930F para segregação das redes de produção e visitantes.</p>`,
+    timeline:[
+      { dot:'d-gray', icon:'bi-ticket-perforated', author:'Sistema', when:'20/02 · 09:00', type:'event', msg:'Ticket criado.' },
+      { dot:'d-blue', icon:'bi-headset', author:'Thiago Nunes', when:'20/02 · 10:30', type:'agent', msg:'VLANs configuradas. VLAN 10 (produção) e VLAN 20 (visitantes) funcionando corretamente.' },
+      { dot:'d-yellow', icon:'bi-person', author:'André Moraes', when:'20/02 · 11:00', type:'client', msg:'Perfeito! Testamos e está funcionando. Pode encerrar.' },
+      { dot:'d-green', icon:'bi-check-circle', author:'Sistema', when:'20/02 · 11:05', type:'event', msg:'Ticket resolvido.' },
+    ]
+  },
+  { id:'#CX-8797', subject:'Migração e-mail para Office 365', company:'Nexus Tech', cat:'Solicitação', prio:'alta', status:'active', agent:'Lucas Mendes', date:'19/02/2026', req:'Marcos Ferreira',
+    desc:`<p>Iniciar migração das 47 caixas de e-mail do Exchange on-premise para o Microsoft 365 E3. Prazo solicitado: 2 semanas.</p>`,
+    timeline:[
+      { dot:'d-gray', icon:'bi-ticket-perforated', author:'Sistema', when:'19/02 · 14:00', type:'event', msg:'Ticket criado — Projeto.' },
+      { dot:'d-blue', icon:'bi-headset', author:'Lucas Mendes', when:'19/02 · 15:00', type:'agent', msg:'Iniciamos o planejamento. Criamos o tenant M365 e estamos em fase de preparação do ambiente.' },
+    ]
+  },
+  { id:'#CX-8793', subject:'Erro 404 sistema web interno', company:'Orion Sistemas', cat:'Software', prio:'media', status:'resolved', agent:'Ana Souza', date:'18/02/2026', req:'Camila Ferreira',
+    desc:`<p>O sistema web de controle de produção retorna erro 404 ao acessar módulo de relatórios após deploy realizado ontem.</p>`,
+    timeline:[
+      { dot:'d-gray', icon:'bi-ticket-perforated', author:'Sistema', when:'18/02 · 09:00', type:'event', msg:'Ticket criado.' },
+      { dot:'d-blue', icon:'bi-headset', author:'Ana Souza', when:'18/02 · 09:40', type:'agent', msg:'Identificamos que o deploy não atualizou as rotas. Corrigimos o arquivo de configuração do Nginx.' },
+      { dot:'d-green', icon:'bi-check-circle', author:'Sistema', when:'18/02 · 10:00', type:'event', msg:'Ticket resolvido.' },
+    ]
+  },
+];
+
+// ══════════════════════════════════════════
+// STATE
+// ══════════════════════════════════════════
+let currentView = 'dash';
+let statusFilter = 'all';
+let companyFilter = null;
+let mineFilter = false;
+let currentTicketId = null;
+let replyMode = 'reply';
+
+// ══════════════════════════════════════════
+// RENDER HELPERS
+// ══════════════════════════════════════════
+const PRIO_MAP = {
+  baixa:  { label:'Baixa',   cls:'p-baixa', color:'var(--success)' },
+  media:  { label:'Média',   cls:'p-media', color:'var(--warning)' },
+  alta:   { label:'Alta',    cls:'p-alta',  color:'var(--danger)' },
+  critica:{ label:'Crítica', cls:'p-critica',color:'var(--critical)' },
+};
+
+const STATUS_MAP = {
+  open:     { label:'Aberto',           badge:'badge-open',     sel:'open' },
+  active:   { label:'Em Atendimento',   badge:'badge-active',   sel:'active' },
+  pending:  { label:'Aguardando',       badge:'badge-pending',  sel:'pending' },
+  resolved: { label:'Resolvido',        badge:'badge-resolved', sel:'resolved' },
+  critical: { label:'Crítico',          badge:'badge-critical', sel:'critical' },
+};
+
+function badgeHTML(status) {
+  const s = STATUS_MAP[status] || STATUS_MAP.open;
+  return `<span class="badge ${s.badge}"><i class="bi bi-circle-fill"></i>${s.label}</span>`;
+}
+
+function prioHTML(prio) {
+  const p = PRIO_MAP[prio] || PRIO_MAP.media;
+  return `<span style="display:inline-flex;align-items:center;gap:.35rem;font-size:.75rem;color:var(--text-muted);">
+    <span class="p-dot ${p.cls}"></span>${p.label}</span>`;
+}
+
+function coHTML(company) {
+  const c = COMPANIES[company] || { color:'#666', abbr:'?' };
+  return `<span class="t-company"><span class="co-dot" style="background:${c.color}"></span>${company}</span>`;
+}
+
+function rowHTML(t, full=true) {
+  const ag = t.agent;
+  const abbr = AGENT_ABBR[ag] || ag.split(' ').map(w=>w[0]).join('');
+  return `<tr onclick="openTicket('${t.id}')">
+    <td><span class="t-id">${t.id}</span></td>
+    <td><div class="t-subject">${t.subject}<small>${coHTML(t.company)}</small></div></td>
+    ${full ? `<td><span style="font-size:.75rem;color:var(--text-muted);">${t.cat}</span></td>` : ''}
+    <td>${prioHTML(t.prio)}</td>
+    <td>${badgeHTML(t.status)}</td>
+    <td><div class="t-agent"><div class="t-avatar">${abbr}</div>${ag.split(' ')[0]}</div></td>
+    ${full ? `<td class="t-date">${t.date}</td>` : ''}
+    <td>
+      <div class="t-actions">
+        <div class="act-btn primary" title="Abrir" onclick="event.stopPropagation();openTicket('${t.id}')"><i class="bi bi-eye"></i></div>
+        <div class="act-btn" title="Atribuir a mim" onclick="event.stopPropagation();toast('Ticket atribuído a você.','b')"><i class="bi bi-person-check"></i></div>
+        <div class="act-btn" title="Resolver" onclick="event.stopPropagation();quickResolve('${t.id}')"><i class="bi bi-check2"></i></div>
+      </div>
+    </td>
+  </tr>`;
+}
+
+// ══════════════════════════════════════════
+// VIEWS
+// ══════════════════════════════════════════
+function showView(v) {
+  document.querySelectorAll('.view').forEach(el => { el.style.display='none'; el.classList.remove('active'); });
+  const el = document.getElementById('view-'+v);
+  if (el) { el.style.display='flex'; el.classList.add('active'); }
+  currentView = v;
+
+  document.querySelectorAll('.sb-link').forEach(l=>l.classList.remove('active'));
+  const navEl = document.getElementById('nav-'+v);
+  if (navEl) navEl.classList.add('active');
+
+  if (v === 'tickets') { companyFilter=null; mineFilter=false; applyFilters(); }
+  if (v === 'dash') renderDash();
+}
+
+function renderDash() {
+  const recent = TICKETS.slice(0,6);
+  document.getElementById('recentTableBody').innerHTML = recent.map(t=>rowHTML(t,false)).join('');
+}
+
+function applyFilters() {
+  let filtered = [...TICKETS];
+  if (statusFilter !== 'all') filtered = filtered.filter(t=>t.status===statusFilter);
+  if (companyFilter) filtered = filtered.filter(t=>t.company===companyFilter);
+  if (mineFilter) filtered = filtered.filter(t=>t.agent==='Lucas Mendes');
+  const q = (document.getElementById('mainSearch')?.value||'').toLowerCase();
+  if (q) filtered = filtered.filter(t=>(t.id+t.subject+t.company+t.cat).toLowerCase().includes(q));
+
+  document.getElementById('mainTableBody').innerHTML = filtered.length
+    ? filtered.map(t=>rowHTML(t,true)).join('')
+    : `<tr><td colspan="8"><div class="empty-state"><i class="bi bi-ticket-perforated"></i><p>Nenhum ticket encontrado.</p></div></td></tr>`;
+
+  const n = filtered.length;
+  document.getElementById('ticketCount').textContent = n + ' ticket' + (n!==1?'s':'') + ' encontrado' + (n!==1?'s':'');
+  document.getElementById('tblInfo').textContent = 'Mostrando '+n+' ticket'+(n!==1?'s':'');
+}
+
+function setStatusFilter(chip) {
+  document.querySelectorAll('.filter-chips .chip').forEach(c=>{
+    c.classList.remove('active');
+  });
+  chip.classList.add('active');
+  statusFilter = chip.dataset.status;
+  applyFilters();
+}
+
+function filterCompany(co) {
+  companyFilter = co;
+  mineFilter = false;
+  showView('tickets');
+  document.getElementById('ticketsViewTitle').textContent = co;
+  document.querySelectorAll('.sb-company').forEach(el=>{
+    el.classList.toggle('active-co', el.textContent.trim().startsWith(co));
+  });
+}
+
+function filterMine() {
+  mineFilter = true; companyFilter = null; statusFilter = 'all';
+  showView('tickets');
+  document.getElementById('ticketsViewTitle').textContent = 'Meus Tickets';
+  document.querySelectorAll('.sb-link').forEach(l=>l.classList.remove('active'));
+  document.getElementById('nav-mine').classList.add('active');
+}
+
+function filterCritical() {
+  mineFilter = false; companyFilter = null; statusFilter = 'critical';
+  showView('tickets');
+  document.getElementById('ticketsViewTitle').textContent = 'Tickets Críticos';
+  document.querySelectorAll('.filter-chips .chip').forEach(c=>{
+    c.classList.toggle('active', c.dataset.status==='critical');
+  });
+}
+
+function filterPending() {
+  mineFilter = false; companyFilter = null; statusFilter = 'pending';
+  showView('tickets');
+  document.getElementById('ticketsViewTitle').textContent = 'Aguardando Cliente';
+  document.querySelectorAll('.filter-chips .chip').forEach(c=>{
+    c.classList.toggle('active', c.dataset.status==='pending');
+  });
+}
+
+// ══════════════════════════════════════════
+// TICKET DETAIL
+// ══════════════════════════════════════════
+function openTicket(id) {
+  const t = TICKETS.find(x=>x.id===id);
+  if (!t) return;
+  currentTicketId = id;
+
+  // topbar
+  document.getElementById('d-id').textContent = t.id;
+  document.getElementById('d-title').textContent = t.subject;
+  const badge = document.getElementById('d-badge');
+  badge.className = 'badge ' + STATUS_MAP[t.status].badge;
+  badge.innerHTML = `<i class="bi bi-circle-fill"></i>${STATUS_MAP[t.status].label}`;
+
+  // desc
+  document.getElementById('d-desc').innerHTML = t.desc;
+  document.getElementById('d-req-av').textContent = t.req.split(' ').map(w=>w[0]).join('').slice(0,2);
+  document.getElementById('d-req-name').textContent = t.req;
+  document.getElementById('d-attachments').innerHTML = '';
+
+  // sidebar details
+  document.getElementById('d-co').textContent = t.company;
+  document.getElementById('d-cat').textContent = t.cat;
+  document.getElementById('d-date').textContent = t.date;
+  const pInfo = PRIO_MAP[t.prio];
+  document.getElementById('d-prio').innerHTML = `<span style="color:${pInfo.color};font-weight:600;">${pInfo.label}</span>`;
+  document.getElementById('d-status-sel').value = t.status;
+
+  // agent & client
+  const abbr = AGENT_ABBR[t.agent] || 'AG';
+  document.getElementById('d-agent-av').textContent = abbr;
+  document.getElementById('d-agent-name').textContent = t.agent;
+  document.getElementById('d-cli-av').textContent = t.req.split(' ').map(w=>w[0]).join('').slice(0,2);
+  document.getElementById('d-cli-name').textContent = t.req;
+  document.getElementById('d-cli-co').textContent = 'Solicitante · ' + t.company;
+
+  // timeline
+  renderTimeline(t.timeline);
+  document.getElementById('d-tl-count').textContent = t.timeline.filter(x=>x.type!=='event').length + ' mensagens';
+
+  // SLA
+  const slaMap = { baixa:'92%', media:'72%', alta:'45%', critica:'18%' };
+  const slaTime = { baixa:'4h 10min restantes', media:'1h 24min restantes', alta:'28min restantes', critica:'⚠ SLA expirado' };
+  document.getElementById('d-sla-bar').style.width = slaMap[t.prio];
+  document.getElementById('d-sla-txt').innerHTML = `<i class="bi bi-hourglass-split"></i> ${slaTime[t.prio]}`;
+
+  showView('detail');
+}
+
+function renderTimeline(tl) {
+  document.getElementById('d-timeline').innerHTML = tl.map(item => {
+    let content = '';
+    if (item.type === 'event') {
+      content = `<div class="tl-event"><i class="bi bi-circle-fill" style="font-size:.35rem;color:var(--text-dim);"></i>${item.msg}</div>`;
+    } else {
+      const isNote = item.type === 'internal';
+      const isClient = item.type === 'client';
+      const tagClr = isNote ? '#a855f7' : isClient ? '#fbbf24' : 'var(--blue-bright)';
+      const tagBg = isNote ? 'rgba(168,85,247,.1)' : isClient ? 'rgba(245,158,11,.1)' : 'rgba(13,110,253,.1)';
+      const tagBd = isNote ? 'rgba(168,85,247,.25)' : isClient ? 'rgba(245,158,11,.25)' : 'var(--border-blue)';
+      const tagLbl = isNote ? 'Nota interna' : isClient ? 'Cliente' : 'Agente';
+      const avBg = isNote ? 'background:rgba(168,85,247,.2);border-color:rgba(168,85,247,.4);' : isClient ? 'background:rgba(245,158,11,.2);border-color:rgba(245,158,11,.3);' : '';
+      const avAbbr = item.author.split(' ').map(w=>w[0]).join('').slice(0,2);
+      content = `
+        <div class="tl-hdr">
+          <div style="display:flex;align-items:center;gap:.45rem;">
+            <div class="av" style="width:1.5rem;height:1.5rem;font-size:.55rem;${avBg}">${avAbbr}</div>
+            <span class="tl-author">${item.author}</span>
+            <span style="font-size:.65rem;color:${tagClr};background:${tagBg};padding:.12rem .5rem;border-radius:4px;border:1px solid ${tagBd};">${tagLbl}</span>
+          </div>
+          <span class="tl-when">${item.when}</span>
+        </div>
+        <div class="tl-msg ${isNote?'internal':''}">
+          ${isNote ? '<div class="int-label"><i class="bi bi-eye-slash"></i> Somente equipe</div>' : ''}
+          ${item.msg}
+        </div>`;
+    }
+    return `<div class="tl-item">
+      <div class="tl-dot ${item.dot}"><i class="bi ${item.icon}"></i></div>
+      <div class="tl-content">${content}</div>
+    </div>`;
+  }).join('');
+}
+
+function sendReply() {
+  const ta = document.getElementById('replyTa');
+  const text = ta.value.trim();
+  if (!text) { ta.focus(); return; }
+
+  const t = TICKETS.find(x=>x.id===currentTicketId);
+  if (!t) return;
+
+  const now = new Date();
+  const when = now.toLocaleDateString('pt-BR',{day:'2-digit',month:'2-digit'}) + ' · ' +
+               now.toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'});
+
+  const isNote = replyMode === 'note';
+  t.timeline.push({
+    dot: isNote ? 'd-purple' : 'd-blue',
+    icon: isNote ? 'bi-lock' : 'bi-headset',
+    author: 'Lucas Mendes',
+    when, type: isNote ? 'internal' : 'agent',
+    msg: text
+  });
+
+  renderTimeline(t.timeline);
+  ta.value = '';
+  document.getElementById('d-tl-count').textContent = t.timeline.filter(x=>x.type!=='event').length + ' mensagens';
+  toast(isNote ? 'Nota interna salva.' : 'Resposta enviada ao cliente.', isNote ? 'p' : 'g');
+}
+
+function switchRTab(mode) {
+  replyMode = mode;
+  const ta = document.getElementById('replyTa');
+  const btnSend = document.getElementById('sendReplyBtn');
+  document.getElementById('rt-reply').className = 'r-tab' + (mode==='reply'?' a-reply':'');
+  document.getElementById('rt-note').className  = 'r-tab' + (mode==='note'?' a-note':'');
+  ta.classList.toggle('note-m', mode==='note');
+  ta.placeholder = mode==='note' ? 'Nota interna (visível apenas para a equipe)...' : 'Escreva sua resposta para o cliente...';
+  btnSend.innerHTML = mode==='note' ? '<i class="bi bi-lock"></i> Salvar nota' : '<i class="bi bi-send-fill"></i> Enviar';
+}
+
+function updateDetailStatus(sel) {
+  const t = TICKETS.find(x=>x.id===currentTicketId);
+  if (t) t.status = sel.value;
+  const s = STATUS_MAP[sel.value] || STATUS_MAP.open;
+  const badge = document.getElementById('d-badge');
+  badge.className = 'badge ' + s.badge;
+  badge.innerHTML = `<i class="bi bi-circle-fill"></i>${s.label}`;
+  toast('Status atualizado: ' + s.label, 'b');
+}
+
+function resolveTicket() {
+  const t = TICKETS.find(x=>x.id===currentTicketId);
+  if (t) t.status = 'resolved';
+  document.getElementById('d-status-sel').value = 'resolved';
+  updateDetailStatus(document.getElementById('d-status-sel'));
+  toast('Ticket resolvido com sucesso!', 'g');
+}
+
+function escalateTicket() {
+  const t = TICKETS.find(x=>x.id===currentTicketId);
+  if (t) t.status = 'critical';
+  document.getElementById('d-status-sel').value = 'critical';
+  updateDetailStatus(document.getElementById('d-status-sel'));
+  toast('Ticket escalado para Nível 2.', 'b');
+}
+
+function quickResolve(id) {
+  const t = TICKETS.find(x=>x.id===id);
+  if (t) { t.status='resolved'; applyFilters(); }
+  toast('Ticket ' + id + ' resolvido.', 'g');
+}
+
+function toggleChk(item) {
+  item.classList.toggle('done');
+}
+
+// ══════════════════════════════════════════
+// UTILS
+// ══════════════════════════════════════════
+function toast(msg, type='g') {
+  const el = document.getElementById('toastCx');
+  const ico = document.getElementById('toastIco');
+  const ttl = document.getElementById('toastTtl');
+  const sub = document.getElementById('toastSub');
+  const icoMap = { g:'bi-check-lg', b:'bi-info-circle', p:'bi-lock' };
+  const ttlMap = { g:'Sucesso', b:'Informação', p:'Nota' };
+  ico.className = 'toast-ico '+type;
+  ico.innerHTML = `<i class="bi ${icoMap[type]||'bi-check-lg'}"></i>`;
+  ttl.textContent = ttlMap[type]||'';
+  sub.textContent = msg;
+  el.classList.add('show');
+  clearTimeout(window._t);
+  window._t = setTimeout(()=>el.classList.remove('show'), 2800);
+}
+
+function focusSearch() {
+  showView('tickets');
+  setTimeout(()=>document.getElementById('mainSearch')?.focus(), 100);
+}
+
+// ══════════════════════════════════════════
+// INIT
+// ══════════════════════════════════════════
+renderDash();
+applyFilters();
+</script>
+</body>
+</html>
