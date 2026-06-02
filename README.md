@@ -1,6 +1,6 @@
 <div align="center">
 
-  <img width="618" height="515" alt="corex" src="https://github.com/user-attachments/assets/8b5a16b6-1800-47c0-b424-415bad037946" />
+<img width="714" height="603" alt="Captura de tela 2026-06-01 220414" src="https://github.com/user-attachments/assets/3d594b98-f886-46c7-aa56-38475a64a1ef" />
 
 </div>
 
