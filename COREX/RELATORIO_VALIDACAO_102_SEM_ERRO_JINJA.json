@@ -1,0 +1,8 @@
+{
+  "base_usada": "COREX_DEFINITIVO_COMPLETO_101_JINJA_CORRIGIDO.zip",
+  "arquivos_corrigidos": [],
+  "backslash_em_jinja_restante": [],
+  "erros_jinja": [],
+  "erros_python": [],
+  "observacao": "A linha do homepage.html foi corrigida para url_for('download_chamado', id_tarefa=tarefa.id), sem barras invertidas."
+}

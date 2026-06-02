@@ -1,0 +1,14 @@
+ALTERAÇÕES FEITAS:
+
+1. O Sobre Nós voltou para o modelo antigo, abrindo em página própria: /sobre
+2. O menu da página inicial agora aponta para /sobre.
+3. O visual do Gerenciador/Chamados foi ajustado para ficar mais parecido com o site principal:
+   - fontes Orbitron e Rajdhani;
+   - fundo com grid;
+   - logo COREX Nano Technologies;
+   - cards e botões no estilo azul neon;
+   - sidebar mais próxima do visual do site.
+
+Login padrão:
+Email: admin@corex.com
+Senha: 123456

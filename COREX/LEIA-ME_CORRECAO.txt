@@ -1,0 +1,8 @@
+Correção aplicada:
+
+- Este pacote foi montado copiando integralmente o projeto original "gerenciador adicionado".
+- O banco instance/gerenciador.db foi preservado.
+- Backend preservado: routes.py, models.py, forms.py, __init__.py, main.py, criar_banco.py, chave.py e requirements.txt.
+- Alterações feitas somente em templates HTML e adição do CSS corex_theme.css.
+- Menus restaurados: Home/Perfil, Chamados, Gerenciador Interno, Criar Conta e Sair.
+- Funcionalidades preservadas: login, logout, criação de conta, criação de tarefas por admin, atribuição de tarefas, assumir tarefa, concluir tarefa e upload de imagem.

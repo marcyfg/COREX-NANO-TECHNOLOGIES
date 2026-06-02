@@ -1,0 +1,22 @@
+COREX VER11 - Correção foto do chamado e espaçamento do formulário
+
+Alterações feitas:
+
+1. Foto/anexo do chamado
+- O upload da imagem agora salva o arquivo com nome único.
+- Evita conflito quando duas imagens têm o mesmo nome.
+- Aceita PNG, JPG, JPEG, GIF e WEBP.
+- A imagem anexada agora aparece na página de detalhe do chamado, na seção "Anexo do chamado".
+- Ao clicar na imagem, ela abre em uma nova aba.
+
+2. Texto sobreposto no formulário
+- Removido o margin-top negativo dos textos de ajuda.
+- Criada a classe field-help com espaçamento correto.
+- Corrigido o texto abaixo de "Setor do chamado" e "Usuário responsável".
+
+Arquivos alterados:
+- gerenciador/routes.py
+- gerenciador/templates/abrir_chamado.html
+- gerenciador/templates/detalhe_tarefa.html
+- gerenciador/templates/base.html
+- gerenciador/static/css/corex_theme.css

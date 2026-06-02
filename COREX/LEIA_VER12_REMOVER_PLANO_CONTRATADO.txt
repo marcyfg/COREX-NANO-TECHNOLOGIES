@@ -1,0 +1,12 @@
+COREX VER12 - REMOÇÃO DO PLANO CONTRATADO
+
+Alterações realizadas:
+- Removido o campo Plano Contratado do formulário de criação de usuário.
+- Removido o campo Plano Contratado do formulário/perfil da empresa cliente.
+- Removida a exibição de Plano no detalhe do chamado.
+- Removida a exibição de Plano no cabeçalho do perfil.
+- Removidas as atribuições automáticas de plano nas rotas.
+- Removido o campo plano_contratado do model Usuario para novas bases.
+
+Observação:
+Se você já possui um banco antigo com a coluna plano_contratado, não precisa apagar nada. O sistema apenas deixa de usar essa informação.

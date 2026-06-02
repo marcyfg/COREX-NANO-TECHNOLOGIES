@@ -1,0 +1,15 @@
+COMO RODAR
+
+1. Abra esta pasta no PyCharm.
+2. Rode primeiro criar_banco.py. Deve aparecer:
+   BANCO CRIADO E ADMIN PADRAO CADASTRADO
+   ou ADMIN PADRAO ATUALIZADO
+
+3. Depois rode main.py.
+4. Abra http://127.0.0.1:5000
+
+LOGIN PADRAO:
+Email: admin@corex.com
+Senha: 123456
+
+Se o criar_banco.py nao mostrar nada, ele nao foi executado.

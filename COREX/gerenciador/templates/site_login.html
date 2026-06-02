@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Login | CoreX</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='site/style.css') }}">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css" rel="stylesheet">
+<style>
+*{box-sizing:border-box}body{margin:0;font-family:Inter,Arial,sans-serif;background:#06101f;color:#fff}.login-shell{min-height:100vh;display:grid;grid-template-columns:1.05fr .95fr;background:radial-gradient(circle at top left,rgba(0,136,255,.22),transparent 32%),#06101f}.login-hero{padding:54px;display:flex;flex-direction:column;justify-content:space-between;border-right:1px solid rgba(255,255,255,.08)}.brand{display:flex;align-items:center;gap:12px;text-decoration:none;color:#fff;font-weight:800;font-size:28px}.brand-icon{width:42px;height:42px;border-radius:14px;background:linear-gradient(135deg,#00bfff,#0044ff);display:flex;align-items:center;justify-content:center}.hero-copy{max-width:560px}.hero-copy small{color:#20c8ff;letter-spacing:.18em;font-weight:800}.hero-copy h1{font-size:54px;line-height:1.02;margin:14px 0}.hero-copy p{color:#a9bdd7;font-size:17px;line-height:1.7}.hero-points{display:grid;gap:12px;margin-top:28px}.hero-points span{display:flex;align-items:center;gap:10px;color:#dceaff}.login-area{display:flex;align-items:center;justify-content:center;padding:34px}.login-card{width:100%;max-width:460px;background:rgba(255,255,255,.055);border:1px solid rgba(255,255,255,.12);box-shadow:0 30px 90px rgba(0,0,0,.35);padding:38px;border-radius:28px;backdrop-filter:blur(16px)}.login-card h2{font-size:32px;margin:0 0 8px}.login-card p{color:#a9bdd7;margin:0 0 26px;line-height:1.6}.login-card label{display:block;margin:14px 0 8px;color:#e9f2ff;font-weight:700}.login-card input{width:100%;padding:15px 16px;border-radius:16px;border:1px solid rgba(255,255,255,.12);background:#0b1729;color:#fff;font:inherit;outline:none}.login-card input:focus{border-color:#00bfff;box-shadow:0 0 0 4px rgba(0,191,255,.12)}.login-card input[type=submit],.login-card button{margin-top:20px;cursor:pointer;background:linear-gradient(135deg,#00bfff,#0044ff);border:0;font-weight:800;letter-spacing:.02em}.login-alert{padding:12px 14px;border-radius:14px;background:rgba(255,92,122,.13);border:1px solid rgba(255,92,122,.32);color:#ffd5dd;margin-bottom:16px}.login-help{margin-top:18px;padding:14px;border-radius:16px;background:rgba(0,191,255,.09);border:1px solid rgba(0,191,255,.18);color:#b8cbe4;font-size:14px}.voltar{display:inline-flex;align-items:center;gap:8px;margin-top:20px;color:#9cc9ff;text-decoration:none;font-weight:700}@media(max-width:900px){.login-shell{grid-template-columns:1fr}.login-hero{display:none}.login-area{min-height:100vh}.login-card{padding:30px 24px}}
+</style>
+</head>
+<body>
+<div class="login-shell">
+  <section class="login-hero">
+    <a class="brand" href="{{ url_for('homepage') }}"><span class="brand-icon">CX</span><span>COREX</span></a>
+    <div class="hero-copy">
+      <small>PORTAL DE CHAMADOS</small>
+      <h1>Acesso seguro ao suporte CoreX.</h1>
+      <p>Entre para abrir chamados, acompanhar atendimentos, responder comentários e visualizar o histórico de suporte da sua empresa.</p>
+      <div class="hero-points">
+        <span><i class="bi bi-check-circle"></i> Central de chamados organizada</span>
+        <span><i class="bi bi-check-circle"></i> Histórico, comentários e anexos</span>
+        <span><i class="bi bi-check-circle"></i> Atendimento por equipe técnica CoreX</span>
+      </div>
+    </div>
+    <small style="color:#6f86a6">CoreX Nano Technologies</small>
+  </section>
+  <main class="login-area">
+    <form class="login-card" method="POST">
+      {{ form.hidden_tag() }}
+      <h2>Entrar na conta</h2>
+      <p>Use suas credenciais cadastradas pelo administrador para acessar o portal.</p>
+      {% with mensagens = get_flashed_messages(with_categories=true) %}
+        {% if mensagens %}
+          <div class="login-alert">{% for categoria, mensagem in mensagens %}<div>{{ mensagem }}</div>{% endfor %}</div>
+        {% endif %}
+      {% endwith %}
+      {{ form.email.label }}{{ form.email(placeholder='seuemail@empresa.com', autocomplete='email') }}
+      {{ form.senha.label }}{{ form.senha(placeholder='Digite sua senha', autocomplete='current-password') }}
+      {{ form.botao_confirmacao(value='ENTRAR') }}
+      <div class="login-help">Acesso restrito a clientes, técnicos e administradores CoreX.</div>
+      <a class="voltar" href="{{ url_for('homepage') }}"><i class="bi bi-arrow-left"></i> Voltar para o site principal</a>
+    </form>
+  </main>
+</div>
+</body></html>

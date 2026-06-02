@@ -1,0 +1,9 @@
+{
+  "arquivos_html_corrigidos": [
+    "feed.html",
+    "homepage.html"
+  ],
+  "erros_template_jinja": [],
+  "erros_sintaxe_python": [],
+  "correcao": "Removidas barras invertidas indevidas dentro de expressões Jinja, especialmente em url_for('download_chamado')."
+}

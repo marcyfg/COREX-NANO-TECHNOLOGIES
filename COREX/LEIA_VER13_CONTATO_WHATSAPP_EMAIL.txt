@@ -1,0 +1,12 @@
+COREX VER13 - Contato WhatsApp/E-mail
+
+Alterações realizadas:
+- Adicionado botão flutuante de contato rápido no site principal.
+- Ao clicar, abre uma telinha com opções de WhatsApp e e-mail.
+- Link do WhatsApp usa wa.me com mensagem automática.
+- Link de e-mail usa mailto com assunto e corpo preenchidos.
+- Botão adaptado para modo claro e escuro.
+
+IMPORTANTE:
+Troque o número 5511999999999 no arquivo templates/site_home.html pelo WhatsApp real da CoreX.
+Troque contato@corex.com pelo e-mail real da CoreX, se necessário.

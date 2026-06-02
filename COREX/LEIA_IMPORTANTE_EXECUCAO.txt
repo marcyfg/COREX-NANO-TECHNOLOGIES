@@ -1,0 +1,16 @@
+IMPORTANTE
+
+Use esta versão extraída, não a pasta antiga COREX_DEFINITIVO_COMPLETO_100 que já estava no seu PyCharm.
+
+O erro:
+jinja2.exceptions.TemplateSyntaxError: unexpected char '\'
+foi causado por uma linha antiga no homepage.html:
+url_for(\'download_chamado\')
+
+Nesta versão, a linha foi corrigida para:
+url_for('download_chamado', id_tarefa=tarefa.id)
+
+Validações realizadas:
+- Nenhuma barra invertida dentro de blocos Jinja.
+- Templates parseados sem erro.
+- Python compilado sem erro de sintaxe fora da .venv.

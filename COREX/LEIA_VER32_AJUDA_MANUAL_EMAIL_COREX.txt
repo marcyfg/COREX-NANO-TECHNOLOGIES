@@ -1,0 +1,7 @@
+COREX VER32 - AJUDA MANUAL E E-MAIL COREX
+
+Alterações realizadas:
+1. A Ajuda não abre mais automaticamente ao fazer login.
+2. A Ajuda só é aberta quando o usuário clicar no botão Ajuda.
+3. E-mail de contato atualizado para corexinformatica@gmail.com.
+4. PDF/rodapé de contato atualizado para o e-mail da CoreX.

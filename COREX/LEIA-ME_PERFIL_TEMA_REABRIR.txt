@@ -1,0 +1,22 @@
+Correções adicionadas nesta versão:
+
+1. Perfil completo:
+- Nome, foto de perfil, senha, tema, e visualização do email cadastrado.
+- Funcionários visualizam email/cargo/setor, mas não alteram cargo/setor/email/status.
+- ADM principal pode alterar cargo, setor e status de todos.
+- ADM de setor pode editar funcionários do próprio setor.
+
+2. Modo claro/escuro:
+- Preferência por usuário.
+- Atalho no menu lateral e campo no perfil.
+
+3. Chamados:
+- Botão para reabrir chamado concluído/encerrado.
+- Reabertura mantém histórico e registra comentário automático.
+
+4. Filtros:
+- Card de filtros centralizado para usar melhor o espaço da tela.
+
+Migração:
+- O banco é preservado.
+- Novas colunas são criadas automaticamente: foto_perfil e tema_preferido.

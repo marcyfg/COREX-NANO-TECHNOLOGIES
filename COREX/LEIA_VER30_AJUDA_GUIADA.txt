@@ -1,0 +1,5 @@
+VER30
+- Removido o menu e a tela Sobre o sistema do portal.
+- Implementado botão Ajuda guiada no menu lateral.
+- Tutorial com fundo embaçado, destaque/zoom nos elementos e texto explicativo.
+- Som leve opcional ao avançar etapas.

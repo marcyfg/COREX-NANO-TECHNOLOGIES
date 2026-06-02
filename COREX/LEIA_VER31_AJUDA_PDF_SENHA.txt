@@ -1,0 +1,15 @@
+COREX VER31 - AJUDA, PDF COREX E VISUALIZAR SENHA
+
+Alterações:
+1. Menu alterado de "Ajuda guiada" para "Ajuda".
+2. Tour de ajuda ajustado para destacar a área explicada sem aplicar desfoque sobre ela.
+3. PDF do chamado recebeu identidade visual mais forte da CoreX:
+   - cabeçalho escuro;
+   - marca CoreX;
+   - faixa azul;
+   - marca d'água discreta;
+   - rodapé corporativo.
+4. Tela de criação de usuário agora tem botão de olho para mostrar/ocultar senha e confirmação de senha.
+
+Observação:
+O PDF continua funcionando com ou sem ReportLab instalado. Quando ReportLab estiver instalado, usa o modelo mais completo; sem ReportLab, usa o gerador nativo do projeto.

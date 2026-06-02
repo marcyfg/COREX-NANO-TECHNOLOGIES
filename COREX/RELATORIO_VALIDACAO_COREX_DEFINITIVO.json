@@ -1,0 +1,25 @@
+{
+  "base_usada": "gerenciador_corex_CORRECOES_HOME_NAV_FILTROS.zip",
+  "tamanho_pasta_descompactada_mb": 79.76,
+  "estrutura": {
+    "main_py": true,
+    "package_init": true,
+    "routes": true,
+    "models": true,
+    "forms": true,
+    "templates": true,
+    "static": true,
+    "instance": true,
+    "venv": true,
+    "main_py_root_added": true
+  },
+  "validacoes": {
+    "make_response_importado": true,
+    "download_chamado_rota": true,
+    "feed_remove_encerrados": true,
+    "status_concluidos_filtro": true,
+    "status_forcados_filtro": true
+  },
+  "erros_sintaxe_python_fora_venv": [],
+  "observacao": "Pacote preserva .venv, instance/banco, static, templates, uploads e estrutura Flask completa da base grande."
+}

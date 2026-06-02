@@ -1,0 +1,36 @@
+ALTERAÇÃO REALIZADA - LÓGICA CORRETA DOS CHAMADOS
+
+O fluxo dos chamados foi refeito para combinar com a ideia da Core-X:
+
+1. Colaborador/cliente pode abrir chamado
+   - A rota /abrir-chamado não bloqueia mais usuários comuns.
+   - O botão "Abrir chamado" aparece no menu para todos os usuários logados.
+   - O colaborador escolhe o setor Core-X que deve atender o problema.
+
+2. Separação entre solicitante e responsável
+   - Foi criada a coluna id_solicitante na tabela tarefa.
+   - id_solicitante = usuário que abriu o chamado.
+   - id_usuario = responsável Core-X pelo atendimento.
+
+3. Visibilidade correta
+   - Cliente/colaborador vê somente os chamados que ele abriu.
+   - Admin de setor vê chamados do próprio setor.
+   - Admin principal vê todos os setores.
+
+4. Atendimento pela Core-X
+   - Apenas administradores/equipe Core-X podem assumir chamados sem responsável.
+   - Apenas administradores/equipe Core-X podem transferir, finalizar, reabrir ou forçar encerramento.
+   - O responsável pelo chamado agora precisa ser um usuário administrador ativo da Core-X.
+
+5. Banco de dados
+   - A migração automática adiciona id_solicitante sem apagar os dados antigos.
+   - Chamados antigos sem solicitante recebem compatibilidade automática para não perder acesso.
+
+Arquivos principais alterados:
+- gerenciador/models.py
+- gerenciador/routes.py
+- gerenciador/templates/base.html
+- gerenciador/templates/abrir_chamado.html
+- gerenciador/templates/feed.html
+- gerenciador/templates/gerenciador_interno.html
+- gerenciador/templates/detalhe_tarefa.html

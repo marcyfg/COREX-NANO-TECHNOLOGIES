@@ -1,0 +1,27 @@
+COREX VER15 - HIERARQUIA DE PERMISSÕES
+
+Implementado o modelo de permissões solicitado:
+
+1) ADM PRINCIPAL
+- Controle total do sistema.
+- Vê todos os setores e chamados.
+- Cria funcionários/clientes e ADMs operacionais.
+- Edita permissões, setores, status de usuários e chamados.
+
+2) ADM OPERACIONAL
+- Tem acesso administrativo limitado ao próprio setor.
+- Pode criar funcionários/clientes normais do próprio setor.
+- Pode atender, assumir, transferir, alterar status, finalizar e reabrir chamados do próprio setor.
+- Não pode criar outro ADM.
+- Não pode transformar funcionário em ADM.
+- Não pode gerenciar o ADM principal nem ADMs de outros setores.
+
+3) FUNCIONÁRIO/CLIENTE NORMAL
+- Não tem acesso administrativo.
+- Pode abrir chamados.
+- Pode acompanhar somente os chamados que ele mesmo abriu.
+- Pode comentar nos próprios chamados.
+- Não aparece como responsável técnico para transferência.
+- Não assume, transfere, finaliza ou encerra chamados.
+
+Observação: o usuário ID 1 e o usuário admin@corex.com são tratados como ADM principal.

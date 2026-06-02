@@ -1,0 +1,111 @@
+{% extends 'base.html' %}
+{% block titulo %}{{ tarefa.numero_ticket or ('Chamado #' ~ tarefa.id) }} | Core-X{% endblock %}
+{% block pagina_titulo %}{{ tarefa.numero_ticket or ('Chamado #' ~ tarefa.id) }}{% endblock %}
+
+{% block body %}
+<div class="ticket-detail-layout">
+    <section>
+        <div class="card ticket-detail-header">
+            <span class="eyebrow">{{ tarefa.categoria or 'Suporte Geral' }} • Prioridade {{ tarefa.prioridade or 'Média' }}</span>
+            <h2>{{ tarefa.titulo }}</h2>
+            <p class="muted">{{ tarefa.descricao or 'Sem descrição detalhada.' }}</p>
+            <div class="mini-list">
+                <span class="pill">Fila técnica: {{ tarefa.setor }}</span>
+                <span class="pill">Local do problema: {{ tarefa.setor_cliente or 'Não informado' }}</span>
+                <span class="pill">Solicitante: {% if tarefa.solicitante %}{{ tarefa.solicitante.username }}{% else %}Não informado{% endif %}</span>
+                <span class="pill">Responsável: {% if tarefa.usuario %}{{ tarefa.usuario.username }}{% else %}Sem responsável{% endif %}</span>
+            </div>
+            <div class="grid-actions" style="margin-top:18px;">
+                <a class="btn-core btn-secondary" href="{{ url_for('gerenciador_interno') }}"><i class="bi bi-arrow-left"></i> Voltar</a>
+                <a class="btn-core btn-secondary" href="{{ url_for('download_chamado', id_tarefa=tarefa.id) }}"><i class="bi bi-download"></i> Baixar</a>
+                {% if is_admin_corex(current_user) and pode_admin %}<a class="btn-core" href="{{ url_for('editar_tarefa', id_tarefa=tarefa.id) }}"><i class="bi bi-pencil-square"></i> Editar chamado</a>{% endif %}
+                {% if pode_assumir %}<a class="btn-core" href="{{ url_for('assumir_tarefa', id_tarefa=tarefa.id) }}"><i class="bi bi-person-check"></i> Assumir</a>{% endif %}
+                {% if pode_admin and not tarefa.concluida %}<a class="btn-core btn-green" href="{{ url_for('concluir_tarefa', id_tarefa=tarefa.id) }}"><i class="bi bi-check2"></i> Finalizar</a>{% endif %}
+                {% if pode_admin and (tarefa.concluida or tarefa.encerrada_forcada) %}<a class="btn-core btn-secondary" href="{{ url_for('reabrir_tarefa', id_tarefa=tarefa.id) }}"><i class="bi bi-arrow-counterclockwise"></i> Reabrir</a>{% endif %}
+                {% if pode_admin and not tarefa.encerrada_forcada %}<a class="btn-core btn-danger" href="{{ url_for('forcar_encerramento', id_tarefa=tarefa.id) }}"><i class="bi bi-shield-x"></i> Encerrar admin</a>{% endif %}
+            </div>
+        </div>
+
+        {% if tarefa.imagem %}
+        <div class="card attachment-card">
+            <h2><i class="bi bi-paperclip"></i> Anexo do chamado</h2>
+            <p class="muted">Imagem enviada pelo solicitante ou adicionada pela Core-X no chamado.</p>
+            <a href="{{ url_for('static', filename='fotos_posts/' + tarefa.imagem) }}" target="_blank" rel="noopener">
+                <img class="ticket-attachment-img" src="{{ url_for('static', filename='fotos_posts/' + tarefa.imagem) }}" alt="Anexo do chamado">
+            </a>
+        </div>
+        {% endif %}
+
+        <div class="card">
+            <h2><i class="bi bi-chat-square-text"></i> Comentários do chamado</h2>
+            <form method="POST" action="{{ url_for('comentar_tarefa', id_tarefa=tarefa.id) }}" class="comment-form">
+                {{ form_comentario.csrf_token }}
+                {{ form_comentario.texto(class='input', placeholder='Escreva uma atualização para cliente/Core-X') }}
+                {{ form_comentario.botao_confirmacao(class='btn-core') }}
+            </form>
+            <div class="comment-thread">
+                {% for comentario in tarefa.comentarios|sort(attribute='data_criacao', reverse=true) %}
+                <div class="comment-bubble {% if is_equipe_corex(comentario.usuario) %}corex-comment{% else %}client-comment{% endif %}">
+                    <strong>{% if is_equipe_corex(comentario.usuario) %}Core-X • {% endif %}{{ comentario.usuario.username }}</strong>
+                    <small class="muted">{{ comentario.data_criacao.strftime('%d/%m/%Y %H:%M') }}</small>
+                    <p>{{ comentario.texto }}</p>
+                </div>
+                {% else %}<div class="empty-state">Nenhum comentário registrado ainda.</div>{% endfor %}
+            </div>
+        </div>
+    </section>
+
+    <aside>
+        <div class="card">
+            <h3>Status</h3>
+            {% if tarefa.encerrada_forcada %}<span class="status pending"><i class="bi bi-shield-x"></i> Encerrado pelo admin</span>
+            {% elif tarefa.concluida %}<span class="status ok"><i class="bi bi-check-circle"></i> Concluído</span>
+            {% elif tarefa.status == 'aguardando_cliente' %}<span class="status waiting"><i class="bi bi-hourglass-split"></i> Aguardando cliente</span>
+            {% elif tarefa.usuario %}<span class="status progress"><i class="bi bi-tools"></i> Em atendimento</span>
+            {% else %}<span class="status pending"><i class="bi bi-inbox"></i> Aberto</span>{% endif %}
+            {% if pode_admin %}
+            <div class="status-actions">
+                <a href="{{ url_for('alterar_status_tarefa', id_tarefa=tarefa.id, novo_status='aberto') }}">Aberto</a>
+                <a href="{{ url_for('alterar_status_tarefa', id_tarefa=tarefa.id, novo_status='em_andamento') }}">Em atendimento</a>
+                <a href="{{ url_for('alterar_status_tarefa', id_tarefa=tarefa.id, novo_status='aguardando_cliente') }}">Aguardando cliente</a>
+                <a href="{{ url_for('alterar_status_tarefa', id_tarefa=tarefa.id, novo_status='concluido') }}">Concluído</a>
+            </div>
+            {% endif %}
+        </div>
+
+        <div class="card">
+            <h3><i class="bi bi-building"></i> Empresa cliente</h3>
+            {% set cliente = tarefa.solicitante %}
+            <p><strong>{{ cliente.empresa if cliente and cliente.empresa else 'Empresa não informada' }}</strong></p>
+            <p class="muted">CNPJ: {{ cliente.cnpj if cliente and cliente.cnpj else 'Não informado' }}</p>
+            <p class="muted">Responsável: {{ cliente.responsavel_empresa if cliente and cliente.responsavel_empresa else (cliente.username if cliente else 'Não informado') }}</p>
+        </div>
+
+        {% if pode_transferir %}
+        <div class="card form-card">
+            <h3>Direcionar chamado</h3>
+            <form method="POST" action="{{ url_for('transferir_tarefa', id_tarefa=tarefa.id) }}">
+                {{ form_transferir.csrf_token }}
+                {{ form_transferir.setor_destino.label }}
+                {% if is_admin_corex(current_user) and is_adm_principal(current_user) %}{{ form_transferir.setor_destino(class='input') }}{% else %}{{ form_transferir.setor_destino(class='input', disabled=true) }}<input type="hidden" name="setor_destino" value="{{ current_user.setor }}">{% endif %}
+                {{ form_transferir.usuario_destino.label }}{{ form_transferir.usuario_destino(class='input') }}
+                {{ form_transferir.comentario.label }}{{ form_transferir.comentario(class='input', placeholder='Observação opcional') }}
+                {{ form_transferir.botao_confirmacao(class='btn-core') }}
+            </form>
+        </div>
+        {% endif %}
+
+        <div class="card">
+            <h3><i class="bi bi-clock-history"></i> Timeline</h3>
+            <div class="timeline">
+                <div class="timeline-item"><strong>Chamado aberto</strong><small>{{ tarefa.data_criacao.strftime('%d/%m/%Y %H:%M') if tarefa.data_criacao else '' }}</small></div>
+                {% if tarefa.usuario %}<div class="timeline-item"><strong>Técnico atribuído</strong><small>{{ tarefa.usuario.username }}</small></div>{% endif %}
+                {% for comentario in tarefa.comentarios|sort(attribute='data_criacao') %}
+                <div class="timeline-item"><strong>{{ comentario.usuario.username }}</strong><small>{{ comentario.data_criacao.strftime('%d/%m/%Y %H:%M') }}</small></div>
+                {% endfor %}
+                {% if tarefa.concluida %}<div class="timeline-item"><strong>Chamado finalizado</strong><small>{{ tarefa.data_atualizacao.strftime('%d/%m/%Y %H:%M') if tarefa.data_atualizacao else '' }}</small></div>{% endif %}
+            </div>
+        </div>
+    </aside>
+</div>
+{% endblock %}

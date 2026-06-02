@@ -1,0 +1,33 @@
+VERSÃO COM ADM PRINCIPAL, ADM DE SETOR E FUNCIONÁRIOS
+
+O que foi adicionado:
+- O primeiro usuário do banco (ID 1) vira ADM principal automaticamente.
+- ADM principal pode criar e editar funcionários e administradores de qualquer setor.
+- ADM de setor pode criar e editar apenas funcionários do próprio setor.
+- Funcionários não gerenciam usuários.
+- Chamados agora possuem setor.
+- Administradores visualizam e gerenciam chamados do seu escopo mesmo quando já assumidos.
+- ADM principal visualiza todos os chamados.
+- ADM de setor visualiza todos os chamados do seu setor.
+- Administradores podem transferir chamados para outro funcionário mantendo comentários/histórico.
+- Administradores podem forçar encerramento.
+- Foi criada tela de detalhes do chamado com comentários.
+- O banco antigo é migrado automaticamente ao iniciar, sem apagar dados.
+
+Arquivos principais alterados:
+- gerenciador/models.py
+- gerenciador/forms.py
+- gerenciador/routes.py
+- gerenciador/templates/base.html
+- gerenciador/templates/criarconta.html
+- gerenciador/templates/feed.html
+- gerenciador/templates/gerenciador_interno.html
+- gerenciador/templates/perfil.html
+
+Arquivos novos:
+- gerenciador/templates/usuarios.html
+- gerenciador/templates/editar_usuario.html
+- gerenciador/templates/detalhe_tarefa.html
+
+Importante:
+Ao rodar o sistema pela primeira vez, o SQLite será atualizado automaticamente com as novas colunas/tabelas.

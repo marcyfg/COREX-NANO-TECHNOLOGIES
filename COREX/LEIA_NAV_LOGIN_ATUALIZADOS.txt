@@ -1,0 +1,1 @@
+Navbar do Sobre Nós padronizada com a principal. Login agora é botão circular profissional à direita. Chamados e Sair reorganizados quando o usuário está logado.

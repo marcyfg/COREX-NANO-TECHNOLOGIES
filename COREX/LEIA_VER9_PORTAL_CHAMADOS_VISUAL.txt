@@ -1,0 +1,8 @@
+COREX VER9 - Portal de chamados separado
+
+Alterações realizadas:
+1. Links de Abrir chamado/Central de chamados no site principal agora abrem em nova aba.
+2. Removidos do portal de chamados os links Site principal e Sobre Nós.
+3. Logo do portal agora aponta para o painel/gerenciador interno, não para o site institucional.
+4. Redesenhado o visual do portal de chamados para parecer uma central de suporte/tickets mais limpa, com sidebar, cards e formulários próprios.
+5. Ajustes feitos tanto para modo claro quanto modo escuro.

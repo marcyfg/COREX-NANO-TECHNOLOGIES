@@ -1,0 +1,31 @@
+COREX VER26 - NOTIFICAÇÕES CONTEXTUAIS
+
+Alterações realizadas:
+
+1. Novo chamado na Fila Geral
+   - Notifica Super Admin, Administradores CoreX e Técnicos CoreX.
+
+2. Chamado atribuído
+   - Notifica apenas o responsável escolhido.
+
+3. Cliente comentou
+   - Notifica apenas o responsável do chamado.
+   - Se ainda não houver responsável, não notifica toda a equipe novamente.
+
+4. CoreX comentou
+   - Notifica apenas o cliente/solicitante.
+
+5. Edição administrativa
+   - Não gera notificação.
+   - Fica registrada apenas no histórico do chamado.
+
+6. Transferência/triagem
+   - Não notifica o cliente automaticamente.
+   - Notifica apenas o novo responsável, se houver.
+
+7. Mudanças comuns de status
+   - Ficam no histórico.
+   - Finalização/encerramento continuam notificando o cliente.
+
+Objetivo:
+Evitar excesso de notificações e deixar o sino mostrar apenas alertas realmente importantes.

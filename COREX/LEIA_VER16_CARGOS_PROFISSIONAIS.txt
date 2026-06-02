@@ -1,0 +1,26 @@
+COREX VER16 - CARGOS PROFISSIONAIS
+
+Implementado novo modelo de permissões:
+
+1. Super Admin CoreX
+- Controle total do sistema.
+- Gerencia usuários, setores, permissões e todos os chamados.
+
+2. Administrador CoreX
+- Gerencia chamados e usuários operacionais do próprio setor.
+- Pode criar Técnico CoreX e Cliente/Colaborador no setor.
+- Pode transferir chamados para Administradores CoreX ou Técnicos CoreX.
+
+3. Técnico CoreX
+- Atende chamados atribuídos.
+- Pode assumir chamados sem responsável do próprio setor.
+- Pode comentar, atualizar status e finalizar chamados que estiverem sob sua responsabilidade.
+- Não gerencia usuários nem redistribui equipe.
+
+4. Cliente / Colaborador
+- Abre chamados.
+- Acompanha os próprios chamados.
+- Comenta nos próprios chamados.
+- Não acessa gestão de usuários nem chamados de terceiros.
+
+Também foi mantida compatibilidade com o campo antigo admin, mas agora a regra principal usa o campo cargo.

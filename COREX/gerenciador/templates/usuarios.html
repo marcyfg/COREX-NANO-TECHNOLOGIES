@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+{% block titulo %}Usuários | Core-X{% endblock %}
+{% block pagina_titulo %}Usuários e Setores{% endblock %}
+
+{% block body %}
+<div class="card">
+    <h2>Gerenciamento de usuários</h2>
+    <p class="muted">
+        {% if adm_principal %}
+        Você é o Super Admin CoreX: pode gerenciar usuários, setores e permissões principais.
+        {% else %}
+        Você é Administrador CoreX: pode gerenciar apenas Técnicos CoreX e Clientes/Colaboradores do seu setor.
+        {% endif %}
+    </p>
+    <div class="grid-actions">
+        <a class="btn-core" href="{{ url_for('criarconta') }}"><i class="bi bi-person-plus"></i> Criar usuário</a>
+        <a class="btn-core btn-secondary" href="{{ url_for('gerenciador_interno') }}"><i class="bi bi-kanban"></i> Gerenciador</a>
+        {% if adm_principal %}
+        <a class="btn-core btn-secondary" href="{{ url_for('dados_demonstracao') }}"><i class="bi bi-database-add"></i> Criar dados demo</a>
+        {% endif %}
+    </div>
+</div>
+
+<div class="card table-wrap">
+    <table class="core-table">
+        <thead>
+            <tr>
+                <th>Usuário</th>
+                <th>Email</th>
+                <th>Perfil</th>
+                <th>Setor</th>
+                <th>Status</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for usuario in usuarios %}
+            <tr>
+                <td>{{ usuario.username }}</td>
+                <td>{{ usuario.email }}</td>
+                <td>
+                    <span class="pill">{{ rotulo_cargo(usuario) }}</span>
+                </td>
+                <td>{{ usuario.setor or 'Geral' }}</td>
+                <td>{% if usuario.ativo %}<span class="status ok">Ativo</span>{% else %}<span class="status pending">Inativo</span>{% endif %}</td>
+                <td><a class="btn-core btn-secondary" href="{{ url_for('editar_usuario', id_usuario=usuario.id) }}"><i class="bi bi-pencil"></i> Editar</a></td>
+            </tr>
+            {% else %}
+            <tr><td colspan="6" class="empty-state">Nenhum usuário encontrado.</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

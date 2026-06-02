@@ -1,0 +1,6 @@
+Correção aplicada:
+
+- Antes, a transferência de chamados buscava apenas usuários com admin=True.
+- Agora a lista de transferência mostra todos os usuários ativos do setor escolhido, incluindo funcionários comuns.
+- A validação de segurança continua existindo: o usuário destino precisa estar ativo e pertencer ao setor do chamado.
+- Administradores continuam gerenciando a transferência; funcionários podem receber chamados sem precisarem virar administradores.

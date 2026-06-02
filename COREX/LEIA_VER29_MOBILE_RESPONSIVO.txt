@@ -1,0 +1,16 @@
+COREX VER29 - MOBILE RESPONSIVO
+
+Atualização focada em melhorar o portal de chamados em celulares.
+
+Melhorias aplicadas:
+- Sidebar do portal adaptada para celular, virando uma navegação horizontal rolável.
+- Cards, dashboards e chamados em uma coluna no mobile.
+- Formulários maiores e mais confortáveis para toque.
+- Botões ocupando 100% da largura no celular.
+- Tabelas com rolagem horizontal para não quebrar layout.
+- Detalhe do chamado mais legível em telas pequenas.
+- Comentários, anexos, timeline e notificações com melhor quebra de texto.
+- Login também recebeu pequenos ajustes mobile.
+
+Observação:
+Essa versão não muda a lógica do backend. É uma atualização visual/responsiva por CSS.

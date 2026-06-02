@@ -1,0 +1,27 @@
+COREX VER20 - FILA GERAL DE CHAMADOS
+
+Alterações principais:
+
+1. Cliente/colaborador não escolhe mais o setor técnico da Core-X ao abrir chamado.
+   - O chamado entra inicialmente na Fila Geral Core-X.
+   - A equipe Core-X decide quem assume ou para qual fila técnica direcionar.
+
+2. Adicionado o campo "Setor/local onde ocorre o problema".
+   - Esse campo representa o local da empresa cliente: Financeiro, RH, Recepção, Estoque etc.
+   - Ele não é usado para bloquear ou direcionar tecnicamente o chamado.
+
+3. Chamados sem responsável aparecem para a equipe Core-X.
+   - Super Admin, Admin CoreX e Técnico CoreX conseguem ver a Fila Geral.
+   - Qualquer membro da equipe CoreX pode assumir chamados sem responsável.
+
+4. Ao assumir um chamado, o técnico/admin se torna o responsável.
+   - Se não for Super Admin, o chamado passa para a fila técnica do setor do responsável.
+
+5. Admins continuam podendo editar chamados dos usuários.
+   - Podem corrigir título, descrição, categoria, prioridade, local do problema, fila técnica, responsável e anexo.
+
+6. Mantido histórico por empresa/CNPJ.
+   - Usuário novo da mesma empresa continua podendo visualizar chamados anteriores da empresa.
+
+Objetivo da mudança:
+Deixar o fluxo mais realista para usuários leigos. O cliente informa o problema e onde ele acontece; a Core-X faz a triagem técnica.
