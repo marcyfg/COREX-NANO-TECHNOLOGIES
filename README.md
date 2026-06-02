@@ -6,6 +6,10 @@
   <h1> COREX NANO TECHNOLOGIES ₊⊹ </h1>
   <p><i>Projeto Acadêmico SENAC </i></p>
   ▶︎ •၊၊||၊|။||||| 0:10
+  
+CoreX Nano Technologies
+  https://corextech.pythonanywhere.com/
+ 
 </div>
 ──── ⋆⋅☆⋅⋆ ──── ⋆⋅☆⋅⋆ ──── ⋆⋅☆⋅⋆ ──── ⋆⋅☆⋅⋆ ──── ⋆⋅☆⋅⋆ ──── ⋆⋅☆⋅⋆ ──── ⋆⋅☆⋅⋆ ──── ⋆⋅☆⋅⋆ ──── ⋆⋅☆⋅⋆ ──── ⋆⋅☆⋅⋆ ────
 <hr>
