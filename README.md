@@ -1,5 +1,7 @@
 <div align="center">
-  <img width="442" height="392" alt="Captura de tela 2026-03-04 202933" src="https://github.com/user-attachments/assets/066f3653-ed53-48e3-b23b-7a38495c07c9" />
+
+  <img width="618" height="515" alt="corex" src="https://github.com/user-attachments/assets/8b5a16b6-1800-47c0-b424-415bad037946" />
+
 </div>
 
 <div align="center">
@@ -7,7 +9,7 @@
   <p><i>Projeto Acadêmico SENAC </i></p>
   ▶︎ •၊၊||၊|။||||| 0:10
   
-CoreX Nano Technologies
+WEBSITE - CoreX Nano Technologies
   https://corextech.pythonanywhere.com/
  
 </div>
