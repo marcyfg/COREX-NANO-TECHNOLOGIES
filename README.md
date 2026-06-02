@@ -5,7 +5,7 @@
 </div>
 
 <div align="center">
-  <h1> COREX NANO TECHNOLOGIES ₊⊹ </h1>
+  <h1> COREX NANO TECHNOLOGIES ₊⊹⚙️ </h1>
   <p><i>Projeto Acadêmico SENAC </i></p>
   ▶︎ •၊၊||၊|။||||| 0:10
   
