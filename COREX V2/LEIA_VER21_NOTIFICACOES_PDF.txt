@@ -1,0 +1,19 @@
+COREX VER21 - NOTIFICACOES E DOWNLOAD EM PDF
+
+Alteracoes principais:
+
+1. Notificacao geral da Fila Geral
+- Quando um cliente/colaborador abre um chamado, toda a equipe Core-X ativa recebe notificacao.
+- Recebem: Super Admin CoreX, Administrador CoreX e Tecnico CoreX.
+- O sino de notificacoes mostra o contador de nao lidas.
+- O dashboard da equipe Core-X exibe um aviso quando existem notificacoes nao lidas.
+
+2. Download estruturado em PDF
+- O botao Baixar do detalhe do chamado agora gera PDF em vez de TXT.
+- O PDF inclui: ticket, status, dados do chamado, empresa cliente, descricao, anexo de imagem quando existir e historico/comentarios.
+
+IMPORTANTE PARA HOSPEDAGEM:
+Instale a nova dependencia no PythonAnywhere:
+python3 -m pip install --user reportlab
+
+Depois clique em Reload na aba Web do PythonAnywhere.

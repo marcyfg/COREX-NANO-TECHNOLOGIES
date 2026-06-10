@@ -1,0 +1,28 @@
+COREX VER33 - Revisao da logica dos chamados
+
+Ajustes feitos:
+1. Cliente/colaborador nao escolhe mais prioridade do chamado.
+   - A prioridade agora e uma decisao interna da equipe CoreX.
+   - Chamado aberto por cliente entra como prioridade Media por padrao.
+   - Admin/Super Admin/Tecnico podem ajustar a prioridade depois.
+
+2. Valores de categoria, prioridade e status foram centralizados como listas controladas/ENUM de negocio.
+   - Evita textos soltos e inconsistentes no banco e nas telas.
+
+3. Transferencia corrigida.
+   - Super Admin agora consegue ver todos os Admins CoreX e Tecnicos CoreX ativos para transferir/atribuir chamados.
+   - Admin CoreX continua limitado ao proprio setor.
+   - Cliente/colaborador nao aparece como responsavel tecnico.
+   - Se o Super Admin escolher um responsavel de outro setor, a fila tecnica do chamado acompanha o setor desse responsavel.
+
+4. Tela de abertura de chamado ajustada.
+   - Cliente informa categoria e local/setor onde o problema acontece.
+   - A equipe CoreX define prioridade, fila tecnica e responsavel.
+
+Observacao:
+Para um usuario aparecer como responsavel de chamado, ele precisa estar ativo e ter cargo:
+- SUPER_ADMIN
+- ADMIN_COREX
+- TECNICO_COREX
+
+Usuario com cargo CLIENTE / Colaborador nao aparece na lista de transferencia, pois ele abre e acompanha chamados, mas nao atende chamados.

@@ -1,0 +1,28 @@
+COREX VER18 - REVISÃO GERAL DOS CHAMADOS
+
+Alterações feitas:
+
+1. Histórico por empresa/cliente
+- Cliente/colaborador novo agora consegue ver chamados anteriores da mesma empresa.
+- A regra usa o CNPJ quando informado.
+- Se não houver CNPJ, usa o nome da empresa.
+- Isso permite que uma empresa cliente tenha mais de um colaborador acompanhando o histórico.
+
+2. Criação de chamado corrigida
+- O campo Setor não envia mais o formulário automaticamente.
+- Antes, ao trocar o setor, o chamado podia ser criado antes do usuário anexar imagem ou revisar as informações.
+- Agora o chamado só é criado ao clicar em "Criar Chamado".
+
+3. Edição administrativa de chamados
+- Super Admin CoreX e Administrador CoreX agora podem editar chamados.
+- É possível corrigir título, descrição, categoria, prioridade, setor, responsável e imagem/anexo.
+- Isso ajuda quando clientes leigos escrevem informações confusas ou incompletas.
+
+4. Auditoria simples
+- Quando um admin edita um chamado, o sistema registra comentário automático no histórico.
+- O cliente recebe notificação dizendo que o chamado foi revisado pela Core-X.
+
+5. Segurança e permissões
+- Técnico CoreX continua sem poder reescrever a solicitação original.
+- Técnico atualiza andamento por comentários/status.
+- Cliente continua sem editar chamado depois de criado, apenas comenta e acompanha.

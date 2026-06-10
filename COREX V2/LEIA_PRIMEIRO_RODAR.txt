@@ -1,0 +1,13 @@
+COREX - VERSÃO COM VISUAL ORIGINAL + CHAMADOS
+
+1. Abra esta pasta no PyCharm.
+2. Abra o arquivo main.py que fica na raiz do projeto.
+3. Clique com botão direito dentro dele e escolha Run 'main'.
+4. Acesse: http://127.0.0.1:5000
+5. Teste: http://127.0.0.1:5000/debug-corex
+
+O site principal foi mantido com o visual original do CoreX Ver5.
+O menu Sobre Nós agora rola na mesma página.
+O menu Chamados só aparece depois do login.
+
+Se precisar criar o banco do zero, rode criar_banco.py pelo PyCharm.

@@ -1,0 +1,32 @@
+COREX VER10 - PORTAL DE CHAMADOS PROFISSIONAL
+
+Implementado nesta versão:
+
+1. Dashboard de chamados
+- Cards com chamados abertos, em atendimento, aguardando cliente e finalizados.
+
+2. Timeline dentro do chamado
+- Histórico visual com abertura, responsável, comentários e finalização.
+
+3. Comentários no chamado
+- Cliente e equipe Core-X podem conversar dentro do ticket.
+- Comentários da Core-X e do cliente aparecem visualmente separados.
+
+4. Número profissional de ticket
+- Tickets agora seguem o padrão CRX-ANO-NÚMERO, exemplo: CRX-2026-000001.
+
+5. Dashboard administrativo
+- Métricas por prioridade.
+- Chamados por técnico.
+- Total de chamados no escopo do administrador.
+
+6. Notificações
+- Menu de notificações com contador.
+- Notifica sobre novo chamado, atribuição, mudança de status e comentários.
+
+7. Perfil da empresa cliente
+- Usuário agora pode ter empresa, CNPJ, responsável e plano contratado.
+- Esses dados aparecem dentro do detalhe do chamado.
+
+Observação:
+O banco antigo é migrado automaticamente sem apagar dados. Ao abrir o projeto, as novas colunas/tabelas serão criadas automaticamente.

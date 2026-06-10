@@ -1,0 +1,13 @@
+VER37 - Ajuste de organização e filtros
+
+Mudanças:
+- Tela de detalhe do chamado reorganizada para ficar menos bagunçada.
+- Anexo, comentários, status, transferência e ações rápidas separados em cards mais limpos.
+- Direcionamento de chamado agora filtra responsáveis conforme o setor selecionado.
+- Técnico CoreX transfere apenas para Técnico CoreX.
+- Líder transfere para Técnico CoreX e Líder.
+- Administrador Supervisor transfere para cargos internos CoreX.
+- Cliente nunca aparece como responsável técnico.
+- Tela Usuários / Setores ganhou filtros por busca, cargo e setor.
+- Lista de usuários agora mostra empresa/CNPJ para clientes e separa melhor cargos.
+- Texto Portal do cliente ajustado para Portal de Acesso.

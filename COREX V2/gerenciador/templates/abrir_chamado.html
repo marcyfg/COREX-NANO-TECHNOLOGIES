@@ -1,0 +1,111 @@
+{% extends 'base.html' %}
+{% block titulo %}Abrir chamado | Core-X{% endblock %}
+{% block pagina_titulo %}Abrir chamado{% endblock %}
+
+{% block body %}
+<div class="card hero-card">
+    <span class="eyebrow">Portal de Acesso CoreX</span>
+    <h2>Abrir chamado</h2>
+    {% if is_equipe_corex(current_user) %}
+    <p class="muted">Registre um chamado técnico com categoria, prioridade interna e anexo opcional.</p>
+    {% else %}
+    <p class="muted">Descreva o problema com clareza. A equipe CoreX irá classificar, priorizar e direcionar o atendimento.</p>
+    {% endif %}
+</div>
+
+<div class="card form-card modern-form-card">
+    <form method="POST" enctype="multipart/form-data">
+        {{ form.csrf_token }}
+
+        <div class="form-grid">
+            <div>
+                {{ form.titulo.label }}
+                {{ form.titulo(class='input', placeholder='Ex: computador sem internet') }}
+            </div>
+
+            <div class="full-row">
+                {{ form.descricao.label }}
+                {{ form.descricao(class='input textarea-large', placeholder='Descreva o problema com detalhes') }}
+            </div>
+
+            <div>
+                {{ form.setor_cliente_opcao.label }}
+                {{ form.setor_cliente_opcao(class='input', id='setor_cliente_opcao') }}
+                <p class="field-help">Selecione o setor/local onde o problema acontece.</p>
+            </div>
+
+            <div id="setor_cliente_outros_box">
+                {{ form.setor_cliente_outros.label }}
+                {{ form.setor_cliente_outros(class='input', id='setor_cliente_outros', placeholder='Ex: Sala 3, Almoxarifado, Expedição 2...') }}
+                <p class="field-help">Preencha somente se o local não estiver na lista.</p>
+            </div>
+
+            {% if is_equipe_corex(current_user) %}
+            <div>
+                {{ form.categoria.label }}
+                {{ form.categoria(class='input') }}
+            </div>
+
+            <div>
+                {{ form.prioridade.label }}
+                {{ form.prioridade(class='input') }}
+            </div>
+
+            <div>
+                {{ form.setor.label }}
+                {% if not is_adm_principal(current_user) %}
+                    {{ form.setor(class='input') }}
+                {% else %}
+                    {{ form.setor(class='input') }}
+                {% endif %}
+            </div>
+
+            <div>
+                {{ form.usuario_destino.label }}
+                {{ form.usuario_destino(class='input') }}
+                <p class="field-help">Opcional: deixe sem responsável para cair na fila do setor.</p>
+            </div>
+            {% else %}
+                <input type="hidden" name="categoria" value="Hardware">
+                <input type="hidden" name="prioridade" value="Média">
+                <input type="hidden" name="setor" value="Suporte Técnico">
+                <input type="hidden" name="usuario_destino" value="0">
+            {% endif %}
+
+            <div class="full-row">
+                {{ form.foto.label }}
+                <div class="upload-box">
+                    <i class="bi bi-cloud-arrow-up"></i>
+                    <div>
+                        {{ form.foto(class='input file-input') }}
+                        <p class="field-help">Anexe um print ou foto do problema, se tiver.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="full-row form-actions-row">
+                {{ form.botao_confirmacao(class='btn-core') }}
+                <a class="btn-core btn-secondary" href="{{ url_for('feed') }}"><i class="bi bi-ticket-detailed"></i> Ver chamados</a>
+            </div>
+        </div>
+    </form>
+</div>
+<script>
+(function(){
+  const select = document.getElementById('setor_cliente_opcao');
+  const box = document.getElementById('setor_cliente_outros_box');
+  const input = document.getElementById('setor_cliente_outros');
+  function toggleOutros(){
+    if(!select || !box) return;
+    const mostrar = select.value === 'Outros';
+    box.style.display = mostrar ? '' : 'none';
+    if(input) input.required = mostrar;
+    if(!mostrar && input) input.value = '';
+  }
+  if(select){
+    select.addEventListener('change', toggleOutros);
+    toggleOutros();
+  }
+})();
+</script>
+{% endblock %}

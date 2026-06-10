@@ -1,0 +1,27 @@
+COREX VER17 - REVISÃO GERAL DOS CHAMADOS
+
+Correções aplicadas:
+
+1. Histórico de usuário novo
+- Ajustado o filtro do dashboard para Técnico CoreX.
+- Antes, técnico recém-criado podia enxergar chamados antigos sem responsável no histórico principal.
+- Agora o dashboard do técnico mostra apenas chamados atribuídos a ele ou abertos por ele.
+- Chamados sem responsável continuam existindo na "Fila disponível", que é o lugar correto para a equipe assumir atendimento.
+
+2. Cliente / Colaborador
+- Mantida a regra correta: cliente só visualiza chamados em que ele é o solicitante.
+- Cliente não recebe transferência e não aparece como responsável técnico.
+
+3. Data de criação do usuário
+- Adicionada a coluna data_criacao ao usuário.
+- Novos usuários agora recebem data de criação no banco.
+- Isso ajuda em auditoria e evita confusão sobre histórico anterior ao cadastro.
+
+4. Organização visual
+- No dashboard, o botão de fila agora muda de contexto:
+  - Equipe CoreX: "Fila disponível"
+  - Cliente: "Meus chamados"
+
+Observação:
+- Não apaguei os chamados antigos do banco.
+- A correção foi feita na regra de visualização, que é o jeito mais seguro para não perder dados.

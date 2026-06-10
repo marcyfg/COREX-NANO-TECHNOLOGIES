@@ -1,0 +1,8 @@
+COREX VER25 - Correção de espaçamento do PDF
+
+Ajustes realizados:
+- Corrigido espaçamento entre seções do PDF do chamado.
+- Títulos como EMPRESA CLIENTE e DESCRIÇÃO DO PROBLEMA agora aparecem dentro de uma faixa azul clara.
+- Aumentado o respiro entre tabelas, caixas de texto e próximos blocos.
+- Melhorado texto padrão de empresa/CNPJ não cadastrados.
+- Ajustado layout para evitar textos colados/sobrepostos.

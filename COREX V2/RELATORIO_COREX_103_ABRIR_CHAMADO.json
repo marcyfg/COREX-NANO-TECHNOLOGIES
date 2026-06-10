@@ -1,0 +1,20 @@
+{
+  "base_usada": "COREX_DEFINITIVO_COMPLETO_102_SEM_ERRO_JINJA.zip",
+  "alteracoes": [
+    "Criada aba/página específica Abrir chamado.",
+    "Removida criação de chamado do Meu Perfil.",
+    "Lista de responsáveis agora é atualizada conforme setor selecionado.",
+    "Responsáveis exibidos são funcionários ativos do setor permitido.",
+    "Adicionado botão/menu Abrir chamado para administradores."
+  ],
+  "checks": {
+    "rota_abrir_chamado": true,
+    "perfil_sem_form_tarefa": true,
+    "template_abrir_chamado": true,
+    "menu_abrir_chamado": true,
+    "config_form_tarefa_setor_request": true
+  },
+  "erros_python": [],
+  "erros_jinja": [],
+  "backslash_em_jinja": []
+}

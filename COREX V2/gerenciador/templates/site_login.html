@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Portal de Acesso - Corex Chamados</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css" rel="stylesheet">
+<style>
+:root{--bg:#06101f;--panel:#0c1729;--panel2:#111f35;--line:rgba(142,185,255,.22);--text:#fff;--muted:#aebbd0;--blue:#2ea8ff;--blue2:#185dff}
+*{box-sizing:border-box}body{margin:0;min-height:100vh;font-family:Inter,Arial,sans-serif;color:var(--text);background:radial-gradient(circle at 8% 12%,rgba(47,138,255,.25),transparent 28%),radial-gradient(circle at 92% 80%,rgba(0,128,255,.18),transparent 26%),linear-gradient(135deg,#050c18,#081528 55%,#06101f);overflow-x:hidden}.page{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:56px 26px;position:relative}.page:before,.page:after{content:"";position:absolute;width:260px;height:260px;background-image:radial-gradient(rgba(46,168,255,.28) 1px,transparent 1px);background-size:22px 22px;opacity:.45}.page:before{left:0;top:80px}.page:after{right:0;bottom:80px}.shell{position:relative;z-index:1;width:min(1180px,100%);min-height:620px;border:1px solid var(--line);border-radius:28px;background:linear-gradient(135deg,rgba(10,23,42,.92),rgba(8,18,33,.76));box-shadow:0 35px 110px rgba(0,0,0,.46),inset 0 0 0 1px rgba(255,255,255,.03);display:grid;grid-template-columns:1fr .98fr;gap:38px;padding:58px}.shell:before{content:"";position:absolute;inset:0;border-radius:28px;background:linear-gradient(135deg,rgba(46,168,255,.13),transparent 35%),url("{{ url_for('static', filename='fotos_site/fundo-login.png') }}") center/cover;opacity:.16;pointer-events:none}.hero,.login-wrap{position:relative;z-index:1}.hero{display:flex;flex-direction:column;justify-content:center}.logo{font-size:44px;font-weight:800;letter-spacing:-.08em;margin-bottom:70px}.logo span{color:var(--blue)}.logo small{display:block;font-size:12px;letter-spacing:.3em;margin-top:4px;color:#d9e7ff}.hero h1{font-size:42px;line-height:1.08;margin:0 0 22px;letter-spacing:-.04em}.hero p{max-width:430px;color:#c6d1e2;font-size:18px;line-height:1.6;margin:0 0 30px}.features{display:grid;gap:18px}.feature{display:flex;gap:16px;align-items:center}.feature-icon{width:64px;height:64px;border-radius:18px;background:linear-gradient(135deg,rgba(46,168,255,.23),rgba(24,93,255,.15));border:1px solid rgba(46,168,255,.2);display:flex;align-items:center;justify-content:center;color:var(--blue);font-size:30px}.feature strong{display:block;font-size:17px}.feature span{display:block;color:#c4cde0;margin-top:4px}.login-card{margin:auto;max-width:520px;background:rgba(12,23,41,.82);border:1px solid rgba(161,197,255,.17);border-radius:22px;padding:40px 32px;box-shadow:0 30px 80px rgba(0,0,0,.28);backdrop-filter:blur(12px)}.avatar{width:86px;height:86px;border-radius:50%;margin:0 auto 22px;background:linear-gradient(145deg,rgba(46,168,255,.26),rgba(24,93,255,.16));border:1px solid rgba(46,168,255,.24);box-shadow:0 0 0 10px rgba(46,168,255,.04);display:flex;align-items:center;justify-content:center;color:var(--blue);font-size:44px}.login-card h2{text-align:center;font-size:30px;margin:0 0 8px}.login-card .subtitle{text-align:center;color:var(--muted);margin:0 0 28px}.field{margin-bottom:20px}.field label{display:block;margin-bottom:9px;font-weight:700}.input-wrap{position:relative}.input-wrap i{position:absolute;left:16px;top:50%;transform:translateY(-50%);color:#b6c4d8;font-size:20px}.login-card input[type=text],.login-card input[type=email],.login-card input[type=password]{width:100%;height:54px;border-radius:12px;border:1px solid rgba(190,211,255,.18);background:#0d1a2e;color:#fff;padding:0 16px 0 50px;font:inherit;outline:none}.login-card input:focus{border-color:rgba(46,168,255,.8);box-shadow:0 0 0 4px rgba(46,168,255,.11)}.row{display:flex;justify-content:space-between;align-items:center;gap:15px;margin:2px 0 26px;color:#c9d4e4;font-size:14px}.row a{color:var(--blue);text-decoration:none}.remember{display:flex;align-items:center;gap:8px}.login-card input[type=checkbox]{width:18px;height:18px;accent-color:var(--blue)}.btn-login{width:100%;height:56px;border:0;border-radius:12px;background:linear-gradient(135deg,#31aaff,#185dff);color:#fff;font-weight:800;font-size:16px;cursor:pointer;box-shadow:0 16px 38px rgba(24,93,255,.28);display:flex;align-items:center;justify-content:center;gap:10px}.btn-login:hover{filter:brightness(1.07);transform:translateY(-1px)}.support{text-align:center;color:#c9d4e4;margin-top:28px}.support a{color:var(--blue);text-decoration:none}.alert{padding:12px 14px;border-radius:12px;background:rgba(255,92,122,.13);border:1px solid rgba(255,92,122,.3);color:#ffd9e0;margin-bottom:16px}.footer{position:absolute;z-index:2;left:0;right:0;bottom:20px;text-align:center;color:#8e9cb1;font-size:14px}@media(max-width:930px){.shell{grid-template-columns:1fr;padding:28px}.hero{display:none}.login-card{max-width:100%}.page{padding:24px 14px}.footer{position:static;margin-top:12px}}
+</style>
+</head>
+<body>
+<div class="page">
+  <main class="shell">
+    <section class="hero">
+      <div class="logo">core<span>X</span><small>SOLUÇÕES EM TECNOLOGIA</small></div>
+      <h1>Portal de Acesso</h1>
+      <p>Acesse o sistema de gerenciamento de chamados da Corex e acompanhe seus atendimentos com segurança.</p>
+      <div class="features">
+        <div class="feature"><div class="feature-icon"><i class="bi bi-shield-check"></i></div><div><strong>Segurança</strong><span>Dados protegidos e acesso por perfil.</span></div></div>
+        <div class="feature"><div class="feature-icon"><i class="bi bi-headset"></i></div><div><strong>Suporte Ágil</strong><span>Atendimento organizado por setor técnico.</span></div></div>
+        <div class="feature"><div class="feature-icon"><i class="bi bi-graph-up-arrow"></i></div><div><strong>Acompanhamento</strong><span>Status e comentários em tempo real.</span></div></div>
+      </div>
+    </section>
+
+    <section class="login-wrap">
+      <form class="login-card" method="POST">
+        {{ form.hidden_tag() }}
+        <div class="avatar"><i class="bi bi-person"></i></div>
+        <h2>Bem-vindo!</h2>
+        <p class="subtitle">Entre para acessar seus chamados</p>
+        {% with mensagens = get_flashed_messages(with_categories=true) %}
+          {% if mensagens %}<div class="alert">{% for categoria, mensagem in mensagens %}<div>{{ mensagem }}</div>{% endfor %}</div>{% endif %}
+        {% endwith %}
+        <div class="field">
+          {{ form.email.label }}
+          <div class="input-wrap"><i class="bi bi-person"></i>{{ form.email(placeholder='Digite seu e-mail', autocomplete='email') }}</div>
+        </div>
+        <div class="field">
+          {{ form.senha.label }}
+          <div class="input-wrap"><i class="bi bi-lock"></i>{{ form.senha(placeholder='Digite sua senha', autocomplete='current-password') }}</div>
+        </div>
+        <div class="row"><label class="remember"><input type="checkbox"> Lembrar-me</label><a href="#">Esqueceu sua senha?</a></div>
+        <button class="btn-login" type="submit">Entrar <i class="bi bi-arrow-right"></i></button>
+        <p class="support">Não tem uma conta? <a href="#">Fale com o suporte da Corex.</a></p>
+      </form>
+    </section>
+  </main>
+  <div class="footer">© 2026 Corex Soluções em Tecnologia. Todos os direitos reservados.</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+{% block titulo %}Home | Core-X{% endblock %}
+{% block pagina_titulo %}Home{% endblock %}
+
+{% block authbody %}
+<div class="auth-page">
+    <div class="auth-card">
+        <h1 class="brand-title">CORE<span>-X</span></h1>
+        <p class="auth-subtitle">Entre para acessar o gerenciador de chamados.</p>
+
+        <form method="POST">
+            {{ form.csrf_token }}
+
+            <div class="form-grid">
+                <div>
+                    {{ form.email.label }}
+                    {{ form.email(class='input', placeholder='Digite seu e-mail') }}
+                </div>
+                <div>
+                    {{ form.senha.label }}
+                    {{ form.senha(class='input', placeholder='Digite sua senha') }}
+                </div>
+                <div>
+                    {{ form.botao_confirmacao(class='btn-core') }}
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}
+
+{% block body %}
+<div class="card">
+    <h2>Chamados recentes</h2>
+    <p class="muted">Chamados editados hoje e ainda em aberto, para você acompanhar de forma rápida.</p>
+</div>
+
+<div class="tickets-grid">
+    {% for tarefa in chamados_recentes %}
+    <div class="ticket-card">
+        {% if tarefa.imagem %}<img src="{{ url_for('static', filename='fotos_posts/' + tarefa.imagem) }}" alt="Imagem da tarefa">{% else %}<img src="{{ url_for('static', filename='fotos_posts/default.png.png') }}" alt="Imagem padrão">{% endif %}
+        <div class="ticket-body">
+            <h3>{{ tarefa.titulo }}</h3>
+            <p class="muted">{{ tarefa.descricao }}</p>
+            <p><span class="pill">Fila: {{ tarefa.setor }}</span>{% if tarefa.setor_cliente %}<span class="pill">Local: {{ tarefa.setor_cliente }}</span>{% endif %}</p>
+            <span class="status pending"><i class="bi bi-clock-history"></i> Em andamento</span>
+            <div class="grid-actions">
+        {% if is_admin_corex(current_user) %}<a class="btn-core btn-secondary" href="{{ url_for('abrir_chamado') }}"><i class="bi bi-plus-circle"></i> Abrir chamado</a>{% endif %}
+                <a class="btn-core btn-secondary" href="{{ url_for('detalhe_tarefa', id_tarefa=tarefa.id) }}"><i class="bi bi-eye"></i> Abrir chamado</a>
+                <a class="btn-core btn-secondary" href="{{ url_for('download_chamado', id_tarefa=tarefa.id) }}"><i class="bi bi-download"></i> Baixar</a>
+            </div>
+        </div>
+    </div>
+    {% else %}
+    <div class="card empty-state">Nenhum chamado recente em aberto editado hoje.</div>
+    {% endfor %}
+</div>
+{% endblock %}

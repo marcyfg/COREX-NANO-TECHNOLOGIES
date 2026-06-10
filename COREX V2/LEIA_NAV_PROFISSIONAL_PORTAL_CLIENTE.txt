@@ -1,0 +1,14 @@
+AJUSTE VISUAL DA NAV PRINCIPAL
+
+Alterado o visual dos botões LOGIN, CHAMADOS e SAIR da página pública.
+
+Nova lógica visual:
+- Visitante vê apenas o botão "Portal do cliente" no canto direito.
+- Usuário logado vê "Portal", "Abrir chamado" e um menu de conta com o nome do usuário.
+- O botão de sair saiu da navegação principal e foi para dentro do menu da conta, como em sites mais profissionais.
+
+Arquivos alterados:
+- gerenciador/templates/site_home.html
+- gerenciador/templates/site_sobre.html
+- gerenciador/static/site/style.css
+- gerenciador/static/site/style2.css

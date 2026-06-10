@@ -1,0 +1,32 @@
+COREX VER28 - Dados demo, sobre o sistema, senha forte e mensagens
+
+Alterações implementadas:
+
+1. Dados de demonstração
+- Super Admin agora possui botão "Criar dados demo" na tela de usuários.
+- O botão cria/atualiza usuários de apresentação:
+  admin.demo@corex.com / Corex123
+  tecnico.demo@corex.com / Corex123
+  cliente.demo@empresa.com / Corex123
+- Também cria chamados de exemplo para testar o fluxo da Fila Geral.
+
+2. Tela "Sobre o sistema"
+- Nova página interna no portal explicando:
+  objetivo do sistema;
+  papéis de usuário;
+  fluxo dos chamados;
+  tecnologias utilizadas.
+
+3. Validação de senha
+- Novas senhas precisam ter pelo menos 8 caracteres.
+- A senha precisa conter letras e números.
+
+4. Mensagens melhoradas
+- Ações importantes agora exibem mensagens amigáveis:
+  usuário criado;
+  usuário atualizado;
+  chamado criado;
+  chamado editado;
+  comentário adicionado;
+  transferência salva;
+  chamado finalizado/reaberto.

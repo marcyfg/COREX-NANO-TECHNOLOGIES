@@ -1,0 +1,18 @@
+COREX DEFINITIVO COMPLETO 100 OPERACIONAL
+
+Base preservada da versão completa grande.
+Correções aplicadas:
+- Mantida estrutura completa, banco, .venv, instance, static, templates e uploads.
+- Chamados encerrados/forçados não ficam na tela principal, mas seguem acessíveis pelos filtros de status.
+- Filtros permanecem expansíveis.
+- Menu destaca a página atual.
+- Fonte dos títulos foi trocada para uma opção mais neutra.
+- Modo claro recebeu reforço de contraste para textos/campos.
+- Perfil sem atalhos indevidos para área interna/chamados/minhas tarefas.
+- Gerenciador Interno renomeado visualmente para Gerenciador.
+- Adicionada opção de download do chamado em TXT.
+
+Execução sugerida:
+1. Extraia o ZIP.
+2. Abra a pasta extraída no PyCharm.
+3. Execute gerenciador/main.py ou main.py da raiz.

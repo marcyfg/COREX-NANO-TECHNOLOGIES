@@ -1,0 +1,95 @@
+{% extends 'base.html' %}
+{% block titulo %}Criar Conta | Core-X{% endblock %}
+{% block pagina_titulo %}Criar Conta{% endblock %}
+
+
+{% block head %}
+<style>
+.password-wrap{position:relative;display:flex;align-items:center;width:100%;}
+.password-wrap .input{width:100%;padding-right:48px;}
+.password-toggle{position:absolute;right:8px;top:50%;transform:translateY(-50%);width:36px;height:36px;border-radius:12px;border:1px solid rgba(56,189,248,.28);background:rgba(14,165,233,.12);color:#7dd3fc;display:grid;place-items:center;cursor:pointer;transition:.18s ease;}
+.password-toggle:hover{background:rgba(14,165,233,.22);color:#fff;}
+body.theme-light .password-toggle{background:#eef7ff;color:#0369a1;border-color:#bfdbfe;}
+body.theme-light .password-toggle:hover{background:#dff2ff;color:#075985;}
+</style>
+{% endblock %}
+
+{% block body %}
+<div class="card form-card">
+    <h2>Novo usuário</h2>
+    <p class="muted">
+        {% if adm_principal %}
+        Como Super Admin CoreX, você pode criar Administradores CoreX, Técnicos CoreX e Clientes/Colaboradores.
+        {% else %}
+        Como Administrador CoreX, você pode criar apenas Técnicos CoreX e Clientes/Colaboradores do seu próprio setor.
+        {% endif %}
+    </p>
+
+    <form method="POST">
+        {{ form.csrf_token }}
+
+        <div class="form-grid">
+            <div>{{ form.email.label }}{{ form.email(class='input', placeholder='email@exemplo.com') }}</div>
+            <div>{{ form.username.label }}{{ form.username(class='input', placeholder='Nome do usuário') }}</div>
+            <div>
+                {{ form.senha.label }}
+                <div class='password-wrap'>
+                    {{ form.senha(class='input password-field', placeholder='Senha', id='senha_usuario') }}
+                    <button type='button' class='password-toggle' data-target='senha_usuario' aria-label='Mostrar ou ocultar senha'><i class='bi bi-eye'></i></button>
+                </div>
+            </div>
+            <div>
+                {{ form.confirmacao_senha.label }}
+                <div class='password-wrap'>
+                    {{ form.confirmacao_senha(class='input password-field', placeholder='Confirme a senha', id='confirmacao_senha_usuario') }}
+                    <button type='button' class='password-toggle' data-target='confirmacao_senha_usuario' aria-label='Mostrar ou ocultar confirmação de senha'><i class='bi bi-eye'></i></button>
+                </div>
+            </div>
+            <div>{{ form.empresa.label }}{{ form.empresa(class='input', placeholder='Ex: Empresa ACME') }}</div>
+            <div>{{ form.cnpj.label }}{{ form.cnpj(class='input', placeholder='00.000.000/0001-00') }}</div>
+            <div>{{ form.responsavel_empresa.label }}{{ form.responsavel_empresa(class='input', placeholder='Nome do responsável') }}</div>
+
+            <div>
+                {{ form.setor.label }}
+                {% if adm_principal %}
+                    {{ form.setor(class='input', placeholder='Ex: Financeiro, RH, TI') }}
+                {% else %}
+                    {{ form.setor(class='input', readonly=true) }}
+                {% endif %}
+            </div>
+
+            <div>
+                {{ form.cargo.label }}
+                {{ form.cargo(class='input') }}
+                <p class="field-help">Administrador CoreX gerencia chamados/equipe do setor. Técnico CoreX atende chamados atribuídos. Cliente/Colaborador abre e acompanha os próprios chamados.</p>
+            </div>
+
+            <div>{{ form.botao_confirmacao(class='btn-core') }}</div>
+        </div>
+    </form>
+
+    <div class="back-row">
+        <a class="btn-core btn-secondary" href="{{ url_for('usuarios') }}"><i class="bi bi-arrow-left"></i> Voltar para usuários</a>
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function(){
+    document.querySelectorAll('.password-toggle').forEach(function(btn){
+        btn.addEventListener('click', function(){
+            const target = document.getElementById(btn.dataset.target);
+            const icon = btn.querySelector('i');
+            if(!target) return;
+            if(target.type === 'password'){
+                target.type = 'text';
+                if(icon){ icon.classList.remove('bi-eye'); icon.classList.add('bi-eye-slash'); }
+            }else{
+                target.type = 'password';
+                if(icon){ icon.classList.remove('bi-eye-slash'); icon.classList.add('bi-eye'); }
+            }
+        });
+    });
+});
+</script>
+
+{% endblock %}

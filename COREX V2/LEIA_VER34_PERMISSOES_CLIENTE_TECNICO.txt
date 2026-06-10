@@ -1,0 +1,22 @@
+COREX VER34 - Permissões ajustadas
+
+Alterações realizadas:
+1. Cliente / Colaborador não acessa mais o Gerenciador interno.
+   - O menu Gerenciador fica oculto para clientes.
+   - Se tentar acessar a URL manualmente, é redirecionado para Chamados.
+
+2. Técnico CoreX não pode mais usar ações administrativas sensíveis.
+   - Não aparece o botão Encerrar admin para técnico.
+   - Não aparece o botão Reabrir para técnico.
+   - As rotas também bloqueiam essas ações no backend.
+
+3. Super Admin e Admin CoreX continuam podendo:
+   - Encerrar admin.
+   - Reabrir chamado.
+   - Editar chamado.
+   - Transferir chamado.
+
+4. Técnico CoreX continua podendo atuar no chamado atribuído:
+   - Comentar.
+   - Atualizar andamento.
+   - Finalizar atendimento normal.

@@ -1,0 +1,11 @@
+VER40 - Service Desk e Reclassificação
+
+Mudanças principais:
+- Adicionado cargo Service Desk.
+- Adicionado setor Service Desk / Triagem.
+- Chamados criados por clientes agora notificam somente Service Desk e Administrador Supervisor.
+- Fila Geral passa a ser a fila de triagem para Service Desk e Administrador Supervisor.
+- Líder e Técnico podem devolver chamado ao Service Desk com comentário obrigatório.
+- Chamados devolvidos ficam com status Aguardando Reclassificação, sem responsável e na fila do Service Desk.
+- Quando o Service Desk transfere chamado para um setor sem técnico, o líder do setor é notificado.
+- Service Desk pode reclassificar chamado, definir setor e encaminhar para o setor correto.

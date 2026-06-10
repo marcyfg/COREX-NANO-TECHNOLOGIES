@@ -1,0 +1,7 @@
+VER36 - Remocao do campo principal_admin
+
+- A hierarquia passou a usar somente o campo cargo.
+- SUPER_ADMIN define o administrador principal.
+- ADMIN_COREX, TECNICO_COREX e CLIENTE seguem como cargos controlados.
+- O campo redundante principal_admin foi removido do modelo e das regras do sistema.
+- A migracao tenta remover a coluna antiga principal_admin do SQLite quando ela existir.

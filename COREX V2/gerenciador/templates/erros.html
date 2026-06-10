@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% block titulo %}{{ codigo }} | CoreX{% endblock %}
+{% block pagina_titulo %}Aviso do sistema{% endblock %}
+
+{% block body %}
+<div class="card form-card" style="text-align:center;padding:46px 34px;">
+    <div style="width:78px;height:78px;border-radius:24px;margin:0 auto 20px;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,var(--core-blue),var(--core-blue-2));box-shadow:0 18px 40px rgba(0,98,255,.25);">
+        <i class="bi bi-shield-exclamation" style="font-size:34px;color:white;"></i>
+    </div>
+    <p class="pill" style="margin-bottom:14px;">Erro {{ codigo }}</p>
+    <h2 style="font-size:34px;margin-bottom:10px;">{{ titulo }}</h2>
+    <p class="muted" style="font-size:17px;max-width:680px;margin:0 auto 10px;">{{ mensagem }}</p>
+    <p class="muted" style="max-width:680px;margin:0 auto 26px;">{{ detalhe }}</p>
+    <div class="back-row" style="justify-content:center;">
+        {% if current_user.is_authenticated %}
+            <a class="btn-core" href="{{ url_for('gerenciador_interno') }}"><i class="bi bi-kanban"></i> Voltar ao painel</a>
+            <a class="btn-core btn-secondary" href="{{ url_for('feed') }}"><i class="bi bi-ticket-detailed"></i> Ver chamados</a>
+        {% else %}
+            <a class="btn-core" href="{{ url_for('homepage') }}"><i class="bi bi-house"></i> Voltar ao site</a>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
+
+{% block authbody %}
+<div class="auth-page">
+    <div class="auth-card" style="text-align:center;max-width:620px;">
+        <div style="width:78px;height:78px;border-radius:24px;margin:0 auto 20px;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,var(--core-blue),var(--core-blue-2));box-shadow:0 18px 40px rgba(0,98,255,.25);">
+            <i class="bi bi-shield-exclamation" style="font-size:34px;color:white;"></i>
+        </div>
+        <p class="pill">Erro {{ codigo }}</p>
+        <h1 class="brand-title">{{ titulo }}</h1>
+        <p class="auth-subtitle">{{ mensagem }}</p>
+        <p class="auth-subtitle">{{ detalhe }}</p>
+        <a class="btn-core" href="{{ url_for('homepage') }}"><i class="bi bi-house"></i> Voltar ao site</a>
+    </div>
+</div>
+{% endblock %}

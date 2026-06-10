@@ -1,0 +1,103 @@
+{% extends 'base.html' %}
+{% block titulo %}Usuários | Core-X{% endblock %}
+{% block pagina_titulo %}Usuários e Setores{% endblock %}
+
+{% block body %}
+<style>
+.user-filter-bar{display:grid;grid-template-columns:1.5fr 1fr 1fr auto;gap:12px;align-items:end;margin-top:18px}.user-filter-bar label{font-size:.82rem;color:var(--muted);display:block;margin-bottom:6px}.user-summary{display:grid;grid-template-columns:repeat(4,minmax(140px,1fr));gap:12px;margin-top:16px}.user-summary-card{border:1px solid var(--border);background:rgba(255,255,255,.035);border-radius:16px;padding:13px}.user-summary-card small{color:var(--muted);display:block}.user-summary-card strong{font-size:1.35rem}.user-row-client{background:rgba(56,189,248,.035)}.user-row-leader{background:rgba(168,85,247,.035)}.user-row-admin{background:rgba(245,158,11,.035)}.user-row-tech{background:rgba(34,197,94,.025)}@media(max-width:900px){.user-filter-bar{grid-template-columns:1fr}.user-summary{grid-template-columns:1fr 1fr}}@media(max-width:520px){.user-summary{grid-template-columns:1fr}}
+</style>
+
+<div class="card">
+    <h2>Gerenciamento de usuários</h2>
+    <p class="muted">
+        {% if adm_principal %}
+        Você é o Administrador Supervisor: pode gerenciar usuários, setores e permissões principais.
+        {% else %}
+        Você é Líder: pode gerenciar Técnicos CoreX e Clientes/Colaboradores do seu setor.
+        {% endif %}
+    </p>
+    <div class="grid-actions">
+        <a class="btn-core" href="{{ url_for('criarconta') }}"><i class="bi bi-person-plus"></i> Criar usuário</a>
+        <a class="btn-core btn-secondary" href="{{ url_for('gerenciador_interno') }}"><i class="bi bi-kanban"></i> Gerenciador</a>
+        {% if adm_principal %}
+        <a class="btn-core btn-secondary" href="{{ url_for('dados_demonstracao') }}"><i class="bi bi-database-add"></i> Criar dados demo</a>
+        {% endif %}
+    </div>
+
+    <form method="GET" action="{{ url_for('usuarios') }}" class="user-filter-bar">
+        <div>
+            <label>Buscar</label>
+            <input class="input" type="text" name="q" value="{{ busca or '' }}" placeholder="Nome, e-mail, empresa ou CNPJ">
+        </div>
+        <div>
+            <label>Cargo</label>
+            <select class="input" name="cargo">
+                <option value="todos" {% if filtro_cargo == 'todos' %}selected{% endif %}>Todos os cargos</option>
+                <option value="CLIENTE" {% if filtro_cargo == 'CLIENTE' %}selected{% endif %}>Cliente</option>
+                {% if adm_principal %}<option value="SERVICE_DESK" {% if filtro_cargo == 'SERVICE_DESK' %}selected{% endif %}>Service Desk</option>{% endif %}
+                <option value="TECNICO_COREX" {% if filtro_cargo == 'TECNICO_COREX' %}selected{% endif %}>Técnico CoreX</option>
+                <option value="LIDER" {% if filtro_cargo == 'LIDER' %}selected{% endif %}>Líder</option>
+                {% if adm_principal %}<option value="ADMIN_SUPERVISOR" {% if filtro_cargo == 'ADMIN_SUPERVISOR' %}selected{% endif %}>Administrador Supervisor</option>{% endif %}
+            </select>
+        </div>
+        <div>
+            <label>Setor</label>
+            <select class="input" name="setor" {% if not adm_principal %}disabled{% endif %}>
+                <option value="todos" {% if filtro_setor == 'todos' %}selected{% endif %}>Todos os setores</option>
+                {% for setor in setores_padrao %}
+                <option value="{{ setor }}" {% if filtro_setor == setor %}selected{% endif %}>{{ setor }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="grid-actions">
+            <button class="btn-core" type="submit"><i class="bi bi-funnel"></i> Filtrar</button>
+            <a class="btn-core btn-secondary" href="{{ url_for('usuarios') }}">Limpar</a>
+        </div>
+    </form>
+
+    <div class="user-summary">
+        <div class="user-summary-card"><small>Total filtrado</small><strong>{{ usuarios|length }}</strong></div>
+        <div class="user-summary-card"><small>Clientes</small><strong>{{ usuarios|selectattr('cargo','equalto','CLIENTE')|list|length }}</strong></div>
+        <div class="user-summary-card"><small>Service Desk</small><strong>{{ usuarios|selectattr('cargo','equalto','SERVICE_DESK')|list|length }}</strong></div>
+        <div class="user-summary-card"><small>Técnicos</small><strong>{{ usuarios|selectattr('cargo','equalto','TECNICO_COREX')|list|length }}</strong></div>
+        <div class="user-summary-card"><small>Líderes/Admins</small><strong>{{ (usuarios|selectattr('cargo','equalto','LIDER')|list|length) + (usuarios|selectattr('cargo','equalto','ADMIN_SUPERVISOR')|list|length) }}</strong></div>
+    </div>
+</div>
+
+<div class="card table-wrap">
+    <table class="core-table">
+        <thead>
+            <tr>
+                <th>Usuário</th>
+                <th>Email</th>
+                <th>Perfil</th>
+                <th>Setor</th>
+                <th>Empresa/CNPJ</th>
+                <th>Status</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for usuario in usuarios %}
+            <tr class="{% if usuario.cargo == 'CLIENTE' %}user-row-client{% elif usuario.cargo == 'SERVICE_DESK' %}user-row-admin{% elif usuario.cargo == 'LIDER' %}user-row-leader{% elif usuario.cargo == 'ADMIN_SUPERVISOR' %}user-row-admin{% else %}user-row-tech{% endif %}">
+                <td><strong>{{ usuario.username }}</strong></td>
+                <td>{{ usuario.email }}</td>
+                <td><span class="pill">{{ rotulo_cargo(usuario) }}</span></td>
+                <td>{{ usuario.setor or 'Geral' }}</td>
+                <td>
+                    {% if usuario.cargo == 'CLIENTE' %}
+                    {{ usuario.empresa or 'Empresa não informada' }}<br><small class="muted">{{ usuario.cnpj or 'CNPJ não informado' }}</small>
+                    {% else %}
+                    <span class="muted">Interno CoreX</span>
+                    {% endif %}
+                </td>
+                <td>{% if usuario.ativo %}<span class="status ok">Ativo</span>{% else %}<span class="status pending">Inativo</span>{% endif %}</td>
+                <td><a class="btn-core btn-secondary" href="{{ url_for('editar_usuario', id_usuario=usuario.id) }}"><i class="bi bi-pencil"></i> Editar</a></td>
+            </tr>
+            {% else %}
+            <tr><td colspan="7" class="empty-state">Nenhum usuário encontrado com esses filtros.</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
