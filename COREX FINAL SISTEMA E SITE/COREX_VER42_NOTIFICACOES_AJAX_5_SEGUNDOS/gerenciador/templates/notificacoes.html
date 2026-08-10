@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block titulo %}Notificações | Core-X{% endblock %}
+{% block pagina_titulo %}Notificações{% endblock %}
+{% block body %}
+<div class="card">
+    <h2><i class="bi bi-bell"></i> Central de notificações</h2>
+    <p class="muted">Atualizações sobre novos chamados, comentários, atribuições e alterações de status.</p>
+</div>
+<div class="ticket-list">
+{% for n in notificacoes %}
+    <div class="ticket-row-card">
+        <div class="ticket-main-info">
+            <div class="ticket-number">{{ n.data_criacao.strftime('%d/%m/%Y %H:%M') }}</div>
+            <h3>{{ n.titulo }}</h3>
+            <p class="muted">{{ n.mensagem }}</p>
+        </div>
+        <div class="ticket-side-info">
+            {% if n.tarefa %}<a class="btn-core btn-secondary" href="{{ url_for('detalhe_tarefa', id_tarefa=n.tarefa.id) }}">Abrir chamado</a>{% endif %}
+        </div>
+    </div>
+{% else %}
+    <div class="card empty-state">Nenhuma notificação por enquanto.</div>
+{% endfor %}
+</div>
+{% endblock %}

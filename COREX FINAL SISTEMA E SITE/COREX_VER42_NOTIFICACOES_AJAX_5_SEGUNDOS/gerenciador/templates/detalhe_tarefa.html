@@ -1,0 +1,230 @@
+{% extends 'base.html' %}
+{% block titulo %}{{ tarefa.numero_ticket or ('Chamado #' ~ tarefa.id) }} | Core-X{% endblock %}
+{% block pagina_titulo %}{{ tarefa.numero_ticket or ('Chamado #' ~ tarefa.id) }}{% endblock %}
+
+{% block body %}
+<style>
+.ticket-clean-layout{display:grid;grid-template-columns:minmax(0,1fr) 380px;gap:22px;align-items:start}.ticket-hero{padding:24px}.ticket-title-row{display:flex;justify-content:space-between;gap:16px;align-items:flex-start;flex-wrap:wrap}.ticket-title-row h2{margin:8px 0 10px;font-size:1.75rem}.ticket-desc{font-size:1rem;line-height:1.65;max-width:900px}.info-grid{display:grid;grid-template-columns:repeat(4,minmax(150px,1fr));gap:12px;margin-top:18px}.info-box{border:1px solid var(--border);border-radius:16px;padding:12px;background:rgba(255,255,255,.035)}.info-box small{display:block;color:var(--muted);margin-bottom:5px}.info-box strong{font-size:.95rem}.stack-cards{display:grid;gap:18px}.side-stack{display:grid;gap:18px}.attachment-preview{display:flex;justify-content:center;align-items:center;min-height:220px;border:1px solid var(--border);border-radius:18px;background:rgba(0,0,0,.12);overflow:hidden}.ticket-attachment-img{max-width:100%;max-height:360px;object-fit:contain;border-radius:14px}.comment-form{display:grid;grid-template-columns:1fr auto;gap:12px;align-items:start}.comment-thread{display:grid;gap:12px;margin-top:16px}.comment-bubble{border:1px solid var(--border);border-radius:16px;padding:13px;background:rgba(255,255,255,.035)}.comment-bubble p{margin:8px 0 0}.status-panel textarea,.transfer-panel textarea{min-height:88px}.status-button-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}.status-button-grid button{border:1px solid var(--border);background:rgba(255,255,255,.06);color:var(--text);border-radius:12px;padding:10px;cursor:pointer}.transfer-panel form{display:grid;gap:10px}.transfer-hint{border:1px solid rgba(56,189,248,.25);background:rgba(56,189,248,.08);padding:10px 12px;border-radius:14px;color:var(--muted);font-size:.88rem}.action-list{display:grid;gap:12px}.mini-action-form{display:grid;gap:8px}.timeline{display:grid;gap:12px}.timeline-item{border-left:2px solid rgba(56,189,248,.35);padding-left:12px}.timeline-item small{display:block;color:var(--muted);margin-top:3px}@media(max-width:1050px){.ticket-clean-layout{grid-template-columns:1fr}.info-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}.collapsible-card{padding:0;overflow:hidden}.collapsible-card summary{list-style:none;cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:18px 20px;font-weight:800}.collapsible-card summary::-webkit-details-marker{display:none}.collapsible-card .chevron{transition:.2s transform;color:var(--muted)}.collapsible-card[open] .chevron{transform:rotate(180deg)}.collapsible-content{padding:0 20px 20px}.summary-sub{font-size:.78rem;color:var(--muted);font-weight:600;margin-top:3px}.summary-left{display:grid}.summary-status{font-size:.78rem;font-weight:700;color:var(--muted)}@media(max-width:620px){.info-grid{grid-template-columns:1fr}.comment-form{grid-template-columns:1fr}.status-button-grid{grid-template-columns:1fr}}
+</style>
+
+<div class="ticket-clean-layout">
+    <section class="stack-cards">
+        <div class="card ticket-hero">
+            <div class="ticket-title-row">
+                <div>
+                    <span class="eyebrow">{{ tarefa.categoria or 'Suporte Geral' }} • Prioridade {{ tarefa.prioridade or 'Média' }}</span>
+                    <h2>{{ tarefa.titulo }}</h2>
+                    <p class="muted ticket-desc">{{ tarefa.descricao or 'Sem descrição detalhada.' }}</p>
+                </div>
+                <div class="grid-actions">
+                    <a class="btn-core btn-secondary" href="{{ url_for('gerenciador_interno') if is_equipe_corex(current_user) else url_for('feed') }}"><i class="bi bi-arrow-left"></i> Voltar</a>
+                    <a class="btn-core btn-secondary" href="{{ url_for('download_chamado', id_tarefa=tarefa.id) }}"><i class="bi bi-download"></i> Baixar</a>
+                    {% if pode_editar_tarefa(tarefa) %}<a class="btn-core" href="{{ url_for('editar_tarefa', id_tarefa=tarefa.id) }}"><i class="bi bi-pencil-square"></i> Editar</a>{% endif %}
+                    {% if pode_assumir %}<a class="btn-core" href="{{ url_for('assumir_tarefa', id_tarefa=tarefa.id) }}"><i class="bi bi-person-check"></i> Assumir</a>{% endif %}
+                </div>
+            </div>
+
+            <div class="info-grid">
+                <div class="info-box"><small>Fila técnica</small><strong>{{ tarefa.setor }}</strong></div>
+                <div class="info-box"><small>Local do problema</small><strong>{{ tarefa.setor_cliente or 'Não informado' }}</strong></div>
+                <div class="info-box"><small>Solicitante</small><strong>{% if tarefa.solicitante %}{{ tarefa.solicitante.username }}{% else %}Não informado{% endif %}</strong></div>
+                <div class="info-box"><small>Responsável</small><strong>{% if tarefa.usuario %}{{ tarefa.usuario.username }}{% else %}Sem responsável{% endif %}</strong></div>
+            </div>
+        </div>
+
+        {% if tarefa.imagem %}
+        <div class="card">
+            <h2><i class="bi bi-paperclip"></i> Anexo do chamado</h2>
+            <p class="muted">Imagem enviada no chamado. Clique para abrir em tamanho maior.</p>
+            <a class="attachment-preview" href="{{ url_for('static', filename='fotos_posts/' + tarefa.imagem) }}" target="_blank" rel="noopener">
+                <img class="ticket-attachment-img" src="{{ url_for('static', filename='fotos_posts/' + tarefa.imagem) }}" alt="Anexo do chamado">
+            </a>
+        </div>
+        {% endif %}
+
+        <div class="card">
+            <h2><i class="bi bi-chat-square-text"></i> Comentários do chamado</h2>
+            <form method="POST" action="{{ url_for('comentar_tarefa', id_tarefa=tarefa.id) }}" class="comment-form">
+                {{ form_comentario.csrf_token }}
+                {{ form_comentario.texto(class='input', placeholder='Escreva uma atualização para cliente/Core-X') }}
+                {{ form_comentario.botao_confirmacao(class='btn-core') }}
+            </form>
+            <div class="comment-thread">
+                {% for comentario in tarefa.comentarios|sort(attribute='data_criacao', reverse=true) %}
+                <div class="comment-bubble {% if is_equipe_corex(comentario.usuario) %}corex-comment{% else %}client-comment{% endif %}">
+                    <strong>{% if is_equipe_corex(comentario.usuario) %}Core-X • {% endif %}{{ comentario.usuario.username }}</strong>
+                    <small class="muted">{{ comentario.data_criacao.strftime('%d/%m/%Y %H:%M') }}</small>
+                    <p>{{ comentario.texto }}</p>
+                </div>
+                {% else %}<div class="empty-state">Nenhum comentário registrado ainda.</div>{% endfor %}
+            </div>
+        </div>
+    </section>
+
+    <aside class="side-stack">
+        <details class="card collapsible-card status-panel">
+            <summary>
+                <span class="summary-left">
+                    <span><i class="bi bi-activity"></i> Status</span>
+                    <span class="summary-sub">
+                        {% if tarefa.encerrada_forcada %}Encerrado pelo admin
+                        {% elif tarefa.concluida %}Concluído
+                        {% elif tarefa.status == 'aguardando_reclassificacao' %}Aguardando reclassificação
+                        {% elif tarefa.status == 'aguardando_cliente' %}Aguardando cliente
+                        {% elif tarefa.usuario %}Em atendimento
+                        {% else %}Aberto{% endif %}
+                    </span>
+                </span>
+                <i class="bi bi-chevron-down chevron"></i>
+            </summary>
+            <div class="collapsible-content">
+                {% if tarefa.encerrada_forcada %}<span class="status pending"><i class="bi bi-shield-x"></i> Encerrado pelo admin</span>
+                {% elif tarefa.concluida %}<span class="status ok"><i class="bi bi-check-circle"></i> Concluído</span>
+                {% elif tarefa.status == 'aguardando_reclassificacao' %}<span class="status waiting"><i class="bi bi-arrow-repeat"></i> Aguardando reclassificação</span>
+                {% elif tarefa.status == 'aguardando_cliente' %}<span class="status waiting"><i class="bi bi-hourglass-split"></i> Aguardando cliente</span>
+                {% elif tarefa.usuario %}<span class="status progress"><i class="bi bi-tools"></i> Em atendimento</span>
+                {% else %}<span class="status pending"><i class="bi bi-inbox"></i> Aberto</span>{% endif %}
+
+                {% if pode_admin %}
+                <form class="status-actions status-actions-form" method="POST" action="{{ url_for('alterar_status_tarefa', id_tarefa=tarefa.id, novo_status='aberto') }}">
+                    <textarea class="input" name="comentario" required minlength="3" placeholder="Comentário obrigatório para alterar status"></textarea>
+                    <div class="status-button-grid">
+                        <button formaction="{{ url_for('alterar_status_tarefa', id_tarefa=tarefa.id, novo_status='aberto') }}" type="submit">Aberto</button>
+                        <button formaction="{{ url_for('alterar_status_tarefa', id_tarefa=tarefa.id, novo_status='em_andamento') }}" type="submit">Em atendimento</button>
+                        <button formaction="{{ url_for('alterar_status_tarefa', id_tarefa=tarefa.id, novo_status='aguardando_cliente') }}" type="submit">Aguardando cliente</button>
+                        <button formaction="{{ url_for('alterar_status_tarefa', id_tarefa=tarefa.id, novo_status='aguardando_reclassificacao') }}" type="submit">Reclassificação</button>
+                        <button formaction="{{ url_for('alterar_status_tarefa', id_tarefa=tarefa.id, novo_status='concluido') }}" type="submit">Concluído</button>
+                    </div>
+                </form>
+                {% endif %}
+            </div>
+        </details>
+
+        {% if pode_transferir %}
+        <details class="card collapsible-card transfer-panel">
+            <summary>
+                <span class="summary-left">
+                    <span><i class="bi bi-diagram-3"></i> Direcionar chamado</span>
+                    <span class="summary-sub">Setor e responsável</span>
+                </span>
+                <i class="bi bi-chevron-down chevron"></i>
+            </summary>
+            <div class="collapsible-content">
+                <p class="transfer-hint">Ao escolher um setor, o campo de responsável mostra somente usuários permitidos daquele setor.</p>
+                <form method="POST" action="{{ url_for('transferir_tarefa', id_tarefa=tarefa.id) }}">
+                    {{ form_transferir.csrf_token }}
+                    {{ form_transferir.setor_destino.label }}
+                    {{ form_transferir.setor_destino(class='input', id='setor_destino') }}
+                    {{ form_transferir.usuario_destino.label }}
+                    {{ form_transferir.usuario_destino(class='input', id='usuario_destino') }}
+                    {{ form_transferir.comentario.label }}
+                    {{ form_transferir.comentario(class='input', required=true, placeholder='Comentário obrigatório para transferir') }}
+                    {{ form_transferir.botao_confirmacao(class='btn-core') }}
+                </form>
+            </div>
+        </details>
+        {% endif %}
+
+        {% if pode_admin or pode_acao_admin %}
+        <details class="card collapsible-card">
+            <summary>
+                <span class="summary-left">
+                    <span><i class="bi bi-lightning-charge"></i> Ações rápidas</span>
+                    <span class="summary-sub">Finalizar, reabrir ou encerrar</span>
+                </span>
+                <i class="bi bi-chevron-down chevron"></i>
+            </summary>
+            <div class="collapsible-content">
+                <p class="muted">Todas as ações exigem comentário.</p>
+                <div class="action-list">
+                    {% if pode_admin and not tarefa.concluida %}
+                    <form method="POST" action="{{ url_for('concluir_tarefa', id_tarefa=tarefa.id) }}" class="mini-action-form">
+                        <textarea class="input" name="comentario" required minlength="3" placeholder="Comentário obrigatório para finalizar"></textarea>
+                        <button class="btn-core btn-green" type="submit"><i class="bi bi-check2"></i> Finalizar</button>
+                    </form>
+                    {% endif %}
+                    {% if pode_devolver_service_desk and not tarefa.concluida and not tarefa.encerrada_forcada %}
+                    <form method="POST" action="{{ url_for('devolver_service_desk', id_tarefa=tarefa.id) }}" class="mini-action-form">
+                        <textarea class="input" name="comentario" required minlength="3" placeholder="Motivo obrigatório da devolução para o Service Desk"></textarea>
+                        <button class="btn-core btn-secondary" type="submit"><i class="bi bi-arrow-return-left"></i> Devolver ao Service Desk</button>
+                    </form>
+                    {% endif %}
+                    {% if pode_acao_admin and (tarefa.concluida or tarefa.encerrada_forcada) %}
+                    <form method="POST" action="{{ url_for('reabrir_tarefa', id_tarefa=tarefa.id) }}" class="mini-action-form">
+                        <textarea class="input" name="comentario" required minlength="3" placeholder="Comentário obrigatório para reabrir"></textarea>
+                        <button class="btn-core btn-secondary" type="submit"><i class="bi bi-arrow-counterclockwise"></i> Reabrir</button>
+                    </form>
+                    {% endif %}
+                    {% if pode_acao_admin and not tarefa.encerrada_forcada %}
+                    <form method="POST" action="{{ url_for('forcar_encerramento', id_tarefa=tarefa.id) }}" class="mini-action-form">
+                        <textarea class="input" name="comentario" required minlength="3" placeholder="Comentário obrigatório para encerramento admin"></textarea>
+                        <button class="btn-core btn-danger" type="submit"><i class="bi bi-shield-x"></i> Encerrar admin</button>
+                    </form>
+                    {% endif %}
+                </div>
+            </div>
+        </details>
+        {% endif %}
+
+        <details class="card collapsible-card">
+            <summary>
+                <span class="summary-left">
+                    <span><i class="bi bi-building"></i> Empresa cliente</span>
+                    <span class="summary-sub">Dados do solicitante</span>
+                </span>
+                <i class="bi bi-chevron-down chevron"></i>
+            </summary>
+            <div class="collapsible-content">
+                {% set cliente = tarefa.solicitante %}
+                <p><strong>{{ cliente.empresa if cliente and cliente.empresa else 'Empresa não informada' }}</strong></p>
+                <p class="muted">CNPJ: {{ cliente.cnpj if cliente and cliente.cnpj else 'Não informado' }}</p>
+                <p class="muted">Responsável: {{ cliente.responsavel_empresa if cliente and cliente.responsavel_empresa else (cliente.username if cliente else 'Não informado') }}</p>
+            </div>
+        </details>
+
+        <details class="card collapsible-card">
+            <summary>
+                <span class="summary-left">
+                    <span><i class="bi bi-clock-history"></i> Timeline</span>
+                    <span class="summary-sub">Histórico resumido</span>
+                </span>
+                <i class="bi bi-chevron-down chevron"></i>
+            </summary>
+            <div class="collapsible-content">
+                <div class="timeline">
+                    <div class="timeline-item"><strong>Chamado aberto</strong><small>{{ tarefa.data_criacao.strftime('%d/%m/%Y %H:%M') if tarefa.data_criacao else '' }}</small></div>
+                    {% if tarefa.usuario %}<div class="timeline-item"><strong>Técnico atribuído</strong><small>{{ tarefa.usuario.username }}</small></div>{% endif %}
+                    {% for comentario in tarefa.comentarios|sort(attribute='data_criacao') %}
+                    <div class="timeline-item"><strong>{{ comentario.usuario.username }}</strong><small>{{ comentario.data_criacao.strftime('%d/%m/%Y %H:%M') }}</small></div>
+                    {% endfor %}
+                    {% if tarefa.concluida %}<div class="timeline-item"><strong>Chamado finalizado</strong><small>{{ tarefa.data_atualizacao.strftime('%d/%m/%Y %H:%M') if tarefa.data_atualizacao else '' }}</small></div>{% endif %}
+                </div>
+            </div>
+        </details>
+    </aside>
+
+{% if pode_transferir %}
+<script>
+document.addEventListener('DOMContentLoaded', function(){
+    const usuarios = {{ usuarios_transferencia|tojson }};
+    const setorSelect = document.getElementById('setor_destino');
+    const usuarioSelect = document.getElementById('usuario_destino');
+    function preencherResponsaveis(){
+        const setor = setorSelect.value;
+        const atual = usuarioSelect.value;
+        usuarioSelect.innerHTML = '';
+        const optVazio = new Option('Deixar sem responsável para a equipe assumir', '0');
+        usuarioSelect.add(optVazio);
+        usuarios.filter(u => u.setor === setor).forEach(u => {
+            usuarioSelect.add(new Option(`${u.nome} - ${u.setor} - ${u.cargo_nome}`, String(u.id)));
+        });
+        if ([...usuarioSelect.options].some(o => o.value === atual)) usuarioSelect.value = atual;
+    }
+    if(setorSelect && usuarioSelect){
+        setorSelect.addEventListener('change', preencherResponsaveis);
+        preencherResponsaveis();
+    }
+});
+</script>
+{% endif %}
+{% endblock %}

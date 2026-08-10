@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% block titulo %}Editar Usuário | Core-X{% endblock %}
+{% block pagina_titulo %}Editar {{ usuario.username }}{% endblock %}
+
+{% block body %}
+<div class="card form-card">
+    <h2>Editar perfil</h2>
+    <p class="muted">Super Admin gerencia todos os cargos. Administrador CoreX altera apenas Técnicos CoreX e Clientes/Colaboradores do próprio setor.</p>
+
+    <form method="POST" enctype="multipart/form-data">
+        {{ form.csrf_token }}
+        <div class="form-grid">
+            <div>{{ form.username.label }}{{ form.username(class='input') }}</div>
+            <div>{{ form.email.label }}{{ form.email(class='input') }}</div>
+            <div>{{ form.foto_perfil.label }}{{ form.foto_perfil(class='input') }}</div>
+            <div>{{ form.senha.label }}{{ form.senha(class='input', placeholder='Preencha somente se quiser trocar') }}</div>
+            <div>{{ form.confirmacao_senha.label }}{{ form.confirmacao_senha(class='input', placeholder='Confirme a nova senha') }}</div>
+            <div>{{ form.tema_preferido.label }}{{ form.tema_preferido(class='input') }}</div>
+            <div>
+                {{ form.setor.label }}
+                {% if adm_principal %}{{ form.setor(class='input') }}{% else %}{{ form.setor(class='input', disabled=true) }}<input type="hidden" name="setor" value="{{ usuario.setor }}">{% endif %}
+            </div>
+            {% if usuario.id != 1 %}
+            <div>{{ form.cargo.label }}{{ form.cargo(class='input') }}<p class="field-help">Escolha entre Administrador CoreX, Técnico CoreX ou Cliente/Colaborador conforme a permissão desejada.</p></div>
+            {% else %}
+            <div><label>Cargo</label><input class='input' type='text' value='Super Admin CoreX' readonly></div>
+            {% endif %}
+            {% if usuario.id != 1 %}
+            <div>{{ form.ativo() }} {{ form.ativo.label }}</div>
+            {% endif %}
+            <div>{{ form.botao_salvar_perfil(class='btn-core') }}</div>
+        </div>
+    </form>
+
+    <div class="back-row">
+        <a class="btn-core btn-secondary" href="{{ url_for('usuarios') }}"><i class="bi bi-arrow-left"></i> Voltar</a>
+    </div>
+</div>
+{% endblock %}

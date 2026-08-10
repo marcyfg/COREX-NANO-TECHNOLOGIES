@@ -1,0 +1,125 @@
+{% extends 'base.html' %}
+{% block titulo %}Dashboard | Core-X{% endblock %}
+{% block pagina_titulo %}{% if is_adm_principal(current_user) %}Dashboard Geral{% elif is_lider_corex(current_user) %}Dashboard do Setor{% else %}Meu portal de suporte{% endif %}{% endblock %}
+
+{% block body %}
+<div class="portal-hero card">
+    <div>
+        <span class="eyebrow">Service Desk Core-X</span>
+        <h2>{% if is_adm_principal(current_user) %}Visão geral da operação e triagem{% elif is_lider_corex(current_user) %}Análise dos chamados e técnicos do seu setor{% else %}Acompanhe seus chamados de TI{% endif %}</h2>
+        <p class="muted">{% if is_adm_principal(current_user) %}Analise a fila geral, defina prioridade e direcione os chamados para o setor responsável.{% elif is_lider_corex(current_user) %}Acompanhe volume, andamento, técnicos responsáveis e chamados críticos do seu setor.{% else %}Tickets com número profissional, status, comentários, timeline, prioridade e acompanhamento completo.{% endif %}</p>
+    </div>
+    <div class="grid-actions">
+        <a class="btn-core" href="{{ url_for('abrir_chamado') }}"><i class="bi bi-plus-circle"></i> Novo chamado</a>
+        {% if is_adm_principal(current_user) %}<a class="btn-core btn-secondary" href="{{ url_for('feed') }}"><i class="bi bi-inbox"></i> Fila Geral</a>{% elif is_lider_corex(current_user) %}<a class="btn-core btn-secondary" href="{{ url_for('feed') }}"><i class="bi bi-kanban"></i> Chamados do Setor</a>{% else %}<a class="btn-core btn-secondary" href="{{ url_for('feed') }}"><i class="bi bi-list-check"></i> Meus chamados</a>{% endif %}
+    </div>
+</div>
+
+{% if is_equipe_corex(current_user) and notificacoes_nao_lidas %}
+<div class="card queue-alert-card">
+    <h3><i class="bi bi-bell-fill"></i> Você tem {{ notificacoes_nao_lidas }} notificação{% if notificacoes_nao_lidas > 1 %}ões{% endif %} não lida{% if notificacoes_nao_lidas > 1 %}s{% endif %}</h3>
+    <p class="muted">Novos chamados, transferências e respostas aparecem aqui para a equipe Core-X não perder nenhuma solicitação.</p>
+    <a class="btn-core btn-secondary" href="{{ url_for('notificacoes') }}"><i class="bi bi-bell"></i> Ver notificações</a>
+</div>
+{% endif %}
+
+<div class="stats-grid">
+    <div class="stat-card"><i class="bi bi-folder2-open"></i><small>{% if is_lider_corex(current_user) %}Abertos do setor{% else %}Abertos{% endif %}</small><strong>{{ stats.abertos }}</strong></div>
+    <div class="stat-card"><i class="bi bi-tools"></i><small>Em atendimento</small><strong>{{ stats.em_andamento }}</strong></div>
+    <div class="stat-card"><i class="bi bi-hourglass-split"></i><small>Aguardando cliente</small><strong>{{ stats.aguardando_cliente }}</strong></div>
+    <div class="stat-card"><i class="bi bi-check2-circle"></i><small>Finalizados</small><strong>{{ stats.finalizados }}</strong></div>
+</div>
+
+{% if is_admin_corex(current_user) and metricas_admin %}
+<div class="admin-metrics-grid">
+    <div class="card compact-card">
+        <h3><i class="bi bi-speedometer2"></i> Métricas rápidas</h3>
+        <p class="muted">Total no escopo: <strong>{{ metricas_admin.total }}</strong> chamados</p>
+        <div class="mini-list">
+            {% for prioridade, qtd in metricas_admin.por_prioridade %}
+            <span class="pill">{{ prioridade or 'Sem prioridade' }}: {{ qtd }}</span>
+            {% else %}<span class="muted">Sem dados por prioridade.</span>{% endfor %}
+        </div>
+    </div>
+    <div class="card compact-card">
+        <h3><i class="bi bi-person-gear"></i> Chamados por técnico{% if is_lider_corex(current_user) %} do setor{% endif %}</h3>
+        <div class="mini-list vertical">
+            {% for tecnico, qtd in metricas_admin.por_tecnico %}
+            <div class="metric-row"><span>{{ tecnico }}</span><strong>{{ qtd }}</strong></div>
+            {% else %}<span class="muted">Nenhum chamado atribuído ainda.</span>{% endfor %}
+        </div>
+    </div>
+</div>
+{% endif %}
+
+<details class="card filter-box">
+    <summary class="filter-toggle">
+        <span><i class="bi bi-funnel"></i> Filtros</span>
+        <span class="hint">Pesquisar chamados <i class="bi bi-chevron-down filter-icon"></i></span>
+    </summary>
+    <div class="filter-inner">
+        <form method="GET">
+            <div class="form-grid form-grid-4">
+                <div>
+                    <label>Pesquisar título</label>
+                    <input class="input" type="text" name="q" value="{{ busca or '' }}" placeholder="Ex: internet, servidor, e-mail">
+                </div>
+                <div>
+                    <label>Setor</label>
+                    <select class="input" name="setor" {% if not is_adm_principal(current_user) %}disabled{% endif %}>
+                        {% if is_adm_principal(current_user) %}
+                            <option value="todos" {% if setor_filtro == 'todos' %}selected{% endif %}>Todos os setores</option>
+                            {% for setor in setores_padrao %}<option value="{{ setor }}" {% if setor_filtro == setor %}selected{% endif %}>{{ setor }}</option>{% endfor %}
+                        {% else %}<option value="{{ current_user.setor }}" selected>{{ current_user.setor }}</option>{% endif %}
+                    </select>
+                    {% if not is_adm_principal(current_user) %}<input type="hidden" name="setor" value="{{ current_user.setor }}">{% endif %}
+                </div>
+                <div>
+                    <label>Status</label>
+                    <select class="input" name="status">
+                        <option value="todos" {% if status == 'todos' %}selected{% endif %}>Todos</option>
+                        <option value="abertos" {% if status == 'abertos' %}selected{% endif %}>Abertos</option>
+                        <option value="sem_responsavel" {% if status == 'sem_responsavel' %}selected{% endif %}>Sem responsável</option>
+                        <option value="aguardando_cliente" {% if status == 'aguardando_cliente' %}selected{% endif %}>Aguardando cliente</option>
+                        <option value="concluidos" {% if status == 'concluidos' %}selected{% endif %}>Concluídos</option>
+                        <option value="forcados" {% if status == 'forcados' %}selected{% endif %}>Encerrados pelo admin</option>
+                    </select>
+                </div>
+                <div class="filter-actions">
+                    <button class="btn-core" type="submit"><i class="bi bi-search"></i> Filtrar</button>
+                    <a class="btn-core btn-secondary" href="{{ request.path }}"><i class="bi bi-x-circle"></i> Limpar</a>
+                </div>
+            </div>
+        </form>
+    </div>
+</details>
+
+<div class="ticket-list">
+    {% for tarefa in tarefas %}
+    <article class="ticket-row-card">
+        <div class="ticket-main-info">
+            <div class="ticket-number">{{ tarefa.numero_ticket or ('CRX-' ~ tarefa.id) }}</div>
+            <h3>{{ tarefa.titulo }}</h3>
+            <p class="muted">{{ tarefa.descricao or 'Sem descrição detalhada.' }}</p>
+            <div class="mini-list">
+                <span class="pill">{{ tarefa.categoria or 'Suporte Geral' }}</span>
+                <span class="pill prioridade-{{ (tarefa.prioridade or 'media')|lower|replace('é','e')|replace('í','i') }}">Prioridade: {{ tarefa.prioridade or 'Média' }}</span>
+                <span class="pill">Setor: {{ tarefa.setor }}</span>{% if tarefa.setor_cliente %}<span class="pill">Local: {{ tarefa.setor_cliente }}</span>{% endif %}
+            </div>
+        </div>
+        <div class="ticket-side-info">
+            {% if tarefa.encerrada_forcada %}<span class="status pending"><i class="bi bi-shield-x"></i> Encerrado admin</span>
+            {% elif tarefa.concluida %}<span class="status ok"><i class="bi bi-check-circle"></i> Concluído</span>
+            {% elif tarefa.status == 'aguardando_cliente' %}<span class="status waiting"><i class="bi bi-hourglass-split"></i> Aguardando cliente</span>
+            {% elif tarefa.usuario %}<span class="status progress"><i class="bi bi-tools"></i> Em atendimento</span>
+            {% else %}<span class="status pending"><i class="bi bi-inbox"></i> Aberto</span>{% endif %}
+            <small class="muted">Solicitante: {% if tarefa.solicitante %}{{ tarefa.solicitante.username }}{% else %}Não informado{% endif %}</small>
+            <small class="muted">Responsável: {% if tarefa.usuario %}{{ tarefa.usuario.username }}{% else %}Sem responsável{% endif %}</small>
+            <a class="btn-core btn-secondary" href="{{ url_for('detalhe_tarefa', id_tarefa=tarefa.id) }}"><i class="bi bi-eye"></i> Ver chamado</a>
+        </div>
+    </article>
+    {% else %}
+    <div class="card empty-state">Nenhum chamado encontrado com estes filtros.</div>
+    {% endfor %}
+</div>
+{% endblock %}
